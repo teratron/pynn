@@ -1,5 +1,9 @@
 # PYNN
 
+https://docs.pipenv.org/advanced/#configuration-with-environment-variables
+https://webdevblog.ru/pipenv-rukovodstvo-po-novomu-instrumentu-python/
+https://pypi.org/project/pipenv/#usage-examples
+
 ## About
 
 **pynn** - Neural Network Library

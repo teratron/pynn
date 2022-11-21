@@ -1,4 +1,4 @@
-"""Setup.py script for packaging the project."""
+"""setup.py script for packaging the project."""
 
 import json
 import os

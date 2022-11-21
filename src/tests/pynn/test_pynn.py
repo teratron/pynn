@@ -4,7 +4,7 @@
 
 import unittest
 
-from src.pynn.simple import add_one
+from src.pynn.pynn import add_one
 
 
 class TestSimple(unittest.TestCase):
