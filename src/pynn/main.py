@@ -1,0 +1,19 @@
+import sys
+
+
+def say_hello(name='World'):
+    return f'Hello {name}!'
+
+
+def main():
+    name = ''
+    try:
+        name = sys.argv[1]
+    except IndexError:
+        name = input(f'Please enter your name:')
+    finally:
+        print(say_hello(name))
+
+
+if __name__ == '__main__':
+    main()

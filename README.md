@@ -17,14 +17,14 @@ import pynn
 
 # New returns a new neural network
 # instance with the default parameters.
-n = pypynn.new()
+n = pynn.new()
 
 # Dataset.
-data_data_input  = {.27, .31}
-data_data_target = {.7}
+data_input  = {.27, .31}
+data_target = {.7}
 
 # Training dataset.
-_, _ = pypynn.train(data_data_input, data_data_target)
+_, _ = pynn.train(data_input, data_target)
 ```
 
 ## Documentation
