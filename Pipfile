@@ -9,6 +9,11 @@ name = "pypi"
 requests = "*"
 pytest = "*"
 sphinx = "*"
+mypy = "*"
+autopep8 = "*"
+flake8 = "*"
+bandit = "*"
+pydocstyle = "*"
 
 [requires]
 python_version = "3.10"
