@@ -3,6 +3,13 @@
 https://docs.pipenv.org/advanced/#configuration-with-environment-variables
 https://webdevblog.ru/pipenv-rukovodstvo-po-novomu-instrumentu-python/
 https://pypi.org/project/pipenv/#usage-examples
+https://habr.com/ru/company/piter/blog/700282/
+
+```shell
+$ python -m venv .venv
+
+sphinx-quickstart docs
+```
 
 ## About
 
