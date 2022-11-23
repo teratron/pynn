@@ -1,5 +1,4 @@
 
-
 #python setup.py develop # ничего не генерировать, просто установить локально
 #python setup.py bdist_egg # сгенерировать дистрибутив «яйцо», не включать зависимости
 #python setup.py bdist_wheel # сгенерировать версионированное «колесо», включить зависимости
@@ -33,7 +32,7 @@ clean: ## clean
 
 venv: ## Init .venv
 	python -m venv .venv
-	source .venv/bin/activate
+	source .venv/Scripts/activate
 
 pipenv-install: ## Install pipenv.
 	pip install --user pipenv
@@ -67,13 +66,13 @@ pipenv-install-dev: ## Install all dependencies for a project (including dev).
 pipenv-lock-pre: ## Create a lockfile containing pre-releases.
 	pipenv lock --pre
 
-pipenv graph: ## Show a graph of your installed dependencies.
+pipenv-graph: ## Show a graph of your installed dependencies.
 	pipenv graph
 
-clean: ## Uninstalls all packages not specified in Pipfile.lock.
+pipenv-clean: ## Uninstalls all packages not specified in Pipfile.lock.
 	pipenv clean
 
-pipenv check: ## Check your installed dependencies for security vulnerabilities.
+pipenv-check: ## Check your installed dependencies for security vulnerabilities.
 	pipenv check
 
 pipenv-install-env: ## Install a local setup.py into your virtual environment/Pipfile.
