@@ -9,18 +9,6 @@ https://habr.com/ru/post/122082/
 https://habr.com/ru/post/560300/
 https://www.sphinx-doc.org/en/master/
 
-```shell
-$ python -m venv .venv
-$ source .venv/bin/activate
-
-$ python -m pip install sphinx
-$ sphinx-build --version
-$ sphinx-quickstart docs
-$ sphinx-build -b html docs/source/ docs/build/html
-
-$ pipenv install -d mypy autopep8 flake8 pytest bandit pydocstyle
-```
-
 ## About
 
 **pynn** - Neural Network Library

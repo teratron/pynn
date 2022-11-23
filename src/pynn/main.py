@@ -1,4 +1,8 @@
+import os
 import sys
+
+print(os.environ['SECRET'])
+print(os.environ['CONFIG_PATH'])
 
 
 def say_hello(name='World'):

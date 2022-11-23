@@ -7,13 +7,13 @@ name = "pypi"
 
 [dev-packages]
 requests = "*"
-pytest = "*"
-sphinx = "*"
 mypy = "*"
 autopep8 = "*"
 flake8 = "*"
+pytest = "*"
 bandit = "*"
 pydocstyle = "*"
+sphinx = "*"
 
 [requires]
 python_version = "3.10"
