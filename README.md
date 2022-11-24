@@ -1,13 +1,6 @@
 # PYNN
 
-https://docs.pipenv.org/advanced/#configuration-with-environment-variables
-https://webdevblog.ru/pipenv-rukovodstvo-po-novomu-instrumentu-python/
-https://pypi.org/project/pipenv/#usage-examples
-https://habr.com/ru/company/piter/blog/700282/
-
-https://habr.com/ru/post/122082/
-https://habr.com/ru/post/560300/
-https://www.sphinx-doc.org/en/master/
+https://habr.com/ru/post/593529/
 
 ## About
 
