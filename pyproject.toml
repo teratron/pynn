@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "pynn"
+version = "0.1.0"
+description = "Neural Network Library"
+authors = ["Oleg Alexandrov <alexandrovoleg.ru@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://teratron.github.io/pynn"
+repository = "https://github.com/teratron/pynn"
+documentation = "https://teratron.github.io/pynn/docs"
+keywords = ["pynn", "neural", "network"]
+packages = [{ include = "pynn" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+requests = "^2.28.1"
+mypy = "^0.991"
+autopep8 = "^2.0.0"
+flake8 = "^6.0.0"
+bandit = "^1.7.4"
+pydocstyle = "^6.1.1"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^5.3.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.0"
+
+[tool.poetry.scripts]
+my-script = "pynn:src/pynn/main.py"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
