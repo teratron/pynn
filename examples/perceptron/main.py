@@ -1,10 +1,11 @@
-import pynn
 import time
+
+import src.pynn as nn
 
 # New returns a new neural network
 # instance with the default parameters,
-# same n = pynn.new("perceptron").
-n = pynn.new()
+# same n = nn.New("perceptron").
+n = nn.New()
 
 # The neuron bias, false or true.
 n.set_bias(True)
@@ -59,3 +60,11 @@ _ = n.write_weight("perceptron_weights.json")
 
 # Check the trained data, the result should be about [-0.13 0.2].
 print(n.query({-.52, .66, .81}))
+
+
+def main():
+    pass
+
+
+if __name__ == '__main__':
+    main()

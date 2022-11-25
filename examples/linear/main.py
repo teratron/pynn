@@ -1,9 +1,9 @@
-import pynn
+import src.pynn as nn
 
 # New returns a new neural network
 # instance with the default parameters,
-# same n = pynn.new("perceptron").
-n = pynn.new("perceptron")
+# same n = nn.New("perceptron").
+n = nn.New("perceptron")
 
 # Parameters.
 n.set_hidden_layer(3, 2)
@@ -20,3 +20,11 @@ print(n.train(data_input, data_target))
 
 # Check the trained data, the result should be about [5 -50.3].
 print(n.query(data_input))
+
+
+def main():
+    pass
+
+
+if __name__ == '__main__':
+    main()

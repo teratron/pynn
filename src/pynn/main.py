@@ -9,6 +9,11 @@ def say_hello(name='World'):
     return f'Hello {name}!'
 
 
+class Pynn:
+    def __init__(self, name: str):
+        self.name = name
+
+
 def main():
     name = ''
     try:

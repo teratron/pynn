@@ -1,4 +1,4 @@
-import pynn
+import src.pynn as nn
 
 json_stream = ""
 #     "{
@@ -75,7 +75,7 @@ json_stream = ""
 # }"
 
 # New returns a new neural network from config.
-n = pynn.new(json_stream)
+n = nn.New(json_stream)
 
 # Dataset.
 data_input = {.27, .31, .52}  # input dataset.
@@ -91,3 +91,11 @@ print(count, loss)
 
 # Check the trained data, the result should be about [0.7 0.1].
 print(n.query(data_input))
+
+
+def main():
+    pass
+
+
+if __name__ == '__main__':
+    main()

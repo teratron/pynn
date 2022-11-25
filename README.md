@@ -19,7 +19,7 @@ import pynn
 
 # New returns a new neural network
 # instance with the default parameters.
-n = pynn.new()
+n = nn.New()
 
 # Dataset.
 data_input  = {.27, .31}

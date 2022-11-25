@@ -9,7 +9,7 @@ homepage = "https://teratron.github.io/pynn"
 repository = "https://github.com/teratron/pynn"
 documentation = "https://teratron.github.io/pynn/docs"
 keywords = ["pynn", "neural", "network"]
-packages = [{ include = "pynn" }]
+packages = [{ include = "src/pynn" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"

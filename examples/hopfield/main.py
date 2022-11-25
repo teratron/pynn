@@ -1,8 +1,12 @@
-import pynn
+from pynn import Pynn
 
-# New returns a new neural network
-# instance with the default parameters
-# for Hopfield neural network.
-n = pynn.new("hopfield")
-n.set_energy(.1)
-print("pynn.new('hopfield'):", n)
+if __name__ == '__main__':
+    """
+    New returns a new neural network
+    instance with the default parameters
+    for Hopfield neural network.
+    """
+    n = Pynn('hopfield')
+
+    n.set_energy(.1)
+    print("nn.New('hopfield'):", n)
