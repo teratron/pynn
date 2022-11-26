@@ -1,4 +1,4 @@
-from pynn import Pynn
+from src.pynn import Pynn
 
 if __name__ == '__main__':
     """
@@ -8,5 +8,5 @@ if __name__ == '__main__':
     """
     n = Pynn('hopfield')
 
-    n.set_energy(.1)
-    print("nn.New('hopfield'):", n)
+    #n.set_energy(.1)
+    print("nn.New('hopfield'):", n, end='sdsa')

@@ -1,1 +1,1 @@
-from src import *
+from pynn import *
