@@ -1,4 +1,5 @@
 from src.pynn import Pynn
+#from src import Pynn
 
 if __name__ == '__main__':
     """
@@ -6,7 +7,7 @@ if __name__ == '__main__':
     instance with the default parameters
     for Hopfield neural network.
     """
-    n = Pynn('hopfield')
+    pn = Pynn('hopfield')
 
     #n.set_energy(.1)
-    print("nn.New('hopfield'):", n, end='sdsa')
+    print("nn.New('hopfield'):", pn)

@@ -84,17 +84,6 @@ pipenv-pip-freeze: ## Use a lower-level pip command.
 pipenv-upgrade: ## Upgrade pipenv.
 	pip install --user --upgrade pipenv
 
-sphinx-init: ## venv ## init sphinx
-	python -m pip install sphinx
-	sphinx-build --version
-	sphinx-quickstart docs
-
-sphinx-clean: ## clean sphinx
-	@rm -rf docs/build/
-
-sphinx-build-html: sphinx-clean ## build sphinx
-	sphinx-build -b html docs/source/ docs/build/html
-
 packaging: ## New project
 	python -m venv .venv
 	source .venv/bin/activate
