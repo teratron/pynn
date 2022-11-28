@@ -1,10 +1,12 @@
-from pynn import NeuralNetwork
+from pynn.pynn import NeuralNetwork
+
+nn = NeuralNetwork()
 
 
-class Hopfield(NeuralNetwork):
-    def __init__(self, name):
-        super().__init__(name)
+class Hopfield():
+    def __init__(self):
+        # super().__init__(name)
+        pass
 
-    @staticmethod
     def info(self):
         print('hopfield')

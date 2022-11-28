@@ -1,5 +1,6 @@
-from src.pynn import Pynn
-#from src import Pynn
+from src.pynn.pynn import Pynn
+
+# from src import Pynn
 
 if __name__ == '__main__':
     """
@@ -8,6 +9,7 @@ if __name__ == '__main__':
     for Hopfield neural network.
     """
     pn = Pynn('hopfield')
+    pn.info()
 
-    #n.set_energy(.1)
-    print("nn.New('hopfield'):", pn)
+    # n.set_energy(.1)
+    # print("nn.New('hopfield'):", pn)

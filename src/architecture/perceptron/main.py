@@ -1,11 +1,13 @@
-from pynn import NeuralNetwork
+from pynn.pynn import NeuralNetwork
 
 
 class Perceptron(NeuralNetwork):
-    name: str = 'perceptron'
+    # name: str = 'perceptron'
 
-    def __init__(self):
-        super().__init__(Perceptron.name)
+    def __init__(self, _neural_network):
+        # super().__init__(Perceptron.name)
+        super().__init__(_neural_network)
+        self.name = 'perceptron'
 
         """The neuron bias, false or true (required field for a config)."""
         self.bias: bool = True
@@ -35,3 +37,24 @@ class Perceptron(NeuralNetwork):
     # @bias.setter
     # def bias(self, bias: bool):
     #     self.bias = bias
+
+    def init(self, *_data):
+        pass
+
+    def query(self, _data_input: list[float]) -> list[float]:
+        return [.1]
+
+    def verify(self, _data_input: list[float], *_data_target: list[float]) -> float:
+        return .1
+
+    def train(self, _data_input: list[float], *_data_target: list[float]) -> (int, float):
+        return 0, .1
+
+    def and_train(self, _data_target: list[float]) -> (int, float):
+        return 0, .1
+
+    def write_config(self, *_filename: str) -> Exception:
+        return Exception(None)
+
+    def write_weights(self, _filename: str) -> Exception:
+        return Exception(None)
