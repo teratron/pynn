@@ -8,7 +8,7 @@ if __name__ == '__main__':
     instance with the default parameters
     for Hopfield neural network.
     """
-    pn = Pynn('hopfield')
+    pn = Pynn('perceptron')
     pn.info()
 
     # n.set_energy(.1)
