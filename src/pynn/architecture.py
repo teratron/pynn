@@ -1,19 +1,16 @@
 from .perceptron.main import Perceptron
-
-
-# from hopfield.main import Hopfield
+from .hopfield.main import Hopfield
 
 # PERCEPTRON = Perceptron.name
 # HOPFIELD = Hopfield.name
 
 
 def get_architecture(name: str):
-    print('arch:', name, Perceptron.name)
-    # match name.lower():
-    #     case Hopfield.name:
-    #         return Hopfield()
-    #
-    # return Perceptron()
+    match name.lower():
+        case Hopfield.name:
+            return Hopfield()
+
+    return Perceptron()
 
 
 # a = get_architecture('PERCEPTRON')

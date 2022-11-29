@@ -1,2 +1,2 @@
-#from .pynn.pynn import *
+#from .perceptron.main import Perceptron
 

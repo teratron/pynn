@@ -1,24 +1,6 @@
-from .architecture import get_architecture
-
-
-# class Properties:
-#     pass
-#
-#
-# class NeuralNetwork(Interface, Properties):
-#     name: str
-#
-#     # properties: Properties
-#     def __init__(self, neural_network):
-#         #super().__init__(neural_network)
-#         #self.interface = Interface('')
-#         pass
-
-
-class Pynn:
-    def __init__(self, name: str):
-        self.name = name
-        self.neural_network = get_architecture(self.name)
+class Interface:
+    def __init__(self, neural_network):
+        self.neural_network = neural_network
 
     def init(self, *args):
         self.neural_network.init(args)
@@ -41,6 +23,3 @@ class Pynn:
 
     def write_weights(self, filename: str) -> Exception:
         return self.neural_network.write_weights(filename)
-
-    def info(self):
-        print(self.name, self.neural_network)

@@ -1,1 +1,1 @@
-#from .perceptron import main
+#from .query import query as q
