@@ -12,10 +12,15 @@ class Perceptron(Interface):
     type: str = 'Perceptron'
     description: str = ''
 
-    """Neurons"""
+    """Weights of value."""
+    weights: list[list[list[float]]] = [
+        [[.1 for _ in range(10)] for _ in range(10)] for _ in range(10)
+    ]
+
+    """Neurons."""
     neurons: list[list[Neuron]] = []
 
-    # Settings
+    """Settings."""
     len_input: int
     len_output: int
     last_layer_index: int
@@ -23,13 +28,14 @@ class Perceptron(Interface):
     # config         utils.Filer
     # mutex          sync.Mutex
 
-    # Transfer data
+    """Transfer data."""
     transfer_weight: list[list[list[float]]]
     transfer_input: list[float]
     transfer_target: list[float]
     transfer_output: list[float]
 
-    # def __init__(self):
+    def __init__(self):
+        super().__init__()
     #     """The neuron bias, false or true (required field for a config)."""
     #     self.bias: bool = True
     #

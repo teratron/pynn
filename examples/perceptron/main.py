@@ -1,7 +1,7 @@
 #import time
 
-#import src.pynn as nn
 from src.pynn.pynn import Pynn
+
 
 if __name__ == '__main__':
     """
@@ -9,7 +9,7 @@ if __name__ == '__main__':
     instance with the default parameters
     for Hopfield neural network.
     """
-    pn = Pynn()
+    pn = Pynn(rate=0.8)
     pn.query([.1, .2])
     print(pn.rate)
 

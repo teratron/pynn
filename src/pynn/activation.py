@@ -60,6 +60,3 @@ def derivative(value: float, mode: int = Mode.SIGMOID) -> float:
             return 1 - value ** 2
         case _:
             return -1
-
-
-print(activation(value=.5, mode=Mode.TANH))
