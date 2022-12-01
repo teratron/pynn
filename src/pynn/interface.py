@@ -3,6 +3,9 @@ from .query import query as func_query
 
 
 class Interface(Properties):
+    def __init__(self):
+        super().__init__()
+
     def init(self, *args):
         # self.neural_network.init(args)
         pass
