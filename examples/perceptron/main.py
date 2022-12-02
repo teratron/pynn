@@ -1,7 +1,6 @@
-#import time
+# import time
 
 from src.pynn.pynn import Pynn
-
 
 if __name__ == '__main__':
     """
@@ -9,10 +8,22 @@ if __name__ == '__main__':
     instance with the default parameters
     for Hopfield neural network.
     """
-    pn = Pynn(rate=0.8)
+    # pn = Pynn(
+    #     bias=True,
+    #     hidden_layers=[1],
+    #     activation_mode=0,
+    #     loss_mode=0,
+    #     loss_limit=.01,
+    #     rate=0.8)
+    pn = Pynn(rate=0.8,
+              activation_mode=Pynn.TANH,
+              hidden_layers=[1, 2, 3])
     pn.query([.1, .2])
-    print(pn.rate)
+    print(pn.hidden_layers, pn.rate)
+    pn.rate = 0.73
+    print(pn, pn.rate, Pynn.TANH, Pynn.RMSE)
 
+    print(pn.weights)
 # New returns a new neural network
 # instance with the default parameters,
 # same n = nn.New("perceptron").

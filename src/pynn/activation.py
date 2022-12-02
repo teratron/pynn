@@ -1,28 +1,26 @@
 import math
 
-from enum import IntEnum
 
-
-class Mode(IntEnum):
+class Mode:
     """Activation function mode."""
 
     """LINEAR - Linear/identity."""
-    LINEAR = 0
+    LINEAR: int = 0
 
     """RELU - ReLu (rectified linear unit)."""
-    RELU = 1
+    RELU: int = 1
 
     """LEAKY_RELU - Leaky ReLu (leaky rectified linear unit)."""
-    LEAKY_RELU = 2
+    LEAKY_RELU: int = 2
 
     """SIGMOID - Logistic, a.k.a. sigmoid or soft step."""
-    SIGMOID = 3
+    SIGMOID: int = 3
 
     """TANH - TanH (hyperbolic tangent)."""
-    TANH = 4
+    TANH: int = 4
 
 
-def check_activation_mode(mode: int) -> int:
+def check(mode: int) -> int:
     """Check activation mode."""
     return Mode.SIGMOID if mode > Mode.TANH else mode
 

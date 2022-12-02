@@ -1,22 +1,19 @@
-from enum import IntEnum
-
-
-class Mode(IntEnum):
+class Mode:
     """The mode of calculation of the total error."""
 
     """MSE - Mean Squared Error."""
-    MSE = 0
+    MSE: int = 0
 
     """RMSE - Root Mean Squared Error."""
-    RMSE = 1
+    RMSE: int = 1
 
     """ARCTAN - Arctan Error."""
-    ARCTAN = 2
+    ARCTAN: int = 2
 
     """AVG - Average Error."""
-    AVG = 3
+    AVG: int = 3
 
 
-def check_loss_mode(mode: int) -> int:
+def check(mode: int) -> int:
     """Check loss mode."""
     return Mode.MSE if mode > Mode.AVG else mode

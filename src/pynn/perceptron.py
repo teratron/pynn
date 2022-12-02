@@ -1,4 +1,11 @@
-from .interface import Interface
+import random
+import pynn.loss as loss
+import pynn.activation as act
+
+from .verify import verify
+from .query import query
+from .train import train, and_train
+from .write import write_config, write_weights
 
 
 class Neuron:
@@ -7,83 +14,285 @@ class Neuron:
         self.miss = miss
 
 
-class Perceptron(Interface):
+class Perceptron(act.Mode, loss.Mode):
     name: str = 'perceptron'
     type: str = 'Perceptron'
     description: str = ''
 
-    """Weights of value."""
-    weights: list[list[list[float]]] = [
-        [[.1 for _ in range(10)] for _ in range(10)] for _ in range(10)
-    ]
+    def __init__(self,
+                 *,
+                 bias: bool = True,
+                 hidden_layers=None,
+                 activation_mode: int = act.Mode.SIGMOID,
+                 loss_mode: int = loss.Mode.RMSE,
+                 loss_limit: float = .1e3,
+                 rate: float = .3):
+        """The neuron bias, false or true (required field for a config)."""
+        self._bias: bool = bias
 
-    """Neurons."""
-    neurons: list[list[Neuron]] = []
+        """List of the number of neurons in each hidden layers."""
+        self._hidden_layers: list[int] = Perceptron.check_hidden_layers(hidden_layers)
 
-    """Settings."""
-    len_input: int
-    len_output: int
-    last_layer_index: int
-    is_init: bool = False
-    # config         utils.Filer
-    # mutex          sync.Mutex
+        """Activation function mode (required field for a config)."""
+        self._activation_mode: int = act.check(activation_mode)
 
-    """Transfer data."""
-    transfer_weight: list[list[list[float]]]
-    transfer_input: list[float]
-    transfer_target: list[float]
-    transfer_output: list[float]
+        """The mode of calculation of the total error."""
+        self._loss_mode: int = loss.check(loss_mode)
 
-    def __init__(self):
-        super().__init__()
-    #     """The neuron bias, false or true (required field for a config)."""
-    #     self.bias: bool = True
-    #
-    #     """List of the number of neurons in each hidden layer."""
-    #     self.hidden_layer: list = []
-    #
-    #     """Activation function mode (required field for a config)."""
-    #     self.activation_mode: int = 0
-    #
-    #     """The mode of calculation of the total error."""
-    #     self.loss_mode: int = 0
-    #
-    #     """Minimum (sufficient) limit of the average of the error during training."""
-    #     self.loss_limit: float = .0001
-    #
-    #     """Learning coefficient (greater than 0 and less than or equal to 1)."""
-    #     self.rate: float = .3
-    #
-    #     """Weights of value."""
-    #     self.weights: list[list[list[float]]] = []
+        """Minimum (sufficient) limit of the average of the error during training."""
+        self._loss_limit: float = loss_limit
 
-    # @property
-    # def bias(self) -> bool:
-    #     return self.bias
-    #
-    # @bias.setter
-    # def bias(self, bias: bool):
-    #     self.bias = bias
+        """Learning coefficient (greater than 0 and less than or equal to 1)."""
+        self._rate: float = Perceptron.check_rate(rate)
 
-    # def init(self, *args):
-    #     pass
-    #
-    # def query(self, data_input: list[float]) -> list[float]:
-    #     print('percept', data_input)
-    #     # q(data_input)
-    #     return data_input
-    #
-    # def verify(self, _data_input: list[float], *_data_target: list[float]) -> float:
-    #     return .1
-    #
-    # def train(self, _data_input: list[float], *_data_target: list[float]) -> (int, float):
-    #     return 0, .1
-    #
-    # def and_train(self, _data_target: list[float]) -> (int, float):
-    #     return 0, .1
-    #
-    # def write_config(self, *_filename: str) -> Exception:
-    #     return Exception(None)
-    #
-    # def write_weights(self, _filename: str) -> Exception:
-    #     return Exception(None)
+        # Weights
+        self.weights: list[list[list[float]]] = [
+            [[random.uniform(-.5, .5) for _ in range(10)] for _ in range(10)] for _ in range(10)
+        ]
+
+        # Neurons
+        self.neurons: list[list[Neuron]] = []
+
+        # Settings
+        self.len_input: int
+        self.len_output: int
+        self.last_layer_index: int
+        self.is_init: bool = False
+        # self.config         utils.Filer
+        # self.mutex          sync.Mutex
+
+        # Transfer data
+        self.transfer_weight: list[list[list[float]]]
+        self.transfer_input: list[float]
+        self.transfer_target: list[float]
+        self.transfer_output: list[float]
+
+    # Bias
+    @property
+    def bias(self) -> bool:
+        return self._bias
+
+    @bias.setter
+    def bias(self, bias: bool):
+        self._bias = bias
+
+    # Hidden layers
+    @property
+    def hidden_layers(self) -> list[int]:
+        return self._hidden_layers
+
+    @hidden_layers.setter
+    def hidden_layers(self, layers: list[int]):
+        self._hidden_layers = Perceptron.check_hidden_layers(layers)
+
+    @staticmethod
+    def check_hidden_layers(layers: list[int]) -> list[int]:
+        return [0] if layers is None else layers
+
+    # Activation mode
+    @property
+    def activation_mode(self) -> int:
+        return self._activation_mode
+
+    @activation_mode.setter
+    def activation_mode(self, mode: int):
+        self._activation_mode = act.check(mode)
+
+    # Loss mode
+    @property
+    def loss_mode(self) -> int:
+        return self._loss_mode
+
+    @loss_mode.setter
+    def loss_mode(self, mode: int):
+        self._loss_mode = loss.check(mode)
+
+    # Loss limit
+    @property
+    def loss_limit(self) -> float:
+        return self._loss_limit
+
+    @loss_limit.setter
+    def loss_limit(self, limit: float):
+        self._loss_limit = Perceptron.check_loss_limit(limit)
+
+    @staticmethod
+    def check_loss_limit(limit: float) -> float:
+        return .1e10 if limit <= 0 else limit
+
+    # Rate
+    @property
+    def rate(self) -> float:
+        return self._rate
+
+    @rate.setter
+    def rate(self, rate: float):
+        self._rate = Perceptron.check_rate(rate)
+
+    @staticmethod
+    def check_rate(rate: float) -> float:
+        return .3 if rate <= 0 or rate > 1 else rate
+
+    # Interface
+    def init(self, *args):
+        # self.neural_network.init(args)
+        pass
+
+    def verify(self, data_input: list[float], data_target: list[float]) -> float:
+        """Verifying dataset."""
+        return verify(self, data_input, data_target)
+
+    def query(self, data_input: list[float]) -> list[float]:
+        """Querying dataset."""
+        return query(self, data_input)
+
+    def train(self, data_input: list[float], data_target: list[float]) -> (int, float):
+        """Training dataset."""
+        return train(self, data_input, data_target)
+
+    def and_train(self, data_target: list[float]) -> (int, float):
+        """Training dataset after the query."""
+        return and_train(self, data_target)
+
+    def write_config(self, filename: str) -> Exception:
+        """Writes the configuration and weights to the Filer interface object."""
+        return write_config(self, filename)
+
+    def write_weights(self, filename: str) -> Exception:
+        return write_weights(self, filename)
+
+
+"""
+// Init initialize.
+func (nn *NN) Init(data ...interface{}) {
+	var err error
+	if len(data) > 0 {
+		switch value := data[0].(type) {
+		case utils.Filer:
+			if _, ok := value.(utils.FileError); !ok {
+				if len(nn.Weights) > 0 {
+					nn.initFromWeight()
+				}
+				nn.config = value
+			}
+		case int:
+			if len(data) == 2 {
+				if v, ok := data[1].(int); ok {
+					nn.initFromNew(value, v)
+				}
+			}
+		default:
+			err = fmt.Errorf("%T %w: %v", value, pkg.ErrMissingType, value)
+		}
+		if err == nil {
+			nn.initCompletion()
+		}
+	} else {
+		err = pkg.ErrNoArgs
+	}
+
+	if err != nil {
+		log.Printf("perceptron.NN.Init: %v\n", err)
+	}
+}
+
+// initFromNew initialize.
+func (nn *NN) initFromNew(lenInput, lenTarget int) {
+	nn.lenInput = lenInput
+	nn.lenOutput = lenTarget
+	nn.lastLayerIndex = len(nn.HiddenLayer)
+	if nn.lastLayerIndex > 0 && nn.HiddenLayer[0] == 0 {
+		nn.lastLayerIndex = 0
+	}
+
+	var layer []uint
+	if nn.lastLayerIndex > 0 {
+		layer = append(nn.HiddenLayer, uint(nn.lenOutput))
+	} else {
+		layer = []uint{uint(nn.lenOutput)}
+	}
+	lenLayer := len(layer)
+
+	bias := 0
+	if nn.Bias {
+		bias = 1
+	}
+	biasInput := nn.lenInput + bias
+	var biasLayer int
+
+	nn.Weights = make(pkg.Float3Type, lenLayer)
+	nn.weights = make(pkg.Float3Type, lenLayer)
+	nn.neurons = make([][]*neuron, lenLayer)
+	for i, v := range layer {
+		nn.Weights[i] = make(pkg.Float2Type, v)
+		nn.weights[i] = make(pkg.Float2Type, v)
+		nn.neurons[i] = make([]*neuron, v)
+		if i > 0 {
+			biasLayer = int(layer[i-1]) + bias
+		}
+
+		for j := 0; j < int(v); j++ {
+			if i > 0 {
+				nn.Weights[i][j] = make(pkg.Float1Type, biasLayer)
+				nn.weights[i][j] = make(pkg.Float1Type, biasLayer)
+			} else {
+				nn.Weights[i][j] = make(pkg.Float1Type, biasInput)
+				nn.weights[i][j] = make(pkg.Float1Type, biasInput)
+			}
+			for k := range nn.weights[i][j] {
+				if nn.ActivationMode == params.LINEAR {
+					nn.Weights[i][j][k] = .5
+				} else {
+					nn.Weights[i][j][k] = params.GetRandFloat()
+				}
+			}
+			nn.neurons[i][j] = &neuron{}
+		}
+	}
+}
+
+// initFromWeight.
+func (nn *NN) initFromWeight() {
+	length := len(nn.Weights)
+
+	if !nn.Bias && length > 1 && len(nn.Weights[0])+1 == len(nn.Weights[1][0]) {
+		nn.Bias = true
+	}
+
+	nn.lastLayerIndex = length - 1
+	nn.lenOutput = len(nn.Weights[nn.lastLayerIndex])
+	nn.lenInput = len(nn.Weights[0][0])
+	if nn.Bias {
+		nn.lenInput -= 1
+	}
+
+	if nn.lastLayerIndex > 0 {
+		nn.HiddenLayer = make([]uint, nn.lastLayerIndex)
+		for i := range nn.HiddenLayer {
+			nn.HiddenLayer[i] = uint(len(nn.Weights[i]))
+		}
+	} else {
+		nn.HiddenLayer = []uint{0}
+	}
+
+	nn.weights = make(pkg.Float3Type, length)
+	nn.neurons = make([][]*neuron, length)
+	for i, v := range nn.Weights {
+		length = len(v)
+		nn.weights[i] = make(pkg.Float2Type, length)
+		nn.neurons[i] = make([]*neuron, length)
+		for j, w := range v {
+			nn.weights[i][j] = make(pkg.Float1Type, len(w))
+			nn.neurons[i][j] = &neuron{}
+		}
+	}
+}
+
+// initCompletion.
+func (nn *NN) initCompletion() {
+	nn.input = make(pkg.Float1Type, nn.lenInput)
+	nn.target = make(pkg.Float1Type, nn.lenOutput)
+	nn.output = make([]float64, nn.lenOutput)
+	nn.isInit = true
+}
+"""
