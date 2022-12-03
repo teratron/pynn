@@ -1,17 +1,45 @@
+import pynn.activation as act
+
 
 class Propagation:
-    def calc_neurons(self):
-        pass
+    # def __init__(self, n):
+    #     self.n = n
+
+    @staticmethod
+    def calc_neurons(n):
+        length, d = n.len_input, 0
+        for i in range(len(n.neuron)):
+            if i > 0:
+                d = i - 1
+                length = len(n.neuron[d])
+
+            for j in range(len(n.neuron[i])):
+                n.neuron[i][j].value, num = 0., 0.
+                for k in range(len(n.transfer_weight[i][j])):
+                    if k < length:
+                        if i > 0:
+                            n.neuron[i][j].value += n.neuron[d][k].value * n.transfer_weight[i][j][k]
+                        else:
+                            n.neuron[i][j].value += n.transfer_input[k] * n.transfer_weight[i][j][k]
+                    else:
+                        n.neuron[i][j].value += n.transfer_weight[i][j][k]
+                    num += 1
+
+                if n.activation_mode == n.LINEAR:
+                    if num > 0:
+                        n.neuron[i][j].value /= num
+                else:
+                    n.neuron[i][j].value = act.activation(n.neuron[i][j].value, n.activation_mode)
 
 
 """
 // calcNeuron.
 func (nn *NN) calcNeuron() {
 	var length, dec int
-	for i, v := range nn.neurons {
+	for i, v := range nn.neuron {
 		if i > 0 {
 			dec = i - 1
-			length = len(nn.neurons[dec])
+			length = len(nn.neuron[dec])
 		} else {
 			length = nn.lenInput
 		}
@@ -22,7 +50,7 @@ func (nn *NN) calcNeuron() {
 			for k, w := range nn.weights[i][j] {
 				if k < length {
 					if i > 0 {
-						n.value += nn.neurons[dec][k].value * w
+						n.value += nn.neuron[dec][k].value * w
 					} else {
 						n.value += nn.input[k] * w
 					}
@@ -46,7 +74,7 @@ func (nn *NN) calcNeuron() {
 
 // calcLoss calculating the error of the output neuron.
 func (nn *NN) calcLoss() (loss float64) {
-	for i, n := range nn.neurons[nn.lastLayerIndex] {
+	for i, n := range nn.neuron[nn.lastLayerIndex] {
 		n.miss = nn.target[i] - n.value
 		switch nn.LossMode {
 		default:
@@ -74,14 +102,14 @@ func (nn *NN) calcLoss() (loss float64) {
 	return
 }
 
-// calcMiss calculating the error of neurons in hidden layers.
+// calcMiss calculating the error of neuron in hidden layers.
 func (nn *NN) calcMiss() {
 	if nn.lastLayerIndex > 0 {
 		for i := nn.lastLayerIndex - 1; i >= 0; i-- {
 			inc := i + 1
-			for j, n := range nn.neurons[i] {
+			for j, n := range nn.neuron[i] {
 				n.miss = 0
-				for k, m := range nn.neurons[inc] {
+				for k, m := range nn.neuron[inc] {
 					n.miss += m.miss * nn.weights[inc][k][j]
 				}
 			}
@@ -95,18 +123,18 @@ func (nn *NN) updateWeight() {
 	for i, v := range nn.weights {
 		if i > 0 {
 			dec = i - 1
-			length = len(nn.neurons[dec])
+			length = len(nn.neuron[dec])
 		} else {
 			length = nn.lenInput
 		}
 
 		for j, w := range v {
-			grad := nn.Rate * nn.neurons[i][j].miss * params.Derivative(nn.neurons[i][j].value, nn.ActivationMode)
+			grad := nn.Rate * nn.neuron[i][j].miss * params.Derivative(nn.neuron[i][j].value, nn.ActivationMode)
 			for k := range w {
 				if k < length {
 					var value pkg.FloatType
 					if i > 0 {
-						value = nn.neurons[dec][k].value
+						value = nn.neuron[dec][k].value
 					} else {
 						value = nn.input[k]
 					}

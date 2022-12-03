@@ -2,10 +2,15 @@ import random
 import pynn.loss as loss
 import pynn.activation as act
 
+from .propagation import Propagation
 from .verify import verify
 from .query import query
 from .train import train, and_train
 from .write import write_config, write_weights
+
+
+# import json
+# json.JSONDecoder
 
 
 class Neuron:
@@ -14,7 +19,7 @@ class Neuron:
         self.miss = miss
 
 
-class Perceptron(act.Mode, loss.Mode):
+class Perceptron(Propagation, act.Mode, loss.Mode):
     name: str = 'perceptron'
     type: str = 'Perceptron'
     description: str = ''
@@ -25,12 +30,12 @@ class Perceptron(act.Mode, loss.Mode):
                  hidden_layers=None,
                  activation_mode: int = act.Mode.SIGMOID,
                  loss_mode: int = loss.Mode.RMSE,
-                 loss_limit: float = .1e3,
+                 loss_limit: float = .1e-3,
                  rate: float = .3):
         """The neuron bias, false or true (required field for a config)."""
         self._bias: bool = bias
 
-        """List of the number of neurons in each hidden layers."""
+        """List of the number of neuron in each hidden layers."""
         self._hidden_layers: list[int] = Perceptron.check_hidden_layers(hidden_layers)
 
         """Activation function mode (required field for a config)."""
@@ -46,26 +51,31 @@ class Perceptron(act.Mode, loss.Mode):
         self._rate: float = Perceptron.check_rate(rate)
 
         # Weights
-        self.weights: list[list[list[float]]] = [
-            [[random.uniform(-.5, .5) for _ in range(10)] for _ in range(10)] for _ in range(10)
+        self.weight: list[list[list[float]]] = [
+            [[random.uniform(-.5, .5) for _ in range(5)] for _ in range(5)] for _ in range(5)
         ]
 
         # Neurons
-        self.neurons: list[list[Neuron]] = []
+        self.neuron: list[list[Neuron]] = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
 
         # Settings
-        self.len_input: int
-        self.len_output: int
+        self.len_input: int = 2  # TODO:
+        self.len_output: int = 2  # TODO:
         self.last_layer_index: int
         self.is_init: bool = False
         # self.config         utils.Filer
         # self.mutex          sync.Mutex
 
         # Transfer data
-        self.transfer_weight: list[list[list[float]]]
-        self.transfer_input: list[float]
+        self.transfer_weight: list[list[list[float]]] = self.weight
+        self.transfer_input: list[float] = [.1, .3]  # TODO:
         self.transfer_target: list[float]
         self.transfer_output: list[float]
+
+        #super().__init__(self)
+
+    def calc_neurons(self):
+        super(Perceptron, self).calc_neurons(self)
 
     # Bias
     @property
@@ -222,11 +232,11 @@ func (nn *NN) initFromNew(lenInput, lenTarget int) {
 
 	nn.Weights = make(pkg.Float3Type, lenLayer)
 	nn.weights = make(pkg.Float3Type, lenLayer)
-	nn.neurons = make([][]*neuron, lenLayer)
+	nn.neuron = make([][]*neuron, lenLayer)
 	for i, v := range layer {
 		nn.Weights[i] = make(pkg.Float2Type, v)
 		nn.weights[i] = make(pkg.Float2Type, v)
-		nn.neurons[i] = make([]*neuron, v)
+		nn.neuron[i] = make([]*neuron, v)
 		if i > 0 {
 			biasLayer = int(layer[i-1]) + bias
 		}
@@ -246,7 +256,7 @@ func (nn *NN) initFromNew(lenInput, lenTarget int) {
 					nn.Weights[i][j][k] = params.GetRandFloat()
 				}
 			}
-			nn.neurons[i][j] = &neuron{}
+			nn.neuron[i][j] = &neuron{}
 		}
 	}
 }
@@ -276,14 +286,14 @@ func (nn *NN) initFromWeight() {
 	}
 
 	nn.weights = make(pkg.Float3Type, length)
-	nn.neurons = make([][]*neuron, length)
+	nn.neuron = make([][]*neuron, length)
 	for i, v := range nn.Weights {
 		length = len(v)
 		nn.weights[i] = make(pkg.Float2Type, length)
-		nn.neurons[i] = make([]*neuron, length)
+		nn.neuron[i] = make([]*neuron, length)
 		for j, w := range v {
 			nn.weights[i][j] = make(pkg.Float1Type, len(w))
-			nn.neurons[i][j] = &neuron{}
+			nn.neuron[i][j] = &neuron{}
 		}
 	}
 }

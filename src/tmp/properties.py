@@ -14,7 +14,7 @@ class Properties:
         """The neuron bias, false or true (required field for a config)."""
         self.bias: bool = bias
 
-        """List of the number of neurons in each hidden layer."""
+        """List of the number of neuron in each hidden layer."""
         self.hidden_layer: list[int] = [0] if hidden_layer is None else hidden_layer
 
         """Activation function mode (required field for a config)."""
