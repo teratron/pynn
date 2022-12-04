@@ -37,7 +37,7 @@ class Propagation:
                     num += 1
 
                 if self._activation_mode == self.n.LINEAR:
-                    if num != 0:
+                    if num > 0:
                         self._neuron[i][j].value /= num
                 else:
                     self._neuron[i][j].value = act.activation(self._neuron[i][j].value, self._activation_mode)
