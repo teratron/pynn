@@ -1,11 +1,11 @@
 import random
-import pynn.loss as loss
-import pynn.activation as act
 
+import pynn.activation as act
+import pynn.loss as loss
 from .propagation import Propagation
-from .verify import verify
 from .query import query
 from .train import train, and_train
+from .verify import verify
 from .write import write_config, write_weights
 
 
@@ -20,9 +20,12 @@ class Neuron:
 
 
 class Perceptron(Propagation, act.Mode, loss.Mode):
+    """
+    Perceptron is neural network
+    """
     name: str = 'perceptron'
     type: str = 'Perceptron'
-    description: str = ''
+    description: str = 'description'  # Perceptron.__doc__()
 
     def __init__(self,
                  *,
@@ -61,7 +64,7 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
         # Settings
         self.len_input: int = 2  # TODO:
         self.len_output: int = 2  # TODO:
-        self.last_layer_index: int
+        self.last_layer_ind: int = 1
         self.is_init: bool = False
         # self.config         utils.Filer
         # self.mutex          sync.Mutex
@@ -69,13 +72,13 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
         # Transfer data
         self.transfer_weight: list[list[list[float]]] = self.weight
         self.transfer_input: list[float] = [.1, .3]  # TODO:
-        self.transfer_target: list[float]
-        self.transfer_output: list[float]
+        self.transfer_target: list[float] = [.1, .3]  # TODO:
+        self.transfer_output: list[float] = [.1, .3]  # TODO:
 
-        #super().__init__(self)
+        super().__init__(self)
 
-    def calc_neurons(self):
-        super(Perceptron, self).calc_neurons(self)
+    # def calc_neurons(self):
+    #     super(Perceptron, self).calc_neurons(self)
 
     # Bias
     @property
@@ -149,27 +152,55 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
         pass
 
     def verify(self, data_input: list[float], data_target: list[float]) -> float:
-        """Verifying dataset."""
+        """
+        Verifying dataset.
+        """
         return verify(self, data_input, data_target)
 
     def query(self, data_input: list[float]) -> list[float]:
-        """Querying dataset."""
+        """
+        Querying dataset.
+        """
         return query(self, data_input)
 
     def train(self, data_input: list[float], data_target: list[float]) -> (int, float):
-        """Training dataset."""
+        """
+        Training dataset.
+        """
         return train(self, data_input, data_target)
 
     def and_train(self, data_target: list[float]) -> (int, float):
-        """Training dataset after the query."""
+        """
+        Training dataset after the query.
+        """
         return and_train(self, data_target)
 
     def write_config(self, filename: str) -> Exception:
-        """Writes the configuration and weights to the Filer interface object."""
+        """
+        Writes the configuration and weights to the Filer interface object.
+        """
         return write_config(self, filename)
 
     def write_weights(self, filename: str) -> Exception:
         return write_weights(self, filename)
+
+    def __repr__(self):
+        return '<%s.%s: %r>' % (self.__class__.__name__, Perceptron.name, Perceptron.description)
+
+    def __str__(self):
+        return '%s.%s' % (self.__class__.__name__, Perceptron.name)
+
+    def __dir__(self):
+        """
+        Returns all members and all public methods
+        """
+        added_behavior = [
+                             m
+                             for cls in self.__class__.mro()
+                             for m in cls.__dict__
+                             if m[0] != '_'
+                         ] + [m for m in self.__dict__ if m[0] != '_']
+        return ['__class__', '__doc__', '__module__'] + added_behavior
 
 
 """

@@ -23,11 +23,13 @@ if __name__ == '__main__':
     pn.rate = 0.73
     print(pn, pn.rate, Pynn.TANH, Pynn.RMSE)
 
-    print(pn.weight)
-
+    # print(pn.weight)
     pn.calc_neurons()
-    print(pn.weight)
+    # print(pn.weight)
+    print(pn)
 
+    # for i in range(10, -1, -1):
+    #     print(i)
 # New returns a new neural network
 # instance with the default parameters,
 # same n = nn.New("perceptron").
