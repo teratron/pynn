@@ -1,25 +1,17 @@
-import random
-
-import pynn.activation as act
+import pynn.activation as activation
 import pynn.loss as loss
 
 
-class Neuron:
-    def __init__(self, value: float, miss: float):
-        self.value = value
-        self.miss = miss
-
-
-class Properties(act.Mode, loss.Mode):
+class Properties(activation.Mode, loss.Mode):
     """
-    Properties.
+    Properties of neural network.
     """
 
     def __init__(self,
                  *,
                  bias: bool = True,
                  hidden_layers=None,
-                 activation_mode: int = act.Mode.SIGMOID,
+                 activation_mode: int = activation.Mode.SIGMOID,
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,
                  rate: float = .3):
@@ -29,7 +21,7 @@ class Properties(act.Mode, loss.Mode):
         self._hidden_layers: list[int] = Properties.check_hidden_layers(hidden_layers)
         """List of the number of neuron in each hidden layers."""
 
-        self._activation_mode: int = act.check(activation_mode)
+        self._activation_mode: int = activation.check(activation_mode)
         """Activation function mode (required field for a config)."""
 
         self._loss_mode: int = loss.check(loss_mode)
@@ -41,31 +33,6 @@ class Properties(act.Mode, loss.Mode):
         self._rate: float = Properties.check_rate(rate)
         """Learning coefficient (greater than 0.0 and less than or equal to 1.0)."""
 
-        # Weights
-        self.weight: list[list[list[float]]] = [
-            [[random.uniform(-.5, .5) for _ in range(5)] for _ in range(5)] for _ in range(5)
-        ]
-
-        # Neurons
-        self.neuron: list[list[Neuron]] = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
-
-        # Settings
-        self.len_input: int = 2  # TODO:
-        self.len_output: int = 2  # TODO:
-        self.last_layer_ind: int = 1
-        self.is_init: bool = False
-        # self.config         utils.Filer
-        # self.mutex          sync.Mutex
-
-        # Transfer data
-        self.data_weight: list[list[list[float]]] = self.weight
-        self.data_input: list[float] = [.1, .3]  # TODO:
-        self.data_target: list[float] = [.1, .3]  # TODO:
-        self.data_output: list[float] = [.1, .3]  # TODO:
-
-        # super().__init__(self)
-
-    # Bias
     @property
     def bias(self) -> bool:
         """
@@ -77,7 +44,6 @@ class Properties(act.Mode, loss.Mode):
     def bias(self, bias: bool):
         self._bias = bias
 
-    # Hidden layers
     @property
     def hidden_layers(self) -> list[int]:
         """
@@ -93,7 +59,6 @@ class Properties(act.Mode, loss.Mode):
     def check_hidden_layers(layers: list[int]) -> list[int]:
         return [0] if layers is None else layers
 
-    # Activation mode
     @property
     def activation_mode(self) -> int:
         """
@@ -108,9 +73,8 @@ class Properties(act.Mode, loss.Mode):
 
     @activation_mode.setter
     def activation_mode(self, mode: int):
-        self._activation_mode = act.check(mode)
+        self._activation_mode = activation.check(mode)
 
-    # Loss mode
     @property
     def loss_mode(self) -> int:
         """
@@ -126,7 +90,6 @@ class Properties(act.Mode, loss.Mode):
     def loss_mode(self, mode: int):
         self._loss_mode = loss.check(mode)
 
-    # Loss limit
     @property
     def loss_limit(self) -> float:
         """
@@ -142,7 +105,6 @@ class Properties(act.Mode, loss.Mode):
     def check_loss_limit(limit: float) -> float:
         return .1e-6 if limit <= 0 else limit
 
-    # Rate
     @property
     def rate(self) -> float:
         """
