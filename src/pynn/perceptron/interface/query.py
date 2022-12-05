@@ -1,5 +1,8 @@
 def query(obj, data_input: list[float]) -> list[float]:
-    print('query:', obj, obj.rate, data_input)
+    """
+    Querying dataset.
+    """
+    print('query***:', obj, obj.rate, data_input)
     return data_input
 
 

@@ -19,7 +19,7 @@ if __name__ == '__main__':
               activation_mode=Pynn.TANH,
               hidden_layers=[1, 2, 3])
     pn.query([.1, .2])
-    print(pn.hidden_layers, pn.rate)
+    print(pn.hidden_layers, pn.rate, pn.loss_limit)
     pn.rate = 0.73
     print(pn, pn.rate, Pynn.TANH, Pynn.RMSE)
 

@@ -2,15 +2,9 @@ import random
 
 import pynn.activation as act
 import pynn.loss as loss
-from .propagation import Propagation
-from .query import query
-from .train import train, and_train
-from .verify import verify
-from .write import write_config, write_weights
-
-
-# import json
-# json.JSONDecoder
+from .interface.interface import Interface
+from .propagation.propagation import Propagation
+from .properties import Properties
 
 
 class Neuron:
@@ -19,10 +13,11 @@ class Neuron:
         self.miss = miss
 
 
-class Perceptron(Propagation, act.Mode, loss.Mode):
+class Perceptron(Properties, Interface, Propagation, act.Mode, loss.Mode):
     """
-    Perceptron is neural network
+    Perceptron is neural network.
     """
+
     name: str = 'perceptron'
     type: str = 'Perceptron'
     description: str = 'description'  # Perceptron.__doc__()
@@ -35,23 +30,23 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,
                  rate: float = .3):
-        """The neuron bias, false or true (required field for a config)."""
         self._bias: bool = bias
+        """The neuron bias, false or true (required field for a config)."""
 
-        """List of the number of neuron in each hidden layers."""
         self._hidden_layers: list[int] = Perceptron.check_hidden_layers(hidden_layers)
+        """List of the number of neuron in each hidden layers."""
 
-        """Activation function mode (required field for a config)."""
         self._activation_mode: int = act.check(activation_mode)
+        """Activation function mode (required field for a config)."""
 
-        """The mode of calculation of the total error."""
         self._loss_mode: int = loss.check(loss_mode)
+        """The mode of calculation of the total error."""
 
-        """Minimum (sufficient) limit of the average of the error during training."""
         self._loss_limit: float = loss_limit
+        """Minimum (sufficient) limit of the average of the error during training."""
 
-        """Learning coefficient (greater than 0 and less than or equal to 1)."""
         self._rate: float = Perceptron.check_rate(rate)
+        """Learning coefficient (greater than 0.0 and less than or equal to 1.0)."""
 
         # Weights
         self.weight: list[list[list[float]]] = [
@@ -70,15 +65,12 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
         # self.mutex          sync.Mutex
 
         # Transfer data
-        self.transfer_weight: list[list[list[float]]] = self.weight
-        self.transfer_input: list[float] = [.1, .3]  # TODO:
-        self.transfer_target: list[float] = [.1, .3]  # TODO:
-        self.transfer_output: list[float] = [.1, .3]  # TODO:
+        self.data_weight: list[list[list[float]]] = self.weight
+        self.data_input: list[float] = [.1, .3]  # TODO:
+        self.data_target: list[float] = [.1, .3]  # TODO:
+        self.data_output: list[float] = [.1, .3]  # TODO:
 
-        super().__init__(self)
-
-    # def calc_neurons(self):
-    #     super(Perceptron, self).calc_neurons(self)
+        # super().__init__(self)
 
     # Bias
     @property
@@ -105,6 +97,14 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
     # Activation mode
     @property
     def activation_mode(self) -> int:
+        """
+        Activation function mode:
+            LINEAR - Linear/identity (0);
+            RELU - ReLu (rectified linear unit) (1);
+            LEAKY_RELU - Leaky ReLu (leaky rectified linear unit) (2);
+            SIGMOID - Logistic, a.k.a. sigmoid or soft step (3);
+            TANH - TanH (hyperbolic tangent) (4).
+        """
         return self._activation_mode
 
     @activation_mode.setter
@@ -114,6 +114,13 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
     # Loss mode
     @property
     def loss_mode(self) -> int:
+        """
+        The mode of calculation of the total error:
+            MSE - Mean Squared Error (0);
+            RMSE - Root Mean Squared Error (1);
+            ARCTAN - Arctan Error (2);
+            AVG - Average Error (3).
+        """
         return self._loss_mode
 
     @loss_mode.setter
@@ -123,6 +130,9 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
     # Loss limit
     @property
     def loss_limit(self) -> float:
+        """
+        Minimum (sufficient) limit of the average of the error during training.
+        """
         return self._loss_limit
 
     @loss_limit.setter
@@ -136,6 +146,9 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
     # Rate
     @property
     def rate(self) -> float:
+        """
+        Learning coefficient (greater than 0.0 and less than or equal to 1.0).
+        """
         return self._rate
 
     @rate.setter
@@ -145,44 +158,6 @@ class Perceptron(Propagation, act.Mode, loss.Mode):
     @staticmethod
     def check_rate(rate: float) -> float:
         return .3 if rate <= 0 or rate > 1 else rate
-
-    # Interface
-    def init(self, *args):
-        # self.neural_network.init(args)
-        pass
-
-    def verify(self, data_input: list[float], data_target: list[float]) -> float:
-        """
-        Verifying dataset.
-        """
-        return verify(self, data_input, data_target)
-
-    def query(self, data_input: list[float]) -> list[float]:
-        """
-        Querying dataset.
-        """
-        return query(self, data_input)
-
-    def train(self, data_input: list[float], data_target: list[float]) -> (int, float):
-        """
-        Training dataset.
-        """
-        return train(self, data_input, data_target)
-
-    def and_train(self, data_target: list[float]) -> (int, float):
-        """
-        Training dataset after the query.
-        """
-        return and_train(self, data_target)
-
-    def write_config(self, filename: str) -> Exception:
-        """
-        Writes the configuration and weights to the Filer interface object.
-        """
-        return write_config(self, filename)
-
-    def write_weights(self, filename: str) -> Exception:
-        return write_weights(self, filename)
 
     def __repr__(self):
         return '<%s.%s: %r>' % (self.__class__.__name__, Perceptron.name, Perceptron.description)
