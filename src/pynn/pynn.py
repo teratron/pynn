@@ -10,10 +10,10 @@ class Pynn(activation.Mode, loss.Mode):
     Pynn.
     """
 
-    def __new__(cls, **kwargs):
+    def __new__(cls, reader=Perceptron.name, **kwargs):
         print(Hopfield)
         instance = super().__new__(Perceptron)
-        instance.__init__(**kwargs)
+        instance.__init__(reader, **kwargs)
         return instance
 
     # def __init__(self, **kwargs):

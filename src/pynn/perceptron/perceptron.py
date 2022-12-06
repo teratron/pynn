@@ -20,8 +20,8 @@ class Perceptron(Interface, Propagation, Properties):
     type: str = 'Perceptron'
     description: str = 'description'
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, reader, **kwargs):
+        super().__init__(reader, **kwargs)
 
         # Weights
         self.weight: list[list[list[float]]] = [
@@ -46,10 +46,10 @@ class Perceptron(Interface, Propagation, Properties):
         self.data_output: list[float] = [.1, .3]  # TODO:
 
     def __repr__(self):
-        return '<%s.%s: %r>' % (self.__class__.__name__, Perceptron.name, Perceptron.description)
+        return '<%s.%s: %r>' % (self.__class__.__name__, self.name, self.description)
 
     def __str__(self):
-        return '%s.%s' % (self.__class__.__name__, Perceptron.name)
+        return '%s.%s' % (self.__class__.__name__, self.name)
 
     def __dir__(self):
         """

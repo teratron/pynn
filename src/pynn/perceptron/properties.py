@@ -10,6 +10,7 @@ class Properties(activation.Mode, loss.Mode):
     """
 
     def __init__(self,
+                 reader: str,
                  *,
                  bias: bool = True,
                  hidden_layers: Optional[list[int]] = None,
@@ -17,6 +18,14 @@ class Properties(activation.Mode, loss.Mode):
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,
                  rate: float = .3):
+        self.reader: str = reader
+        """
+        String variable through which is passed:
+            - Name of the neural network;
+            - Filename of json config;
+            - Directly json dump passed as a string.
+        """
+
         self._bias: bool = bias
         """The neuron bias, false or true (required field for a config)."""
 
@@ -65,11 +74,11 @@ class Properties(activation.Mode, loss.Mode):
     def activation_mode(self) -> int:
         """
         Activation function mode:
-            LINEAR - Linear/identity (0);
-            RELU - ReLu (rectified linear unit) (1);
-            LEAKY_RELU - Leaky ReLu (leaky rectified linear unit) (2);
-            SIGMOID - Logistic, a.k.a. sigmoid or soft step (3);
-            TANH - TanH (hyperbolic tangent) (4).
+        LINEAR - Linear/identity (0);
+        RELU - ReLu (rectified linear unit) (1);
+        LEAKY_RELU - Leaky ReLu (leaky rectified linear unit) (2);
+        SIGMOID - Logistic, a.k.a. sigmoid or soft step (3);
+        TANH - TanH (hyperbolic tangent) (4).
         """
         return self._activation_mode
 
@@ -81,10 +90,10 @@ class Properties(activation.Mode, loss.Mode):
     def loss_mode(self) -> int:
         """
         The mode of calculation of the total error:
-            MSE - Mean Squared Error (0);
-            RMSE - Root Mean Squared Error (1);
-            ARCTAN - Arctan Error (2);
-            AVG - Average Error (3).
+        MSE - Mean Squared Error (0);
+        RMSE - Root Mean Squared Error (1);
+        ARCTAN - Arctan Error (2);
+        AVG - Average Error (3).
         """
         return self._loss_mode
 

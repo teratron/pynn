@@ -15,7 +15,14 @@ if __name__ == '__main__':
     #     loss_mode=0,
     #     loss_limit=.01,
     #     rate=0.8)
-    pn = Pynn(rate=0.8,
+
+    # p = Pynn()
+    # p = Pynn('perceptron')
+    # p = Pynn('config/perceptron.json')
+    # p = Pynn("""{name: 'perceptron'}""")
+
+    pn = Pynn('perceptron',
+              rate=0.8,
               activation_mode=Pynn.TANH,
               hidden_layers=[1, 2, 3])
     pn.query([.1, .2])
