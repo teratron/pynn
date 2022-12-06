@@ -21,7 +21,7 @@ if __name__ == '__main__':
     pn.query([.1, .2])
     # print(pn.hidden_layers, pn.rate, pn.loss_limit)
     pn.rate = 0.73
-    print(pn, pn.rate, Pynn.TANH, Pynn.RMSE)
+    print(pn.__class__, pn, pn.rate, Pynn.TANH, Pynn.RMSE)
 
     # print(pn.weight)
     pn.calc_neurons()
@@ -30,6 +30,9 @@ if __name__ == '__main__':
 
     # for i in range(10, -1, -1):
     #     print(i)
+
+    # t = Test()
+    # t.query([1, 2])
 # New returns a new neural network
 # instance with the default parameters,
 # same n = nn.New("perceptron").
