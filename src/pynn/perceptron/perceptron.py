@@ -18,7 +18,7 @@ class Perceptron(Interface, Propagation, Properties):
 
     name: str = 'perceptron'
     type: str = 'Perceptron'
-    description: str = 'description'  # Perceptron.__doc__()
+    description: str = 'description'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

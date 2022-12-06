@@ -21,12 +21,12 @@ if __name__ == '__main__':
     pn.query([.1, .2])
     # print(pn.hidden_layers, pn.rate, pn.loss_limit)
     pn.rate = 0.73
-    print(pn.__class__, pn, pn.rate, Pynn.TANH, Pynn.RMSE)
+    print(pn.__class__, pn, pn.rate, pn.TANH, pn.RMSE)
 
     # print(pn.weight)
     pn.calc_neurons()
     # print(pn.weight)
-    print(pn)
+    print(pn, Pynn.SIGMOID)
 
     # for i in range(10, -1, -1):
     #     print(i)

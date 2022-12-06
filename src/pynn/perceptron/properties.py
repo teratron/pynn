@@ -1,3 +1,5 @@
+from typing import Optional
+
 import pynn.activation as activation
 import pynn.loss as loss
 
@@ -10,7 +12,7 @@ class Properties(activation.Mode, loss.Mode):
     def __init__(self,
                  *,
                  bias: bool = True,
-                 hidden_layers=None,
+                 hidden_layers: Optional[list[int]] = None,
                  activation_mode: int = activation.Mode.SIGMOID,
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,

@@ -1,4 +1,6 @@
+from .init import init
 from .query import query
+from .set import set
 from .train import train, and_train
 from .verify import verify
 from .write import write_config, write_weights
@@ -9,11 +11,17 @@ class Interface:
     Interface.
     """
 
-    def init(self, *args):
+    def set(self, **kwargs) -> None:
+        """
+        Set properties of neural network.
+        """
+        set(self, **kwargs)
+
+    def init(self, *args) -> None:
         """
         Initialize neural network.
         """
-        pass
+        init(self, *args)
 
     def verify(self, data_input: list[float], data_target: list[float]) -> float:
         """
