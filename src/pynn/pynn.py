@@ -1,5 +1,6 @@
 import pynn.activation as activation
 import pynn.loss as loss
+
 from .hopfield.hopfield import Hopfield
 from .perceptron.perceptron import Perceptron
 
