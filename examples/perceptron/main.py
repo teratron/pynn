@@ -3,11 +3,10 @@
 from src.pynn.pynn import Pynn
 
 if __name__ == '__main__':
-    """
-    New returns a new neural network
-    instance with the default parameters
-    for Hopfield neural network.
-    """
+    # Returns a new neural network
+    # instance with the default parameters
+    # for Hopfield neural network.
+
     # pn = Pynn(
     #     bias=True,
     #     hidden_layers=[1],
@@ -21,10 +20,10 @@ if __name__ == '__main__':
     # p = Pynn('config/perceptron.json')
     # p = Pynn("""{name: 'perceptron'}""")
 
-    pn = Pynn('perceptron',
-              rate=0.8,
-              activation_mode=Pynn.TANH,
-              hidden_layers=[1, 2, 3])
+    pn = Pynn(  # 'perceptron',
+        rate=0.8,
+        activation_mode=Pynn.TANH,
+        hidden_layers=[1, 2, 3])
     pn.query([.1, .2])
     # print(pn.hidden_layers, pn.rate, pn.loss_limit)
     pn.rate = 0.73
@@ -40,6 +39,7 @@ if __name__ == '__main__':
 
     # t = Test()
     # t.query([1, 2])
+
 # New returns a new neural network
 # instance with the default parameters,
 # same n = nn.New("perceptron").

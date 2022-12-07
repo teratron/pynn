@@ -18,15 +18,7 @@ class Properties(activation.Mode, loss.Mode):
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,
                  rate: float = .3):
-        self.reader: str = reader
-        """
-        String variable through which is passed:
-        
-        - Name of the neural network;
-        - Filename of json config;
-        - Directly json dump passed as a string.
-        """
-
+        self._reader: str = reader
         self._bias: bool = bias
         """The neuron bias, false or true (required field for a config)."""
 

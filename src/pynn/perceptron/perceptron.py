@@ -55,10 +55,10 @@ class Perceptron(Interface, Propagation, Properties):
         """
         Returns all members and all public methods.
         """
-        added_behavior = [
-                             m
-                             for cls in self.__class__.mro()
-                             for m in cls.__dict__
-                             if m[0] != '_'
-                         ] + [m for m in self.__dict__ if m[0] != '_']
-        return ['__class__', '__doc__', '__module__'] + added_behavior
+        return ['__class__', '__doc__', '__module__'] + \
+               [
+                   m
+                   for cls in self.__class__.mro()
+                   for m in cls.__dict__
+                   if m[0] != '_'
+               ] + [m for m in self.__dict__ if m[0] != '_']

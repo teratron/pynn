@@ -6,7 +6,7 @@ from .perceptron.perceptron import Perceptron
 
 def get(reader: str) -> Perceptron | Hopfield | OSError:
     """
-    get_architecture
+    Returns an instance of one of the architectures or an error
     """
     if reader.lower() == Perceptron.name:
         return Perceptron()
@@ -17,15 +17,16 @@ def get(reader: str) -> Perceptron | Hopfield | OSError:
         if path.isfile(filename):
             _, extension = path.splitext(filename)
             if extension == '.json':
-                print('')
+                print('extension:', extension)
             else:
                 return FileExistsError('TODO:')
+        else:
+            print('json stream')
 
-    return Hopfield()
+    return Perceptron()
 
 
-a = get('PERCEPTRON')
-print(a)
+# print('get:', get('PERCEPTRON'))
 
 """
 const (
