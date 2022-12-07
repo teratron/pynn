@@ -1,6 +1,7 @@
 class Mode:
     """
     The mode of calculation of the total error:
+
     MSE - Mean Squared Error (0);
     RMSE - Root Mean Squared Error (1);
     ARCTAN - Arctan Error (2);

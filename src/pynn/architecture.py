@@ -1,21 +1,31 @@
-from .perceptron.main import Perceptron
-from .hopfield.main import Hopfield
+import os.path as path
 
-# PERCEPTRON = Perceptron.name
-# HOPFIELD = Hopfield.name
-
-
-def get_architecture(name: str):
-    match name.lower():
-        case Hopfield.name:
-            return Hopfield()
-
-    return Perceptron()
+from .hopfield.hopfield import Hopfield
+from .perceptron.perceptron import Perceptron
 
 
-# a = get_architecture('PERCEPTRON')
-# print(a.name)
+def get(reader: str) -> Perceptron | Hopfield | OSError:
+    """
+    get_architecture
+    """
+    if reader.lower() == Perceptron.name:
+        return Perceptron()
+    elif reader.lower() == Hopfield.name:
+        return Hopfield()
+    else:
+        filename = path.normpath(reader)
+        if path.isfile(filename):
+            _, extension = path.splitext(filename)
+            if extension == '.json':
+                print('')
+            else:
+                return FileExistsError('TODO:')
 
+    return Hopfield()
+
+
+a = get('PERCEPTRON')
+print(a)
 
 """
 const (

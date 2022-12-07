@@ -21,9 +21,10 @@ class Properties(activation.Mode, loss.Mode):
         self.reader: str = reader
         """
         String variable through which is passed:
-            - Name of the neural network;
-            - Filename of json config;
-            - Directly json dump passed as a string.
+        
+        - Name of the neural network;
+        - Filename of json config;
+        - Directly json dump passed as a string.
         """
 
         self._bias: bool = bias
@@ -74,6 +75,7 @@ class Properties(activation.Mode, loss.Mode):
     def activation_mode(self) -> int:
         """
         Activation function mode:
+
         LINEAR - Linear/identity (0);
         RELU - ReLu (rectified linear unit) (1);
         LEAKY_RELU - Leaky ReLu (leaky rectified linear unit) (2);
@@ -90,6 +92,7 @@ class Properties(activation.Mode, loss.Mode):
     def loss_mode(self) -> int:
         """
         The mode of calculation of the total error:
+
         MSE - Mean Squared Error (0);
         RMSE - Root Mean Squared Error (1);
         ARCTAN - Arctan Error (2);
