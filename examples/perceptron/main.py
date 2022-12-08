@@ -7,10 +7,10 @@ if __name__ == '__main__':
     # instance with the default parameters
     # for Perceptron neural network.
     """
-    p = Pynn()
-    p = Pynn('perceptron')
-    p = Pynn('config/perceptron.json')
-    p = Pynn("{name: 'perceptron'}")
+    Pynn()
+    Pynn('perceptron')
+    Pynn('config/perceptron.json')
+    Pynn("{'name': 'perceptron'}")
     """
     pn = Pynn('perceptron',
               bias=True,
@@ -21,41 +21,41 @@ if __name__ == '__main__':
               rate=.3)
 
     pn.query([.1, .2])
-    pn.rate = 0.73
+    pn.rate = .73
     print(pn.rate, pn.TANH, pn.RMSE)
     pn.calc_neurons()
 
     # Dataset.
-    # dataset = {.27, -.31, -.52, .66, .81, -.13, .2, .49, .11, -.73, .28}
-    # len_data_input = 3  # Number of data_input data.
-    # len_data_output = 2  # Number of data_output data.
+    dataset = [.27, -.31, -.52, .66, .81, -.13, .2, .49, .11, -.73, .28]
+    len_data_input = 3  # Number of input data.
+    len_data_output = 2  # Number of output data.
 
     start = time.time()
 
     # Training.
-    # len_data = len(dataset) - len_data_output
-    # for epoch in range(1, 10001):
-    #     for i in range(len_data_input, len_data + 1):
-    #         _, _ = pn.train(dataset[i - len_data_input:i], dataset[i:i + len_data_output])
-    #
-    #     # Verifying.
-    #     _sum, _num = 0, 0
-    #     for i in range(len_data_input, len_data + 1):
-    #         _sum += pn.verify(dataset[i - len_data_input:i], dataset[i:i + len_data_output])
-    #         _num += 1
-    #
-    #     # Average error for the entire epoch.
-    #     # Exiting the cycle of learning epochs, when the minimum error level is reached.
-    #     if _sum / _num < loss_limit:
-    #         break
+    len_data = len(dataset) - len_data_output
+    for epoch in range(1, 10001):
+        for i in range(len_data_input, len_data + 1):
+            _, _ = pn.train(dataset[i - len_data_input:i], dataset[i:i + len_data_output])
 
-    print(f"Elapsed time: {time.time() - start}\n")
+        # Verifying.
+        _sum = _num = 0.
+        for i in range(len_data_input, len_data + 1):
+            _sum += pn.verify(dataset[i - len_data_input:i], dataset[i:i + len_data_output])
+            _num += 1
 
-    # # Writing the neural network configuration to a file.
-    # _ = pn.write_config("perceptron.json")
-    #
-    # # Writing weights to a file.
-    # _ = pn.write_weights("perceptron_weights.json")
-    #
-    # # Check the trained data, the result should be about [-0.13 0.2].
-    # print(pn.query({-.52, .66, .81}))
+        # Average error for the entire epoch.
+        # Exiting the cycle of learning epochs, when the minimum error level is reached.
+        if _sum / _num < pn.loss_limit:
+            break
+
+    print(f'Elapsed time: {time.time() - start}')
+
+    # Writing the neural network configuration to a file.
+    _ = pn.write_config('perceptron.json')
+
+    # Writing weights to a file.
+    _ = pn.write_weights('perceptron_weights.json')
+
+    # Check the trained data, the result should be about [-0.13 0.2].
+    print(pn.query([-.52, .66, .81]))
