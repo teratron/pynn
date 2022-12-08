@@ -9,15 +9,15 @@ def update_weights(obj) -> None:
     for i in range(len(obj.data_weight)):
         if i > 0:
             dec = i - 1
-            length = len(obj.neuron[dec])
+            length = len(obj.neurons[dec])
 
         for j in range(len(obj.data_weight[i])):
-            grad = obj.rate * obj.neuron[i][j].miss * act.derivative(obj.neuron[i][j].value, obj.activation_mode)
+            grad = obj.rate * obj.neurons[i][j].miss * act.derivative(obj.neurons[i][j].value, obj.activation_mode)
             for k in range(len(obj.data_weight[i][j])):
                 if k < length:
                     val: float
                     if i > 0:
-                        val = obj.neuron[dec][k].value
+                        val = obj.neurons[dec][k].value
                     else:
                         val = obj.data_input[k]
 

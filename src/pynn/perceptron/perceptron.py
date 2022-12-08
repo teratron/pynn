@@ -20,30 +20,32 @@ class Perceptron(Interface, Propagation, Properties):
     type: str = 'Perceptron'
     description: str = 'description'
 
-    def __init__(self, reader=name, **kwargs):
-        super().__init__(reader, **kwargs)
+    def __init__(self, **kwargs):  # reader='',
+        super().__init__(**kwargs)
 
         # Weights
-        self.weight: list[list[list[float]]] = [
+        self.weights: list[list[list[float]]] = [
             [[random.uniform(-.5, .5) for _ in range(5)] for _ in range(5)] for _ in range(5)
         ]
 
         # Neurons
-        self.neuron: list[list[Neuron]] = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
+        self.neurons: list[list[Neuron]] = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
 
         # Settings
         self.len_input: int = 2  # TODO:
         self.len_output: int = 2  # TODO:
-        self.last_layer_ind: int = 1
-        self.is_init: bool = False
-        # self.config         utils.Filer
-        # self.mutex          sync.Mutex
+        self.last_layer_ind: int = 1  # TODO:
+        self.is_init: bool = False  # TODO:
+        # self.config: str = reader  # TODO:
+        # self.mutex: sync.Mutex  # TODO:
 
         # Transfer data
-        self.data_weight: list[list[list[float]]] = self.weight
+        self.data_weight: list[list[list[float]]] = self.weights  # TODO:
         self.data_input: list[float] = [.1, .3]  # TODO:
         self.data_target: list[float] = [.1, .3]  # TODO:
         self.data_output: list[float] = [.1, .3]  # TODO:
+
+        print('dict2:', self.__dict__, self.__doc__)
 
     def __repr__(self):
         return '<%s.%s: %r>' % (self.__class__.__name__, self.name, self.description)

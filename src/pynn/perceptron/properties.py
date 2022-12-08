@@ -4,13 +4,12 @@ import pynn.activation as activation
 import pynn.loss as loss
 
 
-class Properties(activation.Mode, loss.Mode):
+class Properties(activation.Mode, loss.Mode, dict):
     """
     Properties of neural network.
     """
 
     def __init__(self,
-                 reader: str,
                  *,
                  bias: bool = True,
                  hidden_layers: Optional[list[int]] = None,
@@ -18,7 +17,7 @@ class Properties(activation.Mode, loss.Mode):
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,
                  rate: float = .3):
-        self._reader: str = reader
+
         self._bias: bool = bias
         """The neuron bias, false or true (required field for a config)."""
 
@@ -36,6 +35,9 @@ class Properties(activation.Mode, loss.Mode):
 
         self._rate: float = Properties.check_rate(rate)
         """Learning coefficient (greater than 0.0 and less than or equal to 1.0)."""
+
+        super().__init__()
+        # print('dict:', self.__dict__, self.__doc__)
 
     @property
     def bias(self) -> bool:

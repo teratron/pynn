@@ -1,29 +1,33 @@
+import json
 import os.path as path
 
 from .hopfield.hopfield import Hopfield
 from .perceptron.perceptron import Perceptron
 
 
-def get(reader: str) -> Perceptron | Hopfield | OSError:
+def get(reader: str, **kwargs) -> Perceptron | Hopfield | OSError:
     """
     Returns an instance of one of the architectures or an error
     """
     if reader.lower() == Perceptron.name:
-        return Perceptron()
+        return Perceptron(**kwargs)
     elif reader.lower() == Hopfield.name:
-        return Hopfield()
+        return Hopfield(**kwargs)
     else:
         filename = path.normpath(reader)
         if path.isfile(filename):
             _, extension = path.splitext(filename)
             if extension == '.json':
                 print('extension:', extension)
+                with open(filename) as handle:
+                    print(handle, json.load(handle)['name'])
+
             else:
                 return FileExistsError('TODO:')
         else:
             print('json stream')
 
-    return Perceptron()
+    return Perceptron(**kwargs)
 
 
 # print('get:', get('PERCEPTRON'))

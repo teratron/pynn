@@ -17,8 +17,12 @@ class Pynn(activation.Mode, loss.Mode):
     """
 
     def __new__(cls, reader: str = '', **kwargs) -> Perceptron | Hopfield | Exception:
-        instance = architecture.get(reader)
-        if not isinstance(instance, FileExistsError):
-            instance.__init__(reader, **kwargs)
-        print('instance:', instance)
+        instance = architecture.get(reader, **kwargs)
+        # if not isinstance(instance, Exception):
+        #     instance.__init__(reader, **kwargs)
+        # print('instance:', instance)
         return instance
+
+    def __int__(self):
+        self.conf = '_config_'
+    #     super(activation.Mode and loss.Mode).__init__()

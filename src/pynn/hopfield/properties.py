@@ -8,10 +8,8 @@ class Properties(activation.Mode, loss.Mode):
     """
 
     def __init__(self,
-                 reader: str,
                  *,
                  energy: float = .3):
-        self._reader: str = reader
         self._energy: float = Properties.check_energy(energy)
         """Energy."""
 

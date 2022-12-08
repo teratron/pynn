@@ -10,8 +10,8 @@ class Hopfield(Properties):
     type: str = 'Hopfield'
     description: str = 'description'
 
-    def __init__(self, reader=name, **kwargs):
-        super().__init__(reader, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def __repr__(self):
         return '<%s.%s: %r>' % (self.__class__.__name__, self.name, self.description)

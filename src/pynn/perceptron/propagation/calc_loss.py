@@ -6,14 +6,14 @@ def calc_loss(obj) -> float:
     # TODO: try-catch
     loss = 0.
     for i in range(obj.len_output):
-        obj.neuron[obj.last_layer_ind][i].miss = obj.data_target[i] - obj.neuron[obj.last_layer_ind][i].value
+        obj.neurons[obj.last_layer_ind][i].miss = obj.data_target[i] - obj.neurons[obj.last_layer_ind][i].value
         match obj.loss_mode:
             case obj.MSE, obj.RMSE, _:
-                loss += obj.neuron[obj.last_layer_ind][i].miss ** 2
+                loss += obj.neurons[obj.last_layer_ind][i].miss ** 2
             case obj.ARCTAN:
-                loss += math.atan(obj.neuron[obj.last_layer_ind][i].miss) ** 2
+                loss += math.atan(obj.neurons[obj.last_layer_ind][i].miss) ** 2
             case obj.AVG:
-                loss += math.fabs(obj.neuron[obj.last_layer_ind][i].miss)
+                loss += math.fabs(obj.neurons[obj.last_layer_ind][i].miss)
 
     loss /= obj.len_output
     if obj.loss_mode == obj.RMSE:
