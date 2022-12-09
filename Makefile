@@ -4,7 +4,7 @@
 #python setup.py bdist_wheel # сгенерировать версионированное «колесо», включить зависимости
 #python setup.py sdist --formats=zip,gztar,bztar,ztar,tar # исходный код
 
-delete: ## delete
+delete-garbage: ## delete garbage
 	@find . -path './**/config.json' -delete
 
 upgrade: ## Upgrade pip.

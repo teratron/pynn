@@ -1,10 +1,8 @@
 # PYNN
 
-https://habr.com/ru/post/593529/
-
 ## About
 
-**pynn** - Neural Network Library
+**PyNN** - Neural Network Library
 
 ## Install
 
@@ -15,18 +13,19 @@ $ pip install pynn
 ## Getting Started
 
 ```python
-import pynn
+from pynn.pynn import Pynn
 
-# New returns a new neural network
-# instance with the default parameters.
-n = nn.New()
+if __name__ == '__main__':
+    # Returns a new neural network
+    # instance with the default parameters.
+    pn = Pynn()
 
-# Dataset.
-data_input  = {.27, .31}
-data_target = {.7}
+    # Dataset.
+    data_input  = [.27, .31]
+    data_target = [.7]
 
-# Training dataset.
-_, _ = pynn.train(data_input, data_target)
+    # Training dataset.
+    _, _ = pn.train(data_input, data_target)
 ```
 
 ## Documentation

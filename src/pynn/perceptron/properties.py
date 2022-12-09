@@ -1,11 +1,10 @@
-import json
 from typing import Optional
 
 import pynn.activation as activation
 import pynn.loss as loss
 
 
-class Properties(activation.Mode, loss.Mode, dict):
+class Properties(activation.Mode, loss.Mode):
     """
     Properties of neural network.
     """
@@ -14,7 +13,7 @@ class Properties(activation.Mode, loss.Mode, dict):
                  *,
                  bias: bool = True,
                  hidden_layers: Optional[list[int]] = None,
-                 activation_mode: int = activation.Mode.SIGMOID,
+                 activation_mode: int = activation.Mode.TANH,
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,
                  rate: float = .3):
@@ -37,11 +36,12 @@ class Properties(activation.Mode, loss.Mode, dict):
         self._rate: float = Properties.check_rate(rate)
         """Learning coefficient (greater than 0.0 and less than or equal to 1.0)."""
 
-        super().__init__()
+        # super().__init__()
+
         # print('dict:', self.__dict__, self.__doc__)
-        print('dict:', list(map(lambda i: i.strip('_'), self.__dict__.keys())))
-        with open('config.json', 'w') as handle:
-            json.dump(self.__dict__, handle, indent=4, separators=(',', ': '))
+        # print('dict:', list(map(lambda i: i.strip('_'), self.__dict__.keys())))
+        # with open('config.json', 'w') as handle:
+        #     json.dump(self.__dict__, handle, indent=4, separators=(',', ': '))
 
     @property
     def bias(self) -> bool:
@@ -73,7 +73,6 @@ class Properties(activation.Mode, loss.Mode, dict):
     def activation_mode(self) -> int:
         """
         Activation function mode:
-
         LINEAR - Linear/identity (0);
         RELU - ReLu (rectified linear unit) (1);
         LEAKY_RELU - Leaky ReLu (leaky rectified linear unit) (2);
@@ -90,7 +89,6 @@ class Properties(activation.Mode, loss.Mode, dict):
     def loss_mode(self) -> int:
         """
         The mode of calculation of the total error:
-
         MSE - Mean Squared Error (0);
         RMSE - Root Mean Squared Error (1);
         ARCTAN - Arctan Error (2);

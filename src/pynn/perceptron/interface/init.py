@@ -2,6 +2,10 @@ def init(obj, **props) -> None:
     print(obj, props)
 
 
+def init_completion(obj) -> None:
+    obj.is_init = True
+
+
 """
 // Init initialize.
 func (nn *NN) Init(data ...interface{}) {

@@ -1,47 +1,37 @@
-import io
 import json
 import os.path as path
-from typing import IO
 
 from .hopfield.hopfield import Hopfield
 from .perceptron.perceptron import Perceptron
 
 
-class Config(io.TextIOWrapper):
-    def __init__(self, name: str, buffer: IO[bytes]):
-        super().__init__(buffer)
-
-
-def get(reader: str, **props) -> Perceptron | Hopfield | OSError:
+def get(reader: str, **props) -> Perceptron | Hopfield | Exception:
     """
-    Returns an instance of one of the architectures or an error
+    Returns an instance of one of the architectures or an error.
     """
     if reader.lower() == Perceptron.name:
         return Perceptron(**props)
     elif reader.lower() == Hopfield.name:
         return Hopfield(**props)
     else:
+        data: dict
         filename = path.normpath(reader)
         if path.isfile(filename):
             _, extension = path.splitext(filename)
             if extension == '.json':
-                print('extension:', extension)
-                conf: any
                 with open(filename) as handle:
                     data = json.load(handle)
-                    print(handle.buffer, data)
-                    conf: type(handle) = handle
-                    print(dict(conf.buffer))
-
+                data['config'] = filename
             else:
                 return FileExistsError('TODO:')
         else:
-            print('json stream')
+            data = json.loads(reader)
+            data['config'] = None
 
-    return Perceptron(**props)
+        if 'name' in data:
+            return get(data['name'], **data)
 
-
-# print('get:', get('PERCEPTRON'))
+    return Perceptron()
 
 """
 const (

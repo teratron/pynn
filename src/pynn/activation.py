@@ -4,7 +4,6 @@ import math
 class Mode:
     """
     Activation function mode:
-
     LINEAR - Linear/identity (0);
     RELU - ReLu (rectified linear unit) (1);
     LEAKY_RELU - Leaky ReLu (leaky rectified linear unit) (2);
