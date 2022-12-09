@@ -1,8 +1,15 @@
+import io
 import json
 import os.path as path
+from typing import IO
 
 from .hopfield.hopfield import Hopfield
 from .perceptron.perceptron import Perceptron
+
+
+class Config(io.TextIOWrapper):
+    def __init__(self, name: str, buffer: IO[bytes]):
+        super().__init__(buffer)
 
 
 def get(reader: str, **props) -> Perceptron | Hopfield | OSError:
@@ -19,8 +26,12 @@ def get(reader: str, **props) -> Perceptron | Hopfield | OSError:
             _, extension = path.splitext(filename)
             if extension == '.json':
                 print('extension:', extension)
+                conf: any
                 with open(filename) as handle:
-                    print(handle, json.load(handle)['name'])
+                    data = json.load(handle)
+                    print(handle.buffer, data)
+                    conf: type(handle) = handle
+                    print(dict(conf.buffer))
 
             else:
                 return FileExistsError('TODO:')
