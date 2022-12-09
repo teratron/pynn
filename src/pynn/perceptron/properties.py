@@ -1,3 +1,4 @@
+import json
 from typing import Optional
 
 import pynn.activation as activation
@@ -38,6 +39,9 @@ class Properties(activation.Mode, loss.Mode, dict):
 
         super().__init__()
         # print('dict:', self.__dict__, self.__doc__)
+        print('dict:', list(map(lambda i: i.strip('_'), self.__dict__.keys())))
+        with open('config.json', 'w') as handle:
+            json.dump(self.__dict__, handle, indent=4, separators=(',', ': '))
 
     @property
     def bias(self) -> bool:

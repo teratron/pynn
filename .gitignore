@@ -309,3 +309,12 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# json
+*.json
+!examples/json/config/*.json
+!tests/pynn/testdata/*.json
+
+
+
+

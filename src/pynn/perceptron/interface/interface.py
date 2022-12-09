@@ -11,17 +11,17 @@ class Interface:
     Interface.
     """
 
-    def set(self, **kwargs) -> None:
+    def set(self, **props) -> None:
         """
         Set properties of neural network.
         """
-        set(self, **kwargs)
+        set(self, **props)
 
-    def init(self, *args) -> None:
+    def init(self, **props) -> None:
         """
         Initialize neural network.
         """
-        init(self, *args)
+        init(self, **props)
 
     def verify(self, data_input: list[float], data_target: list[float]) -> float:
         """

@@ -1,5 +1,5 @@
-def init(obj, *args) -> None:
-    print(obj, args)
+def init(obj, **props) -> None:
+    print(obj, props)
 
 
 """

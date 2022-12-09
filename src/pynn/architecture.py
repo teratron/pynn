@@ -5,14 +5,14 @@ from .hopfield.hopfield import Hopfield
 from .perceptron.perceptron import Perceptron
 
 
-def get(reader: str, **kwargs) -> Perceptron | Hopfield | OSError:
+def get(reader: str, **props) -> Perceptron | Hopfield | OSError:
     """
     Returns an instance of one of the architectures or an error
     """
     if reader.lower() == Perceptron.name:
-        return Perceptron(**kwargs)
+        return Perceptron(**props)
     elif reader.lower() == Hopfield.name:
-        return Hopfield(**kwargs)
+        return Hopfield(**props)
     else:
         filename = path.normpath(reader)
         if path.isfile(filename):
@@ -27,7 +27,7 @@ def get(reader: str, **kwargs) -> Perceptron | Hopfield | OSError:
         else:
             print('json stream')
 
-    return Perceptron(**kwargs)
+    return Perceptron(**props)
 
 
 # print('get:', get('PERCEPTRON'))

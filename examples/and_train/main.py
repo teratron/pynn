@@ -72,7 +72,8 @@ json_stream = """
             ]
         ]
     ]
-}"""
+}
+"""
 
 if __name__ == '__main__':
     # Returns a new neural network instance from config.

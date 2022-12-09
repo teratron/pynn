@@ -1,2 +1,2 @@
-def set(obj, **kwargs) -> None:
-    print(obj, kwargs)
+def set(obj, **props) -> None:
+    print(obj, props)

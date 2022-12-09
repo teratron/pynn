@@ -8,7 +8,7 @@ from .perceptron.perceptron import Perceptron
 
 class Pynn(activation.Mode, loss.Mode):
     """
-    Pynn.
+    Pynn(reader, **properties).
 
     reader - String variable through which is passed:
         - Name of the neural network;
@@ -16,10 +16,10 @@ class Pynn(activation.Mode, loss.Mode):
         - Directly json dump passed as a string.
     """
 
-    def __new__(cls, reader: str = '', **kwargs) -> Perceptron | Hopfield | Exception:
-        instance = architecture.get(reader, **kwargs)
+    def __new__(cls, reader: str = '', **props) -> Perceptron | Hopfield | Exception:
+        instance = architecture.get(reader, **props)
         # if not isinstance(instance, Exception):
-        #     instance.__init__(reader, **kwargs)
+        #     instance.__init__(reader, **props)
         # print('instance:', instance)
         return instance
 

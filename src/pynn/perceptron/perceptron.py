@@ -20,8 +20,8 @@ class Perceptron(Interface, Propagation, Properties):
     type: str = 'Perceptron'
     description: str = 'description'
 
-    def __init__(self, **kwargs):  # reader='',
-        super().__init__(**kwargs)
+    def __init__(self, **props):  # reader='',
+        super().__init__(**props)
 
         # Weights
         self.weights: list[list[list[float]]] = [
