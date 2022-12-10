@@ -1,9 +1,13 @@
 import random
 
+from pynn.interface import Interface2
+from .interface import *
 from .interface.interface import Interface
 from .propagation.propagation import Propagation
 from .properties import Properties
 
+
+# import interface
 
 class Neuron:
     def __init__(self, value: float, miss: float):
@@ -11,7 +15,7 @@ class Neuron:
         self.miss = miss
 
 
-class Perceptron(Interface, Propagation, Properties):
+class Perceptron(Properties, Interface, Interface2, Propagation):
     """
     Perceptron is neural network.
     """
@@ -40,6 +44,7 @@ class Perceptron(Interface, Propagation, Properties):
             del props['config']
 
         super().__init__(**props)
+        Interface2.__init__(self, init2)
 
         # Neurons
         self.neurons: list[list[Neuron]] = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]

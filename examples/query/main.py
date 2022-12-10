@@ -86,3 +86,5 @@ if __name__ == '__main__':
     # Getting the results of the trained network.
     data_output = pn.query(data_input)
     print(data_output)
+
+    pn.init2()
