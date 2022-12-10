@@ -1,7 +1,7 @@
-from .calc_loss import calc_loss
-from .calc_miss import calc_miss
-from .calc_neurons import calc_neurons
-from .update_weights import update_weights
+from pynn.perceptron.propagation.calc_loss import calc_loss
+from pynn.perceptron.propagation.calc_miss import calc_miss
+from pynn.perceptron.propagation.calc_neurons import calc_neurons
+from pynn.perceptron.propagation.update_weights import update_weights
 
 
 class Propagation:
@@ -10,27 +10,19 @@ class Propagation:
     """
 
     def calc_neurons(self) -> None:
-        """
-        Calculating neurons.
-        """
+        """Calculating neurons."""
         calc_neurons(self)
 
     def calc_loss(self) -> float:
-        """
-        Calculating and return the total error of the output neurons.
-        """
+        """Calculating and return the total error of the output neurons."""
         return calc_loss(self)
 
     def calc_miss(self) -> None:
-        """
-        Calculating the error of neuron in hidden layers.
-        """
+        """Calculating the error of neuron in hidden layers."""
         calc_miss(self)
 
     def update_weights(self) -> None:
-        """
-        Update weights.
-        """
+        """Update weights."""
         update_weights(self)
 
 

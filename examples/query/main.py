@@ -1,4 +1,6 @@
-from src.pynn.pynn import Pynn
+from pynn import Pynn
+
+print('name:', __name__)
 
 json_stream = """
 {
@@ -87,4 +89,4 @@ if __name__ == '__main__':
     data_output = pn.query(data_input)
     print(data_output)
 
-    pn.init2()
+    pn.init()

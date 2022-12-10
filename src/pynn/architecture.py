@@ -1,18 +1,19 @@
 import json
 import os.path as path
+from typing import Union
 
 from .hopfield.hopfield import Hopfield
 from .perceptron.perceptron import Perceptron
 
 
-def get(reader: str, **props) -> Perceptron | Hopfield | Exception:
+def get(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exception]:
     """
     Returns an instance of one of the architectures or an error.
     """
     if reader.lower() == Perceptron.name:
-        return Perceptron(**props)
+        return Perceptron(**kwargs)
     elif reader.lower() == Hopfield.name:
-        return Hopfield(**props)
+        return Hopfield(**kwargs)
     else:
         data: dict
         filename = path.normpath(reader)

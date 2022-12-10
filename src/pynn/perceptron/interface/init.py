@@ -1,9 +1,7 @@
-def init(obj, **props) -> None:
-    print('/////////', obj, props)
 
 
-def init2() -> None:
-    print('obj, args, props')
+def init(obj, **kwargs) -> None:
+    print('init', obj, kwargs)
 
 
 def init_completion(obj) -> None:

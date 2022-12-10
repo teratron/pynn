@@ -1,13 +1,10 @@
 import random
 
-from pynn.interface import Interface2
-from .interface import *
-from .interface.interface import Interface
-from .propagation.propagation import Propagation
+from pynn.interface import Interface
+from pynn.perceptron.propagation.propagation import Propagation
+from .interface import (props, init, verify, query, train, and_train, write_config, write_weights)
 from .properties import Properties
 
-
-# import interface
 
 class Neuron:
     def __init__(self, value: float, miss: float):
@@ -15,7 +12,7 @@ class Neuron:
         self.miss = miss
 
 
-class Perceptron(Properties, Interface, Interface2, Propagation):
+class Perceptron(Properties, Interface, Propagation):
     """
     Perceptron is neural network.
     """
@@ -24,42 +21,41 @@ class Perceptron(Properties, Interface, Interface2, Propagation):
     type: str = 'Perceptron'
     description: str = 'description'
 
-    def __init__(self, **props):
-        if 'name' in props:
-            del props['name']
+    def __init__(self, **kwargs):
+        if 'name' in kwargs:
+            del kwargs['name']
 
-        # Weights
-        self.weights: list[list[list[float]]]
-        if 'weights' in props:
-            self.weights = props['weights']
-            del props['weights']
+        # Weights, type: list[list[list[float]]]
+        if 'weights' in kwargs:
+            self.weights = kwargs['weights']
+            del kwargs['weights']
         else:
             self.weights = [
                 [[random.uniform(-.5, .5) for _ in range(5)] for _ in range(5)] for _ in range(5)
             ]
 
         # Config
-        if 'config' in props:
-            self.config = props['config']
-            del props['config']
+        if 'config' in kwargs:
+            self.config = kwargs['config']
+            del kwargs['config']
 
-        super().__init__(**props)
-        Interface2.__init__(self, init2)
+        super().__init__(**kwargs)
+        Interface.__init__(self, props, init, verify, query, train, and_train, write_config, write_weights)
 
-        # Neurons
-        self.neurons: list[list[Neuron]] = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
+        # Neurons, type: list[list[Neuron]]
+        self.neurons = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
 
         # Transfer data
-        self.data_weight: list[list[list[float]]] = self.weights
-        self.data_input: list[float] = [.1, .3]  # TODO:
-        self.data_target: list[float] = [.1, .3]  # TODO:
-        self.data_output: list[float] = [.1, .3]  # TODO:
+        self.data_weight = self.weights
+        self.data_input = [.1, .3]  # TODO:
+        self.data_target = [.1, .3]  # TODO:
+        self.data_output = [.1, .3]  # TODO:
 
         # Settings
-        self.len_input: int = 2  # TODO:
-        self.len_output: int = 2  # TODO:
-        self.last_layer_ind: int = 1  # TODO:
-        self.is_init: bool = False  # TODO:
+        self.len_input = 2  # TODO:
+        self.len_output = 2  # TODO:
+        self.last_layer_ind = 1  # TODO:
+        self.is_init = False  # TODO:
         # self.mutex: sync.Mutex  # TODO:
 
     def __str__(self):
