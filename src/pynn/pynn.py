@@ -2,8 +2,6 @@ import pynn.activation as activation
 import pynn.architecture as architecture
 import pynn.loss as loss
 
-print('name:', __name__)
-
 
 class Pynn(activation.Mode, loss.Mode):
     """

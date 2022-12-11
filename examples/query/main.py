@@ -1,7 +1,5 @@
 from pynn import Pynn
 
-print('name:', __name__)
-
 json_stream = """
 {
     "name": "perceptron",

@@ -1,9 +1,4 @@
 
-#python setup.py develop # ничего не генерировать, просто установить локально
-#python setup.py bdist_egg # сгенерировать дистрибутив «яйцо», не включать зависимости
-#python setup.py bdist_wheel # сгенерировать версионированное «колесо», включить зависимости
-#python setup.py sdist --formats=zip,gztar,bztar,ztar,tar # исходный код
-
 delete-garbage: ## delete garbage
 	@find . -path './**/config.json' -delete
 
@@ -54,7 +49,7 @@ pipenv-where: ## Locate the project.
 pipenv-venv: ## Locate the virtualenv.
 	pipenv --venv
 
-pipenv-py: ## Locate the Python interpreter.
+pipenv-5py: ## Locate the Python interpreter.
 	pipenv --py
 
 pipenv-new-project: ## Create a new project using Python 3.7, specifically.
