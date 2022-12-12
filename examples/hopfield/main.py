@@ -1,4 +1,4 @@
-from src.pynn.pynn import Pynn
+from pynn import Pynn
 
 if __name__ == '__main__':
     # Returns a new neural network

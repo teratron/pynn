@@ -1,10 +1,10 @@
-from src.pynn.pynn import Pynn
+from pynn import Pynn
 
 if __name__ == '__main__':
     # Returns a new neural network
     # instance with the default parameters,
     # same n = nn.New("perceptron").
-    pn = Pynn('perceptron')
+    pn = Pynn()
 
     # Properties.
     pn.hidden_layers = [3, 2]

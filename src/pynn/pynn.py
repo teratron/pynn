@@ -1,17 +1,25 @@
-import pynn.activation as activation
-import pynn.architecture as architecture
-import pynn.loss as loss
+from . import activation, loss
+from ._architecture import _architecture
 
 
 class Pynn(activation.Mode, loss.Mode):
     """
-    Pynn(reader, **properties).
+    Pynn(reader: str, **kwargs)
 
-    reader - String variable through which is passed:
+    Examples:
+        Pynn()
+        Pynn('perceptron')
+        Pynn('config/perceptron.json')
+        Pynn('{"name": "perceptron", ...}')
+
+    reader = '' | 'perceptron' | 'hopfield' | 'config.json' | '{"name": "perceptron", ...}'
+        String variable through which is passed:
         - Name of the neural network;
         - Filename of json config;
         - Directly json dump passed as a string.
+
+    **kwargs - properties of the neural network.
     """
 
     def __new__(cls, reader: str = '', **kwargs):
-        return architecture.get(reader, **kwargs)
+        return _architecture(reader, **kwargs)

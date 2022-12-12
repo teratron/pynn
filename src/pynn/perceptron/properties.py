@@ -1,7 +1,6 @@
-from typing import Optional
+from typing import Union
 
-import pynn.activation as activation
-import pynn.loss as loss
+from pynn import activation, loss
 
 
 class Properties(activation.Mode, loss.Mode):
@@ -12,7 +11,7 @@ class Properties(activation.Mode, loss.Mode):
     def __init__(self,
                  *,
                  bias: bool = True,
-                 hidden_layers: Optional[list[int]] = None,
+                 hidden_layers: Union[list[int], None] = None,
                  activation_mode: int = activation.Mode.TANH,
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,

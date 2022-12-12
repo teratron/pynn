@@ -1,9 +1,7 @@
 from typing import Tuple
 
-print('name:', __name__)
 
-
-class Interface:
+class _Interface:
     """
     Interface for neural network.
     """

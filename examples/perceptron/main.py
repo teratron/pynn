@@ -1,17 +1,11 @@
 import time
 
-from src.pynn import Pynn
+from pynn import Pynn
 
 if __name__ == '__main__':
     # Returns a new neural network
     # instance with the default parameters
     # for Perceptron neural network.
-    """
-    Pynn()
-    Pynn('perceptron')
-    Pynn('config/perceptron.json')
-    Pynn("{'name': 'perceptron'}")
-    """
     pn = Pynn('perceptron',
               bias=True,
               hidden_layers=[5, 3],

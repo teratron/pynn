@@ -1,6 +1,6 @@
 import random
 
-from pynn.interface import Interface
+from pynn._interface import _Interface
 from pynn.perceptron.propagation.propagation import Propagation
 from .interface import (props, init, verify, query, train, and_train, write_config, write_weights)
 from .properties import Properties
@@ -12,7 +12,7 @@ class Neuron:
         self.miss = miss
 
 
-class Perceptron(Properties, Interface, Propagation):
+class Perceptron(Properties, _Interface, Propagation):
     """
     Perceptron is neural network.
     """
@@ -40,7 +40,7 @@ class Perceptron(Properties, Interface, Propagation):
             del kwargs['config']
 
         super().__init__(**kwargs)
-        Interface.__init__(self, props, init, verify, query, train, and_train, write_config, write_weights)
+        _Interface.__init__(self, props, init, verify, query, train, and_train, write_config, write_weights)
 
         # Neurons, type: list[list[Neuron]]
         self.neurons = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]

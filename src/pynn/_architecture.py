@@ -2,11 +2,11 @@ import json
 import os.path as path
 from typing import Union
 
-from .hopfield.hopfield import Hopfield
-from .perceptron.perceptron import Perceptron
+from .hopfield import Hopfield
+from .perceptron import Perceptron
 
 
-def get(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exception]:
+def _architecture(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exception]:
     """
     Returns an instance of one of the architectures or an error.
     """
@@ -30,9 +30,12 @@ def get(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exception]:
             data['config'] = None
 
         if 'name' in data:
-            return get(data['name'], **data)
+            return _architecture(data['name'], **data)
 
     return Perceptron()
+
+
+# del json
 
 """
 const (

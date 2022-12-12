@@ -88,3 +88,6 @@ if __name__ == '__main__':
     print(data_output)
 
     pn.init()
+
+    # i = _Interface()
+    # _architecture._architecture('')

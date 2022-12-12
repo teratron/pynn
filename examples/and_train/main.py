@@ -1,4 +1,4 @@
-from src.pynn.pynn import Pynn
+from pynn import Pynn
 
 json_stream = """
 {
