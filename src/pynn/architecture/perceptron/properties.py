@@ -1,6 +1,6 @@
 from typing import Union
 
-from pynn import activation, loss
+from pynn.utils import loss, activation
 
 
 class Properties(activation.Mode, loss.Mode):

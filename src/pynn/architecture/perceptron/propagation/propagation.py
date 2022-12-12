@@ -1,7 +1,7 @@
-from pynn.perceptron.propagation.calc_loss import calc_loss
-from pynn.perceptron.propagation.calc_miss import calc_miss
-from pynn.perceptron.propagation.calc_neurons import calc_neurons
-from pynn.perceptron.propagation.update_weights import update_weights
+from pynn.architecture.perceptron.propagation.calc_loss import calc_loss
+from pynn.architecture.perceptron.propagation.calc_miss import calc_miss
+from pynn.architecture.perceptron.propagation.calc_neurons import calc_neurons
+from pynn.architecture.perceptron.propagation.update_weights import update_weights
 
 
 class Propagation:

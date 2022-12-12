@@ -1,5 +1,5 @@
-import pynn.activation as activation
-import pynn.loss as loss
+import pynn.utils.activation as activation
+import pynn.utils.loss as loss
 
 
 class Properties(activation.Mode, loss.Mode):

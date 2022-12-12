@@ -1,8 +1,8 @@
-# from pynn import pynn
 
 from pynn import version
 from pynn.pynn import Pynn
 
+# from pynn import pynn
 # from pynn._interface import _Interface
 # from pynn import activation
 # from pynn import loss

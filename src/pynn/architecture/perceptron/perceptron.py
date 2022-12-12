@@ -1,7 +1,7 @@
 import random
 
 from pynn._interface import _Interface
-from pynn.perceptron.propagation.propagation import Propagation
+from pynn.architecture.perceptron.propagation.propagation import Propagation
 from .interface import (props, init, verify, query, train, and_train, write_config, write_weights)
 from .properties import Properties
 

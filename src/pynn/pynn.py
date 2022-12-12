@@ -1,5 +1,5 @@
-from . import activation, loss
-from ._architecture import _architecture
+from pynn.architecture._architecture import _architecture
+from .utils import loss, activation
 
 
 class Pynn(activation.Mode, loss.Mode):

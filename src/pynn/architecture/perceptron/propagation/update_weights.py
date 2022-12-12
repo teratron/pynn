@@ -1,4 +1,4 @@
-import pynn.activation as act
+import pynn.utils.activation as act
 
 
 def update_weights(obj) -> None:

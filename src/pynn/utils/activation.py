@@ -28,16 +28,12 @@ class Mode:
 
 
 def check(mode: int) -> int:
-    """
-    Check activation mode.
-    """
+    """Check activation mode."""
     return Mode.SIGMOID if mode > Mode.TANH else mode
 
 
 def activation(value: float, mode: int = Mode.SIGMOID) -> float:
-    """
-    Activation function.
-    """
+    """Activation function."""
     match mode:
         case Mode.LINEAR:
             return value
@@ -53,9 +49,7 @@ def activation(value: float, mode: int = Mode.SIGMOID) -> float:
 
 
 def derivative(value: float, mode: int = Mode.SIGMOID) -> float:
-    """
-    Derivative activation function.
-    """
+    """Derivative activation function."""
     match mode:
         case Mode.LINEAR:
             return 1

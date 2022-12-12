@@ -21,9 +21,7 @@ class Mode:
 
 
 def check(mode: int) -> int:
-    """
-    Check loss mode.
-    """
+    """Check loss mode."""
     return Mode.MSE if mode > Mode.AVG else mode
 
 # def error(value: float, mode: int = Mode.MSE, *args: tuple[float]):
