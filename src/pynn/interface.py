@@ -1,7 +1,7 @@
 from typing import Tuple
 
 
-class _Interface:
+class Interface:
     """
     Interface for neural network.
     """
@@ -15,26 +15,21 @@ class _Interface:
         self._and_train = and_train
         self._write_config = write_config
         self._write_weights = write_weights
-        print('int2:', self.init.__name__, self.__class__.__mro__)
+
+    def _initialize(self) -> None:
+        """Initialize neural network."""
+        self._init(self)
 
     def props(self, **kwargs) -> None:
         """Set properties of neural network."""
         self._props(self, **kwargs)
 
-    def init(self) -> None:
-        """Initialize neural network."""
-        self._init(self)
-
     def verify(self, data_input: list[float], data_target: list[float]) -> float:
-        """
-        Verifying dataset.
-        """
+        """Verifying dataset."""
         return self._verify(data_input, data_target)
 
     def query(self, data_input: list[float]) -> list[float]:
-        """
-        Querying dataset.
-        """
+        """Querying dataset."""
         return self._query(self, data_input)
 
     def train(self, data_input: list[float], data_target: list[float]) -> Tuple[int, float]:

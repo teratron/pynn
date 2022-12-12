@@ -90,4 +90,4 @@ if __name__ == '__main__':
     pn.init()
 
     # i = _Interface()
-    # _architecture._architecture('')
+    # architecture.architecture('')

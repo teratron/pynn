@@ -6,7 +6,7 @@ from .hopfield import Hopfield
 from .perceptron import Perceptron
 
 
-def _architecture(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exception]:
+def architecture(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exception]:
     """
     Returns an instance of one of the architectures or an error.
     """
@@ -30,7 +30,7 @@ def _architecture(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exceptio
             data['config'] = None
 
         if 'name' in data:
-            return _architecture(data['name'], **data)
+            return architecture(data['name'], **data)
 
     return Perceptron()
 

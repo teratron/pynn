@@ -1,4 +1,4 @@
-from pynn.architecture._architecture import _architecture
+from .architecture import architecture
 from .utils import loss, activation
 
 
@@ -22,4 +22,4 @@ class Pynn(activation.Mode, loss.Mode):
     """
 
     def __new__(cls, reader: str = '', **kwargs):
-        return _architecture(reader, **kwargs)
+        return architecture(reader, **kwargs)
