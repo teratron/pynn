@@ -87,7 +87,8 @@ if __name__ == '__main__':
     data_output = pn.query(data_input)
     print(data_output)
 
-    pn.init()
+    # pn.initialize()
+    # pn.calc_neurons()
 
     # i = _Interface()
     # architecture.architecture('')

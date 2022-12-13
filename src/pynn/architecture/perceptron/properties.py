@@ -1,9 +1,9 @@
-from typing import Union
+from typing import Optional, List
 
 from pynn.utils import loss, activation
 
 
-class Properties(activation.Mode, loss.Mode):
+class Properties:  # activation.Mode, loss.Mode
     """
     Properties of neural network.
     """
@@ -11,7 +11,7 @@ class Properties(activation.Mode, loss.Mode):
     def __init__(self,
                  *,
                  bias: bool = True,
-                 hidden_layers: Union[list[int], None] = None,
+                 hidden_layers: Optional[List[int]] = None,
                  activation_mode: int = activation.Mode.TANH,
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,
@@ -20,7 +20,7 @@ class Properties(activation.Mode, loss.Mode):
         self._bias: bool = bias
         """The neuron bias, false or true (required field for a config)."""
 
-        self._hidden_layers: list[int] = Properties.check_hidden_layers(hidden_layers)
+        self._hidden_layers: List[int] = Properties.check_hidden_layers(hidden_layers)
         """List of the number of neuron in each hidden layers."""
 
         self._activation_mode: int = activation.check(activation_mode)
@@ -50,22 +50,22 @@ class Properties(activation.Mode, loss.Mode):
         return self._bias
 
     @bias.setter
-    def bias(self, bias: bool):
+    def bias(self, bias: bool) -> None:
         self._bias = bias
 
     @property
-    def hidden_layers(self) -> list[int]:
+    def hidden_layers(self) -> List[int]:
         """
         List of the number of neuron in each hidden layers.
         """
         return self._hidden_layers
 
     @hidden_layers.setter
-    def hidden_layers(self, layers: list[int]):
+    def hidden_layers(self, layers: List[int]) -> None:
         self._hidden_layers = Properties.check_hidden_layers(layers)
 
     @staticmethod
-    def check_hidden_layers(layers: list[int]) -> list[int]:
+    def check_hidden_layers(layers: Optional[List[int]]) -> List[int]:
         return [0] if layers is None else layers
 
     @property
@@ -81,7 +81,7 @@ class Properties(activation.Mode, loss.Mode):
         return self._activation_mode
 
     @activation_mode.setter
-    def activation_mode(self, mode: int):
+    def activation_mode(self, mode: int) -> None:
         self._activation_mode = activation.check(mode)
 
     @property
@@ -96,7 +96,7 @@ class Properties(activation.Mode, loss.Mode):
         return self._loss_mode
 
     @loss_mode.setter
-    def loss_mode(self, mode: int):
+    def loss_mode(self, mode: int) -> None:
         self._loss_mode = loss.check(mode)
 
     @property
@@ -107,7 +107,7 @@ class Properties(activation.Mode, loss.Mode):
         return self._loss_limit
 
     @loss_limit.setter
-    def loss_limit(self, limit: float):
+    def loss_limit(self, limit: float) -> None:
         self._loss_limit = Properties.check_loss_limit(limit)
 
     @staticmethod
@@ -122,7 +122,7 @@ class Properties(activation.Mode, loss.Mode):
         return self._rate
 
     @rate.setter
-    def rate(self, rate: float):
+    def rate(self, rate: float) -> None:
         self._rate = Properties.check_rate(rate)
 
     @staticmethod

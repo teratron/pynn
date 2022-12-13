@@ -1,5 +1,6 @@
 def query(obj, data_input: list[float]) -> list[float]:
     print('query***:', obj, obj.rate, data_input)
+    obj.calc_neurons()
     return data_input
 
 

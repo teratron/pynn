@@ -1,5 +1,5 @@
-def verify(obj, data_input: list[float], data_target: list[float]) -> float:
-    return 0
+def verify(obj: object, data_input: list[float], data_target: list[float]) -> float:
+    return 0.0
 
 """
 

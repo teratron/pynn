@@ -1,9 +1,9 @@
 import random
+from typing import Any, List
 
 from pynn.interface import Interface
-from .interface import (props, init, verify, query, train, and_train, write_config, write_weights)
+from .interface import props, init, verify, query, train, and_train, write_config, write_weights
 from .propagation import Propagation
-from .properties import Properties
 
 
 class Neuron:
@@ -12,7 +12,7 @@ class Neuron:
         self.miss = miss
 
 
-class Perceptron(Properties, Interface, Propagation):
+class Perceptron(Interface, Propagation):  # Properties,
     """
     Perceptron is neural network.
     """
@@ -21,7 +21,7 @@ class Perceptron(Properties, Interface, Propagation):
     type: str = 'Perceptron'
     description: str = 'description'
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any):
         if 'name' in kwargs:
             del kwargs['name']
 
@@ -40,32 +40,32 @@ class Perceptron(Properties, Interface, Propagation):
             del kwargs['config']
 
         super().__init__(**kwargs)
-        Interface.__init__(self, props, init, verify, query, train, and_train, write_config, write_weights)
-        Propagation.__init__(self, self)
+        Interface.__init__(self, init, props, verify, query, train, and_train, write_config, write_weights)
+        # Propagation.__init__(self, self)
 
         # Neurons, type: list[list[Neuron]]
-        self.neurons = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
+        # self.neurons = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
+        #
+        # # Transfer data
+        # self.data_weight = self.weights
+        # self.data_input = [.1, .3]  # TODO:
+        # self.data_target = [.1, .3]  # TODO:
+        # self.data_output = [.1, .3]  # TODO:
+        #
+        # # Settings
+        # self.len_input = 2  # TODO:
+        # self.len_output = 2  # TODO:
+        # self.last_layer_ind = 1  # TODO:
+        # self.is_init = False  # TODO:
+        # # self.mutex: sync.Mutex  # TODO:
 
-        # Transfer data
-        self.data_weight = self.weights
-        self.data_input = [.1, .3]  # TODO:
-        self.data_target = [.1, .3]  # TODO:
-        self.data_output = [.1, .3]  # TODO:
-
-        # Settings
-        self.len_input = 2  # TODO:
-        self.len_output = 2  # TODO:
-        self.last_layer_ind = 1  # TODO:
-        self.is_init = False  # TODO:
-        # self.mutex: sync.Mutex  # TODO:
-
-    def __str__(self):
+    def __str__(self) -> str:
         return '%s.%s' % (self.__class__.__name__, self.name)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return '<%s: %r>' % (self.__str__(), self.__dict__)
 
-    def __dir__(self):
+    def __dir__(self) -> List[str]:
         """
         Returns all members and all public methods.
         """
