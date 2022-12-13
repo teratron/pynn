@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import Tuple, Any, List, Callable, Dict
+from typing import Any, Callable
 
 
 class Properties(ABC):
@@ -16,51 +16,51 @@ class Interface(Properties, Parameters):
     """
 
     def __init__(self,
-                 init: Callable[[object], None],
-                 props: Callable[[object, Dict[str, Any]], None],
-                 verify: Callable[[object, List[float], List[float]], float],
-                 query: Callable[[object, List[float]], List[float]],
-                 train: Any,
-                 and_train: Any,
-                 write_config: Any,
-                 write_weights: Any):
-        self._props = props
-        self._init = init
-        self._verify = verify
-        self._query = query
-        self._train = train
-        self._and_train = and_train
-        self._write_config = write_config
-        self._write_weights = write_weights
+                 call_init: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
+                 call_props: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
+                 call_verify: Callable[[object, tuple[Any, ...], dict[str, Any]], float],
+                 call_query: Callable[[object, tuple[Any, ...], dict[str, Any]], list[float]],
+                 call_train: Callable[[object, tuple[Any, ...], dict[str, Any]], tuple[int, float]],
+                 call_and_train: Callable[[object, tuple[Any, ...], dict[str, Any]], tuple[int, float]],
+                 call_write: Callable[[object, tuple[Any, ...], dict[str, Any]], None]):
+        self._call_init = call_init
+        self._call_props = call_props
+        self._call_verify = call_verify
+        self._call_query = call_query
+        self._call_train = call_train
+        self._call_and_train = call_and_train
+        self._call_write = call_write
 
-    def _initialize(self) -> None:
+        # pprint.pprint(self._call__dict__)
+
+    def _initialize(self, *args: Any, **kwargs: Any) -> None:
         """Initialize neural network."""
-        self._init(self)
+        self._call_init(self, *args, **kwargs)
 
-    def props(self, **kwargs: Dict[str, Any]) -> None:
+    def props(self, *args: Any, **kwargs: Any) -> None:
         """Set properties of neural network."""
-        self._props(self, kwargs)
+        self._call_props(self, *args, **kwargs)
 
-    def verify(self, data_input: List[float], data_target: List[float]) -> float:
+    def verify(self, *args: Any, **kwargs: Any) -> float:
         """Verifying dataset."""
-        return self._verify(self, data_input, data_target)
+        return self._call_verify(self, *args, **kwargs)
 
-    def query(self, data_input: List[float]) -> List[float]:
+    def query(self, *args: Any, **kwargs: Any) -> list[float]:
         """Querying dataset."""
-        return self._query(self, data_input)
+        return self._call_query(self, *args, **kwargs)
 
-    def train(self, data_input: List[float], data_target: List[float]) -> Tuple[int, float]:
+    def train(self, *args: Any, **kwargs: Any) -> tuple[int, float]:
         """Training dataset."""
-        return self._train(self, data_input, data_target)
+        return self._call_train(self, *args, **kwargs)
 
-    def and_train(self, data_target: List[float]) -> Tuple[int, float]:
+    def and_train(self, *args: Any, **kwargs: Any) -> tuple[int, float]:
         """Training dataset after the query."""
-        return self._and_train(self, data_target)
+        return self._call_and_train(self, *args, **kwargs)
 
-    def write_config(self, filename: str) -> Exception:
+    def write(self, *args: Any, **kwargs: Any) -> None:
         """Writes the configuration and weights to a file."""
-        return self._write_config(self, filename)
+        self._call_write(self, *args, **kwargs)
 
-    def write_weights(self, filename: str) -> Exception:
-        """Writes weights to a file."""
-        return self._write_weights(self, filename)
+    @classmethod
+    def dust(cls, *args: Any, **kwargs: Any) -> None:
+        cls.dust(*args, **kwargs)

@@ -1,9 +1,15 @@
-def train(obj, data_input: list[float], data_target: list[float]) -> (int, float):
+from typing import Any
+
+
+def train(obj: object, *args: Any, **kwargs: Any) -> tuple[int, float]:
+    print(obj, args, kwargs)
     return 0, 0
 
 
-def and_train(obj, data_target: list[float]) -> (int, float):
+def and_train(obj: object, *args: Any, **kwargs: Any) -> tuple[int, float]:
+    print(obj, args, kwargs)
     return 0, 0
+
 
 """
 

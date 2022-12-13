@@ -45,11 +45,10 @@ if __name__ == '__main__':
 
     print(f'Elapsed time: {time.time() - start}')
 
-    # Writing the neural network configuration to a file.
-    _ = pn.write_config('perceptron.json')
-
-    # Writing weights to a file.
-    _ = pn.write_weights('perceptron_weights.json')
+    # Writing the neural network configuration and weights to a file.
+    pn.write(
+        config='perceptron.json',
+        weights='perceptron_weights.json')
 
     # Check the trained data, the result should be about [-0.13 0.2].
     print(pn.query([-.52, .66, .81]))

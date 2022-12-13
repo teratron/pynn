@@ -1,10 +1,13 @@
+from typing import Any
+
+from pynn.architecture.perceptron.perceptron import Perceptron
 
 
-def init(obj, **kwargs) -> None:
-    print('init', obj, kwargs)
+def init(obj: object, *args: Any, **kwargs: Any) -> None:
+    print('init', obj, args, kwargs)
 
 
-def init_completion(obj) -> None:
+def init_completion(obj: Perceptron) -> None:
     obj.is_init = True
 
 

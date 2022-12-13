@@ -1,21 +1,30 @@
+from asyncio import Lock
+
+
+class Neuron:
+    def __init__(self, value: float, miss: float) -> None:
+        self.value = value
+        self.miss = miss
+
+
 class Parameters:
     """
     Parameters.
     """
 
     def __init__(self) -> None:
-        # Neurons, type: list[list[Neuron]]
-        self.neurons = None  # [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
+        # Neurons
+        self.neurons: list[list[Neuron]]
 
         # Transfer data
-        self.data_weight = self.weights
-        self.data_input = [.1, .3]  # TODO:
-        self.data_target = [.1, .3]  # TODO:
-        self.data_output = [.1, .3]  # TODO:
+        self.data_weight: list[list[list[float]]]
+        self.data_input: list[float]
+        self.data_target: list[float]
+        self.data_output: list[float]
 
         # Settings
-        self.len_input = 2  # TODO:
-        self.len_output = 2  # TODO:
-        self.last_layer_ind = 1  # TODO:
-        self.is_init = False  # TODO:
-        # self.mutex: sync.Mutex  # TODO:
+        self.len_input: int
+        self.len_output: int
+        self.last_layer_ind: int
+        self.is_init: bool
+        self.mutex: Lock

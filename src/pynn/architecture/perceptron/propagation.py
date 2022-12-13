@@ -3,11 +3,13 @@ import math
 from typing import Union
 
 from pynn.utils import loss, activation
-from .parameters import Parameters
-from .properties import Properties
 
 
-class Propagation(Parameters, Properties):
+# from .parameters import Parameters
+# from .properties import Properties
+
+
+class Propagation:  # (Parameters, Properties)
     """
     Propagation.
     """

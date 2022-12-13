@@ -1,11 +1,18 @@
-def write_config(obj, filename: str) -> Exception:
-    print(obj, filename)
-    return Exception()
+from typing import Any
 
 
-def write_weights(obj, filename: str) -> Exception:
-    print(obj, filename)
-    return Exception()
+def write(obj: object, *args: Any, **kwargs: Any) -> None:
+    print(obj, args, kwargs)
+
+
+# def write_config(obj, filename: str) -> Exception:
+#     print(obj, filename)
+#     return Exception()
+#
+#
+# def write_weights(obj, filename: str) -> Exception:
+#     print(obj, filename)
+#     return Exception()
 
 """
 // WriteConfig writes the configuration and weights to the Filer interface object.

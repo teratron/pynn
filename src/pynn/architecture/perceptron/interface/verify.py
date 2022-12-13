@@ -1,5 +1,10 @@
-def verify(obj: object, data_input: list[float], data_target: list[float]) -> float:
+from typing import Any
+
+
+def verify(obj: object, *args: Any, **kwargs: Any) -> float:
+    print(obj, args, kwargs)
     return 0.0
+
 
 """
 

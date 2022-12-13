@@ -1,9 +1,9 @@
-from typing import Optional, List
+from typing import Optional
 
 from pynn.utils import loss, activation
 
 
-class Properties:  # activation.Mode, loss.Mode
+class Properties:
     """
     Properties of neural network.
     """
@@ -11,16 +11,15 @@ class Properties:  # activation.Mode, loss.Mode
     def __init__(self,
                  *,
                  bias: bool = True,
-                 hidden_layers: Optional[List[int]] = None,
+                 hidden_layers: Optional[list[int]] = None,
                  activation_mode: int = activation.Mode.TANH,
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,
-                 rate: float = .3):
-
+                 rate: float = .3) -> None:
         self._bias: bool = bias
         """The neuron bias, false or true (required field for a config)."""
 
-        self._hidden_layers: List[int] = Properties.check_hidden_layers(hidden_layers)
+        self._hidden_layers: list[int] = Properties.check_hidden_layers(hidden_layers)
         """List of the number of neuron in each hidden layers."""
 
         self._activation_mode: int = activation.check(activation_mode)
@@ -35,13 +34,6 @@ class Properties:  # activation.Mode, loss.Mode
         self._rate: float = Properties.check_rate(rate)
         """Learning coefficient (greater than 0.0 and less than or equal to 1.0)."""
 
-        # super().__init__()
-
-        # print('dict:', self.__dict__, self.__doc__)
-        # print('dict:', list(map(lambda i: i.strip('_'), self.__dict__.keys())))
-        # with open('config.json', 'w') as handle:
-        #     json.dump(self.__dict__, handle, indent=4, separators=(',', ': '))
-
     @property
     def bias(self) -> bool:
         """
@@ -54,18 +46,18 @@ class Properties:  # activation.Mode, loss.Mode
         self._bias = bias
 
     @property
-    def hidden_layers(self) -> List[int]:
+    def hidden_layers(self) -> list[int]:
         """
         List of the number of neuron in each hidden layers.
         """
         return self._hidden_layers
 
     @hidden_layers.setter
-    def hidden_layers(self, layers: List[int]) -> None:
+    def hidden_layers(self, layers: list[int]) -> None:
         self._hidden_layers = Properties.check_hidden_layers(layers)
 
     @staticmethod
-    def check_hidden_layers(layers: Optional[List[int]]) -> List[int]:
+    def check_hidden_layers(layers: Optional[list[int]]) -> list[int]:
         return [0] if layers is None else layers
 
     @property

@@ -1,4 +1,4 @@
-from pynn import version
+from pynn import __version__
 from pynn.pynn import Pynn
 
 __all__ = ['Pynn']

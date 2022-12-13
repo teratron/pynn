@@ -81,12 +81,13 @@ if __name__ == '__main__':
     pn = Pynn(json_stream)
 
     # Input dataset.
-    data_input = [.27, .31, .52]
+    data_input: list[float] = [.27, .31, .52]
 
     # Getting the results of the trained network.
     data_output = pn.query(data_input)
     print(data_output)
 
+    pn.dust()
     # pn.initialize()
     # pn.calc_neurons()
 

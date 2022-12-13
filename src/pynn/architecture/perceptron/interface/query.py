@@ -1,7 +1,10 @@
-def query(obj, data_input: list[float]) -> list[float]:
-    print('query***:', obj, obj.rate, data_input)
+from typing import Any
+
+
+def query(obj: object, *args: Any, **kwargs: Any) -> list[float]:
+    print('query***:', obj, obj.rate, args, kwargs)
     obj.calc_neurons()
-    return data_input
+    return [0]
 
 
 """
