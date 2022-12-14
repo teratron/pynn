@@ -1,23 +1,23 @@
 class Mode:
     """
     The mode of calculation of the total error:
-    MSE - Mean Squared Error (0);
-    RMSE - Root Mean Squared Error (1);
-    ARCTAN - Arctan Error (2);
-    AVG - Average Error (3).
+    MSE -- Mean Squared Error (0);
+    RMSE -- Root Mean Squared Error (1);
+    ARCTAN -- Arctan Error (2);
+    AVG -- Average Error (3).
     """
 
     MSE: int = 0
-    """MSE - Mean Squared Error (0)."""
+    """MSE -- Mean Squared Error (0)."""
 
     RMSE: int = 1
-    """RMSE - Root Mean Squared Error (1)."""
+    """RMSE -- Root Mean Squared Error (1)."""
 
     ARCTAN: int = 2
-    """ARCTAN - Arctan Error (2)."""
+    """ARCTAN -- Arctan Error (2)."""
 
     AVG: int = 3
-    """AVG - Average Error (3)."""
+    """AVG -- Average Error (3)."""
 
 
 def check(mode: int) -> int:

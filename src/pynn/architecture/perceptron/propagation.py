@@ -2,7 +2,7 @@ import logging
 import math
 from typing import Union
 
-from pynn.utils import loss, activation
+from pynn import loss, activation
 
 
 # from .parameters import Parameters

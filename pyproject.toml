@@ -13,13 +13,15 @@ keywords = [
     "network"
 ]
 classifiers = [
-    "Topic :: Software Development :: Libraries :: Python Modules",
     "Environment :: Console",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: Apple :: MacOS",
     "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11"
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 packages = [
     { include = "pynn", from = "src" }
@@ -60,23 +62,37 @@ tests = "pytest:tests"
 black = "black:src/pynn/*.py"
 
 [tool.mypy]
-files = "src"
+files = "src/**/*.py"
 mypy_path = "src"
 strict = true
 namespace_packages = true
 explicit_package_bases = true
 ignore_missing_imports = true
 show_error_codes = true
+exclude = [
+    "^one\\.py$", # files named "one.py", TOML's double-quoted strings require escaping backslashes
+    'two\.pyi$', # or files ending with "two.pyi", but TOML's single-quoted strings do not
+    '^three\.'  #or files starting with "three."
+]
 
 [tool.black]
-target-version = ['py37']
+line-length = 88
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
 preview = true
 include = '\.pyi?$'
+extend-exclude = '''
+(
+  ^/settings.py
+  | .*_pb2.py
+  | tests/data
+)
+'''
 force-exclude = '''
 .*/setup\.py$
 '''
 
 [tool.pytest.ini_options]
+addopts = "-n auto"
 testpaths = ["tests"]
 
 [build-system]

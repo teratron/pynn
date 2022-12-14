@@ -79,6 +79,7 @@ json_stream = """
 if __name__ == '__main__':
     # Returns a new neural network instance from config.
     pn = Pynn(json_stream)
+    pn.dest()
 
     # Input dataset.
     data_input: list[float] = [.27, .31, .52]
@@ -88,7 +89,7 @@ if __name__ == '__main__':
     print(data_output)
 
     # pn.dust()
-    pn.dest()
+
     # pn.initialize()
     # pn.calc_neurons()
 

@@ -1,7 +1,7 @@
 from typing import Any
 
+from pynn import activation, loss
 from .architecture import architecture
-from .utils import activation, loss
 
 
 class Pynn(activation.Mode, loss.Mode):
@@ -18,7 +18,7 @@ class Pynn(activation.Mode, loss.Mode):
 
     Keyword arguments:
     reader -- (default "")
-    Examples: '' | 'perceptron' | 'hopfield' | 'config.json' | '{"name": "perceptron", ...}'
+    Examples: "" | 'perceptron' | 'hopfield' | 'config.json' | '{"name": "perceptron", ...}'
     String variable through which is passed:
         - Name of the neural network;
         - Filename of json config;

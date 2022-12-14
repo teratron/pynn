@@ -74,6 +74,8 @@ class Interface:  # (Properties, Parameters)
     # def dust(cls, *args: Any, **kwargs: Any) -> None:
     #     cls.dust(*args, **kwargs)
 
-    def dest(self) -> None:
-        print(self)
-        dest()
+    @classmethod
+    def dest(cls) -> None:
+        # print('Interface:', cls)
+        # cls.dest()
+        pass

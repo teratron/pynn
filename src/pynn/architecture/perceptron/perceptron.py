@@ -22,12 +22,8 @@ from .properties import Properties
 #         self.miss = miss
 
 
-# def dust(*args: Any, **kwargs: Any) -> None:
-#     print('hello, dust', args, kwargs)
-
-
-def dest() -> None:
-    print("dest")
+# def dest() -> None:
+#     print("Perceptron: dest")
 
 
 class Perceptron(Properties, Parameters, Interface, Propagation):
@@ -82,6 +78,9 @@ class Perceptron(Properties, Parameters, Interface, Propagation):
         # self.last_layer_ind = 1  # TODO:
         # self.is_init = False  # TODO:
         # # self.mutex: sync.Mutex  # TODO:
+
+    def dest(self) -> None:
+        print("Perceptron: dest", self)
 
     def __str__(self) -> str:
         return "%s.%s" % (self.__class__.__name__, self.name)
