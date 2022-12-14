@@ -27,7 +27,7 @@ from .properties import Properties
 
 
 def dest() -> None:
-    print('dest')
+    print("dest")
 
 
 class Perceptron(Properties, Parameters, Interface, Propagation):
@@ -35,28 +35,29 @@ class Perceptron(Properties, Parameters, Interface, Propagation):
     Perceptron is neural network.
     """
 
-    name: str = 'perceptron'
-    type: str = 'Perceptron'
-    description: str = 'description'
+    name: str = "perceptron"
+    type: str = "Perceptron"
+    description: str = "description"
 
     def __init__(self, **kwargs: Any):
         # self.dust()
-        if 'name' in kwargs:
-            del kwargs['name']
+        if "name" in kwargs:
+            del kwargs["name"]
 
         # Weights
-        if 'weights' in kwargs:
-            self.weights = kwargs['weights']
-            del kwargs['weights']
+        if "weights" in kwargs:
+            self.weights = kwargs["weights"]
+            del kwargs["weights"]
         else:
             self.weights = [
-                [[random.uniform(-.5, .5) for _ in range(5)] for _ in range(5)] for _ in range(5)
+                [[random.uniform(-0.5, 0.5) for _ in range(5)] for _ in range(5)]
+                for _ in range(5)
             ]
 
         # Config
-        if 'config' in kwargs:
-            self.config = kwargs['config']
-            del kwargs['config']
+        if "config" in kwargs:
+            self.config = kwargs["config"]
+            del kwargs["config"]
 
         super().__init__(**kwargs)
         # Properties.__init__(**kwargs)
@@ -83,19 +84,17 @@ class Perceptron(Properties, Parameters, Interface, Propagation):
         # # self.mutex: sync.Mutex  # TODO:
 
     def __str__(self) -> str:
-        return '%s.%s' % (self.__class__.__name__, self.name)
+        return "%s.%s" % (self.__class__.__name__, self.name)
 
     def __repr__(self) -> str:
-        return '<%s: %r>' % (self.__str__(), self.__dict__)
+        return "<%s: %r>" % (self.__str__(), self.__dict__)
 
     def __dir__(self) -> List[str]:
         """
         Returns all members and all public methods.
         """
-        return ['__class__', '__doc__', '__module__'] + \
-               [
-                   m
-                   for cls in self.__class__.mro()
-                   for m in cls.__dict__
-                   if m[0] != '_'
-               ] + [m for m in self.__dict__ if m[0] != '_']
+        return (
+                ["__class__", "__doc__", "__module__"]
+                + [m for cls in self.__class__.mro() for m in cls.__dict__ if m[0] != "_"]
+                + [m for m in self.__dict__ if m[0] != "_"]
+        )

@@ -57,6 +57,7 @@ pytest = "^7.2.0"
 app = "pynn.console.app:main"
 perceptron = "examples.perceptron.main:main"
 tests = "pytest:tests"
+black = "black:src/pynn/*.py"
 
 [tool.mypy]
 files = "src"
@@ -66,6 +67,14 @@ namespace_packages = true
 explicit_package_bases = true
 ignore_missing_imports = true
 show_error_codes = true
+
+[tool.black]
+target-version = ['py37']
+preview = true
+include = '\.pyi?$'
+force-exclude = '''
+.*/setup\.py$
+'''
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

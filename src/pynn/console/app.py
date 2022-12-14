@@ -1,14 +1,14 @@
 COMMANDS = [
-    'about',
-    'add',
-    'config',
-    'init',
-    'new',
-    'run',
-    'stop',
-    'show',
-    'update',
-    'version'
+    "about",
+    "add",
+    "config",
+    "init",
+    "new",
+    "run",
+    "stop",
+    "show",
+    "update",
+    "version",
 ]
 
 
@@ -31,5 +31,5 @@ def main() -> int:
     return exit_code
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

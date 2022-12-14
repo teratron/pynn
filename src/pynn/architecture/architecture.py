@@ -19,18 +19,18 @@ def architecture(reader: str, **kwargs: Any) -> Union[Perceptron, Hopfield]:
         filename = path.normpath(reader)
         if path.isfile(filename):
             _, extension = path.splitext(filename)
-            if extension == '.json':
+            if extension == ".json":
                 with open(filename) as handle:
                     data = json.load(handle)
-                data['config'] = filename
+                data["config"] = filename
             else:
-                raise FileExistsError('TODO:')
+                raise FileExistsError("TODO:")
         else:
             data = json.loads(reader)
-            data['config'] = None
+            data["config"] = None
 
-        if 'name' in data:
-            return architecture(data['name'], **data)
+        if "name" in data:
+            return architecture(data["name"], **data)
 
     return Perceptron()
 

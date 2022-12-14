@@ -2,7 +2,7 @@ from typing import Any
 
 
 def query(obj: object, *args: Any, **kwargs: Any) -> list[float]:
-    print('query***:', obj, obj.rate, args, kwargs)
+    print("query***:", obj, obj.rate, args, kwargs)
     # obj.calc_neurons()
     return [0]
 

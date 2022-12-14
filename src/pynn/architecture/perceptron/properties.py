@@ -8,14 +8,16 @@ class Properties:
     Properties of neural network.
     """
 
-    def __init__(self,
-                 *,
-                 bias: bool = True,
-                 hidden_layers: Optional[list[int]] = None,
-                 activation_mode: int = activation.Mode.TANH,
-                 loss_mode: int = loss.Mode.RMSE,
-                 loss_limit: float = .1e-3,
-                 rate: float = .3):
+    def __init__(
+            self,
+            *,
+            bias: bool = True,
+            hidden_layers: Optional[list[int]] = None,
+            activation_mode: int = activation.Mode.TANH,
+            loss_mode: int = loss.Mode.RMSE,
+            loss_limit: float = 0.1e-3,
+            rate: float = 0.3,
+    ):
         self._bias: bool = bias
         """The neuron bias, false or true (required field for a config)."""
 
@@ -104,7 +106,7 @@ class Properties:
 
     @staticmethod
     def check_loss_limit(limit: float) -> float:
-        return .1e-6 if limit <= 0 else limit
+        return 0.1e-6 if limit <= 0 else limit
 
     @property
     def rate(self) -> float:
@@ -119,4 +121,4 @@ class Properties:
 
     @staticmethod
     def check_rate(rate: float) -> float:
-        return .3 if rate <= 0 or rate > 1 else rate
+        return 0.3 if rate <= 0 or rate > 1 else rate

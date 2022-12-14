@@ -5,7 +5,7 @@ from typing import Any
 
 
 def init(obj: object, *args: Any, **kwargs: Any) -> None:
-    print('init', obj, args, kwargs)
+    print("init", obj, args, kwargs)
 
 
 # def init_completion(obj: Perceptron) -> None:

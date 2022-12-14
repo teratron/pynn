@@ -16,14 +16,20 @@ class Interface:  # (Properties, Parameters)
     Interface for neural network.
     """
 
-    def __init__(self,
-                 call_init: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
-                 call_props: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
-                 call_verify: Callable[[object, tuple[Any, ...], dict[str, Any]], float],
-                 call_query: Callable[[object, tuple[Any, ...], dict[str, Any]], list[float]],
-                 call_train: Callable[[object, tuple[Any, ...], dict[str, Any]], tuple[int, float]],
-                 call_and_train: Callable[[object, tuple[Any, ...], dict[str, Any]], tuple[int, float]],
-                 call_write: Callable[[object, tuple[Any, ...], dict[str, Any]], None]):
+    def __init__(
+            self,
+            call_init: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
+            call_props: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
+            call_verify: Callable[[object, tuple[Any, ...], dict[str, Any]], float],
+            call_query: Callable[[object, tuple[Any, ...], dict[str, Any]], list[float]],
+            call_train: Callable[
+                [object, tuple[Any, ...], dict[str, Any]], tuple[int, float]
+            ],
+            call_and_train: Callable[
+                [object, tuple[Any, ...], dict[str, Any]], tuple[int, float]
+            ],
+            call_write: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
+    ):
         self._call_init = call_init
         self._call_props = call_props
         self._call_verify = call_verify

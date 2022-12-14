@@ -40,9 +40,9 @@ def activation(value: float, mode: int = Mode.SIGMOID) -> Optional[float]:
         case Mode.LINEAR:
             return value
         case Mode.RELU:
-            return .0 if value < 0 else value
+            return 0.0 if value < 0 else value
         case Mode.LEAKY_RELU:
-            return .01 * value if value < 0 else value
+            return 0.01 * value if value < 0 else value
         case Mode.SIGMOID, _:
             return 1 / (1 + math.exp(-value))
         case Mode.TANH:
@@ -60,7 +60,7 @@ def derivative(value: float, mode: int = Mode.SIGMOID) -> Optional[float]:
         case Mode.RELU:
             return 0 if value < 0 else 1
         case Mode.LEAKY_RELU:
-            return .01 if value < 0 else 1
+            return 0.01 if value < 0 else 1
         case Mode.SIGMOID, _:
             return value * (1 - value)
         case Mode.TANH:
