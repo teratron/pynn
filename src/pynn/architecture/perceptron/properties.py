@@ -15,7 +15,7 @@ class Properties:
                  activation_mode: int = activation.Mode.TANH,
                  loss_mode: int = loss.Mode.RMSE,
                  loss_limit: float = .1e-3,
-                 rate: float = .3) -> None:
+                 rate: float = .3):
         self._bias: bool = bias
         """The neuron bias, false or true (required field for a config)."""
 

@@ -2,8 +2,18 @@ import random
 from typing import Any, List
 
 from pynn.interface import Interface
-from .interface import init, props, verify, query, train, and_train, write
+from .interface import init
+from .interface import props
+from .interface import query
+from .interface import train, and_train
+from .interface import verify
+from .interface import write
+from .parameters import Parameters
 from .propagation import Propagation
+from .properties import Properties
+
+
+# from .interface import init, props, verify, query, train, and_train, write
 
 
 # class Neuron:
@@ -12,11 +22,15 @@ from .propagation import Propagation
 #         self.miss = miss
 
 
-def dust(*args: Any, **kwargs: Any) -> None:
-    print('hello, dust', args, kwargs)
+# def dust(*args: Any, **kwargs: Any) -> None:
+#     print('hello, dust', args, kwargs)
 
 
-class Perceptron(Interface, Propagation):  # Properties,
+def dest() -> None:
+    print('dest')
+
+
+class Perceptron(Properties, Parameters, Interface, Propagation):
     """
     Perceptron is neural network.
     """
@@ -26,7 +40,7 @@ class Perceptron(Interface, Propagation):  # Properties,
     description: str = 'description'
 
     def __init__(self, **kwargs: Any):
-        self.dust()
+        # self.dust()
         if 'name' in kwargs:
             del kwargs['name']
 
@@ -45,6 +59,7 @@ class Perceptron(Interface, Propagation):  # Properties,
             del kwargs['config']
 
         super().__init__(**kwargs)
+        # Properties.__init__(**kwargs)
         Interface.__init__(self, init, props, verify, query, train, and_train, write)
         # Propagation.__init__(self, self)
 

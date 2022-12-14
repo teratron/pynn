@@ -1,12 +1,12 @@
 import json
 import os.path as path
-from typing import Union
+from typing import Union, Any
 
 from .hopfield import Hopfield
 from .perceptron import Perceptron
 
 
-def architecture(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exception]:
+def architecture(reader: str, **kwargs: Any) -> Union[Perceptron, Hopfield]:
     """
     Returns an instance of one of the architectures or an error.
     """
@@ -15,7 +15,7 @@ def architecture(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exception
     elif reader.lower() == Hopfield.name:
         return Hopfield(**kwargs)
     else:
-        data: dict
+        data: dict[str, Any]
         filename = path.normpath(reader)
         if path.isfile(filename):
             _, extension = path.splitext(filename)
@@ -24,7 +24,7 @@ def architecture(reader: str, **kwargs) -> Union[Perceptron, Hopfield, Exception
                     data = json.load(handle)
                 data['config'] = filename
             else:
-                return FileExistsError('TODO:')
+                raise FileExistsError('TODO:')
         else:
             data = json.loads(reader)
             data['config'] = None

@@ -1,16 +1,17 @@
-from abc import ABC
 from typing import Any, Callable
 
+# class Properties(ABC):
+#     pass
+#
+#
+# class Parameters(ABC):
+#     pass
 
-class Properties(ABC):
-    pass
+
+dest: Callable[[], None]
 
 
-class Parameters(ABC):
-    pass
-
-
-class Interface(Properties, Parameters):
+class Interface:  # (Properties, Parameters)
     """
     Interface for neural network.
     """
@@ -32,6 +33,8 @@ class Interface(Properties, Parameters):
         self._call_write = call_write
 
         # pprint.pprint(self._call__dict__)
+
+        # super().__init__(**kwargs)
 
     def _initialize(self, *args: Any, **kwargs: Any) -> None:
         """Initialize neural network."""
@@ -61,6 +64,10 @@ class Interface(Properties, Parameters):
         """Writes the configuration and weights to a file."""
         self._call_write(self, *args, **kwargs)
 
-    @classmethod
-    def dust(cls, *args: Any, **kwargs: Any) -> None:
-        cls.dust(*args, **kwargs)
+    # @classmethod
+    # def dust(cls, *args: Any, **kwargs: Any) -> None:
+    #     cls.dust(*args, **kwargs)
+
+    def dest(self) -> None:
+        print(self)
+        dest()

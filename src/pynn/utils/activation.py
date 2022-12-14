@@ -1,5 +1,7 @@
 import math
 
+from typing import Optional
+
 
 class Mode:
     """
@@ -32,7 +34,7 @@ def check(mode: int) -> int:
     return Mode.SIGMOID if mode > Mode.TANH else mode
 
 
-def activation(value: float, mode: int = Mode.SIGMOID) -> float:
+def activation(value: float, mode: int = Mode.SIGMOID) -> Optional[float]:
     """Activation function."""
     match mode:
         case Mode.LINEAR:
@@ -47,8 +49,10 @@ def activation(value: float, mode: int = Mode.SIGMOID) -> float:
             value = math.exp(2 * value)
             return (value - 1) / (value + 1)
 
+    return None
 
-def derivative(value: float, mode: int = Mode.SIGMOID) -> float:
+
+def derivative(value: float, mode: int = Mode.SIGMOID) -> Optional[float]:
     """Derivative activation function."""
     match mode:
         case Mode.LINEAR:
@@ -61,3 +65,5 @@ def derivative(value: float, mode: int = Mode.SIGMOID) -> float:
             return value * (1 - value)
         case Mode.TANH:
             return 1 - value ** 2
+
+    return None
