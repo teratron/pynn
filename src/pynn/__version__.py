@@ -1,5 +1,8 @@
 import os
 
+# VERSION = (0, 1, 1)
+# __version__ = '.'.join(map(str, VERSION))
+
 __version__ = "0.1.1"
 poetry_config = os.path.join("..", "..", "pyproject.toml")
 
