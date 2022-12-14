@@ -69,27 +69,12 @@ namespace_packages = true
 explicit_package_bases = true
 ignore_missing_imports = true
 show_error_codes = true
-exclude = [
-    "^one\\.py$", # files named "one.py", TOML's double-quoted strings require escaping backslashes
-    'two\.pyi$', # or files ending with "two.pyi", but TOML's single-quoted strings do not
-    '^three\.'  #or files starting with "three."
-]
 
 [tool.black]
 line-length = 88
 target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
 preview = true
 include = '\.pyi?$'
-extend-exclude = '''
-(
-  ^/settings.py
-  | .*_pb2.py
-  | tests/data
-)
-'''
-force-exclude = '''
-.*/setup\.py$
-'''
 
 [tool.pytest.ini_options]
 addopts = "-n auto"

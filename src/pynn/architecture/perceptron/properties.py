@@ -22,8 +22,12 @@ class Properties:
         self._hidden_layers: list[int] = Properties.check_hidden_layers(hidden_layers)
         self._activation_mode: int = activation.check(activation_mode)
         self._loss_mode: int = loss.check(loss_mode)
+
         self._loss_limit: float = loss_limit
+        # """Minimum (sufficient) limit of the average of the error during training."""
+
         self._rate: float = Properties.check_rate(rate)
+        # """Learning coefficient (greater than 0.0 and less than or equal to 1.0)."""
 
     @property
     def bias(self) -> bool:

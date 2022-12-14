@@ -8,10 +8,7 @@ from typing import Any, Callable
 #     pass
 
 
-dest: Callable[[], None]
-
-
-class Interface:  # (Properties, Parameters)
+class Interface:
     """
     Interface for neural network.
     """
@@ -22,12 +19,8 @@ class Interface:  # (Properties, Parameters)
             call_props: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
             call_verify: Callable[[object, tuple[Any, ...], dict[str, Any]], float],
             call_query: Callable[[object, tuple[Any, ...], dict[str, Any]], list[float]],
-            call_train: Callable[
-                [object, tuple[Any, ...], dict[str, Any]], tuple[int, float]
-            ],
-            call_and_train: Callable[
-                [object, tuple[Any, ...], dict[str, Any]], tuple[int, float]
-            ],
+            call_train: Callable[[object, tuple[Any, ...], dict[str, Any]], tuple[int, float]],
+            call_and_train: Callable[[object, tuple[Any, ...], dict[str, Any]], tuple[int, float]],
             call_write: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
     ):
         self._call_init = call_init
@@ -69,13 +62,3 @@ class Interface:  # (Properties, Parameters)
     def write(self, *args: Any, **kwargs: Any) -> None:
         """Writes the configuration and weights to a file."""
         self._call_write(self, *args, **kwargs)
-
-    # @classmethod
-    # def dust(cls, *args: Any, **kwargs: Any) -> None:
-    #     cls.dust(*args, **kwargs)
-
-    @classmethod
-    def dest(cls) -> None:
-        # print('Interface:', cls)
-        # cls.dest()
-        pass

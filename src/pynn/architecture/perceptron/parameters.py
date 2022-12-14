@@ -12,7 +12,7 @@ class Parameters:
     Parameters.
     """
 
-    def __init__(self) -> None:
+    def __init__(self):
         # Neurons
         self.neurons: list[list[Neuron]]
 

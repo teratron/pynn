@@ -1,13 +1,13 @@
-import random
-from typing import Any, List
+from typing import Any
 
-from pynn.interface import Interface
-from .interface import init
-from .interface import props
-from .interface import query
-from .interface import train, and_train
-from .interface import verify
-from .interface import write
+# from pynn.interface import Interface
+from pynn.interface2 import Interface2
+# from .interface import init
+# from .interface import props
+# from .interface import query
+# from .interface import train, and_train
+# from .interface import verify
+# from .interface import write
 from .parameters import Parameters
 from .propagation import Propagation
 from .properties import Properties
@@ -16,17 +16,7 @@ from .properties import Properties
 # from .interface import init, props, verify, query, train, and_train, write
 
 
-# class Neuron:
-#     def __init__(self, value: float, miss: float):
-#         self.value = value
-#         self.miss = miss
-
-
-# def dest() -> None:
-#     print("Perceptron: dest")
-
-
-class Perceptron(Properties, Parameters, Interface, Propagation):
+class Perceptron(Interface2, Properties, Parameters, Propagation):
     """
     Perceptron is neural network.
     """
@@ -36,28 +26,29 @@ class Perceptron(Properties, Parameters, Interface, Propagation):
     description: str = "description"
 
     def __init__(self, **kwargs: Any):
-        # self.dust()
-        if "name" in kwargs:
-            del kwargs["name"]
+        # if "name" in kwargs:
+        #     del kwargs["name"]
+        #
+        # # Weights
+        # if "weights" in kwargs:
+        #     self.weights = kwargs["weights"]
+        #     del kwargs["weights"]
+        # else:
+        #     self.weights = [
+        #         [[random.uniform(-0.5, 0.5) for _ in range(5)] for _ in range(5)]
+        #         for _ in range(5)
+        #     ]
+        #
+        # # Config
+        # if "config" in kwargs:
+        #     self.config = kwargs["config"]
+        #     del kwargs["config"]
 
-        # Weights
-        if "weights" in kwargs:
-            self.weights = kwargs["weights"]
-            del kwargs["weights"]
-        else:
-            self.weights = [
-                [[random.uniform(-0.5, 0.5) for _ in range(5)] for _ in range(5)]
-                for _ in range(5)
-            ]
+        props = super().strip_props(self, **kwargs)
+        Properties.__init__(self, **props)
+        # super().__init__(**props)
 
-        # Config
-        if "config" in kwargs:
-            self.config = kwargs["config"]
-            del kwargs["config"]
-
-        super().__init__(**kwargs)
-        # Properties.__init__(**kwargs)
-        Interface.__init__(self, init, props, verify, query, train, and_train, write)
+        # Interface.__init__(self, init, props, verify, query, train, and_train, write)
         # Propagation.__init__(self, self)
 
         # self.dust(*args, **kwargs)
@@ -79,21 +70,30 @@ class Perceptron(Properties, Parameters, Interface, Propagation):
         # self.is_init = False  # TODO:
         # # self.mutex: sync.Mutex  # TODO:
 
-    def dest(self) -> None:
-        print("Perceptron: dest", self)
+    def _initialize(self, *args: Any, **kwargs: Any) -> None:
+        """Initialize neural network."""
+        pass
 
-    def __str__(self) -> str:
-        return "%s.%s" % (self.__class__.__name__, self.name)
+    def set_props(self, *args: Any, **kwargs: Any) -> None:
+        """Set properties of neural network."""
+        pass
 
-    def __repr__(self) -> str:
-        return "<%s: %r>" % (self.__str__(), self.__dict__)
+    def verify(self, *args: Any, **kwargs: Any) -> float:
+        """Verifying dataset."""
+        pass
 
-    def __dir__(self) -> List[str]:
-        """
-        Returns all members and all public methods.
-        """
-        return (
-                ["__class__", "__doc__", "__module__"]
-                + [m for cls in self.__class__.mro() for m in cls.__dict__ if m[0] != "_"]
-                + [m for m in self.__dict__ if m[0] != "_"]
-        )
+    def query(self, *args: Any, **kwargs: Any) -> list[float]:
+        """Querying dataset."""
+        pass
+
+    def train(self, *args: Any, **kwargs: Any) -> tuple[int, float]:
+        """Training dataset."""
+        pass
+
+    def and_train(self, *args: Any, **kwargs: Any) -> tuple[int, float]:
+        """Training dataset after the query."""
+        pass
+
+    def write(self, *args: Any, **kwargs: Any) -> None:
+        """Writes the configuration and weights to a file."""
+        pass
