@@ -8,6 +8,15 @@ class Properties:
     Properties of neural network.
     """
 
+    __slots__ = (
+        '_bias',
+        '_hidden_layers',
+        '_activation_mode',
+        '_loss_mode',
+        '_loss_limit',
+        '_rate'
+    )
+
     def __init__(
             self,
             *,
@@ -17,17 +26,16 @@ class Properties:
             loss_mode: int = loss.Mode.RMSE,
             loss_limit: float = 0.1e-3,
             rate: float = 0.3
-    ):
+    ) -> None:
         self._bias: bool = bias
         self._hidden_layers: list[int] = Properties.check_hidden_layers(hidden_layers)
         self._activation_mode: int = activation.check(activation_mode)
         self._loss_mode: int = loss.check(loss_mode)
-
         self._loss_limit: float = loss_limit
-        # """Minimum (sufficient) limit of the average of the error during training."""
-
         self._rate: float = Properties.check_rate(rate)
-        # """Learning coefficient (greater than 0.0 and less than or equal to 1.0)."""
+
+    # def __call__(self, *args, **kwargs) -> None:
+    #     pass
 
     @property
     def bias(self) -> bool:

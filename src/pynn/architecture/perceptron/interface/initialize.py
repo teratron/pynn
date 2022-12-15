@@ -1,10 +1,7 @@
 from typing import Any
 
 
-# from pynn.architecture.perceptron.perceptron import Perceptron
-
-
-def init(obj: object, *args: Any, **kwargs: Any) -> None:
+def initialize(obj: object, *args: Any, **kwargs: Any) -> None:
     print("init", obj, args, kwargs)
 
 

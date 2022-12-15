@@ -1,10 +1,11 @@
 import os
+from typing import Iterable
 
-# VERSION = (0, 1, 1)
-# __version__ = '.'.join(map(str, VERSION))
+VERSION: Iterable[int] = (0, 1, 2)
+__version__: str = '.'.join(map(str, VERSION))
 
-__version__ = "0.1.1"
-poetry_config = os.path.join("..", "..", "pyproject.toml")
+# Change version at pyproject.toml
+poetry_config: str = os.path.join("..", "..", "pyproject.toml")
 
 
 def change_version() -> None:
@@ -19,3 +20,5 @@ def change_version() -> None:
             if ind > 0 and key == "version":
                 line = line.replace(value, f'"{__version__}"\n')
             handle.writelines(line)
+
+# change_version()

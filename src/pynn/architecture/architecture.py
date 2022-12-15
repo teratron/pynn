@@ -1,19 +1,25 @@
 import json
 import os.path as path
-from typing import Union, Any
+from typing import Any, Union, TypeVar
 
-from .hopfield import Hopfield
-from .perceptron import Perceptron
+from pynn.architecture.hopfield.hopfield import Hopfield
+from pynn.architecture.perceptron.perceptron import Perceptron
+
+NN = Union[Perceptron, Hopfield]
+T = TypeVar("T")
 
 
-def architecture(reader: str, **kwargs: Any) -> Union[Perceptron, Hopfield]:
+# NN = TypeVar("NN", Perceptron, Hopfield)
+
+
+def architecture(reader: str, **props: Any) -> NN:
     """
     Returns an instance of one of the architectures or an error.
     """
     if reader.lower() == Perceptron.name:
-        return Perceptron(**kwargs)
+        return Perceptron(**props)
     elif reader.lower() == Hopfield.name:
-        return Hopfield(**kwargs)
+        return Hopfield(**props)
     else:
         data: dict[str, Any]
         filename = path.normpath(reader)

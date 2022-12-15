@@ -1,7 +1,12 @@
-from .properties import Properties
+from typing import Any
+
+from pynn.interface import Interface
 
 
-class Hopfield(Properties):
+# from .properties import Properties
+
+
+class Hopfield(Interface):
     """
     Hopfield is neural network.
     """
@@ -10,21 +15,33 @@ class Hopfield(Properties):
     type: str = "Hopfield"
     description: str = "description"
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, **props) -> None:
+        super().__init__(**props)
 
-    def __repr__(self):
-        return "<%s.%s: %r>" % (self.__class__.__name__, self.name, self.description)
+    def _initialize(self, *args: Any, **kwargs: Any) -> None:
+        """Initialize neural network."""
+        pass
 
-    def __str__(self):
-        return "%s.%s" % (self.__class__.__name__, self.name)
+    def set_props(self, *args: Any, **kwargs: Any) -> None:
+        """Set properties of neural network."""
+        pass
 
-    def __dir__(self):
-        """
-        Returns all members and all public methods.
-        """
-        return (
-                ["__class__", "__doc__", "__module__"]
-                + [m for cls in self.__class__.mro() for m in cls.__dict__ if m[0] != "_"]
-                + [m for m in self.__dict__ if m[0] != "_"]
-        )
+    def verify(self, *args: Any, **kwargs: Any) -> float:
+        """Verifying dataset."""
+        pass
+
+    def query(self, *args: Any, **kwargs: Any) -> list[float]:
+        """Querying dataset."""
+        pass
+
+    def train(self, *args: Any, **kwargs: Any) -> tuple[int, float]:
+        """Training dataset."""
+        pass
+
+    def and_train(self, *args: Any, **kwargs: Any) -> tuple[int, float]:
+        """Training dataset after the query."""
+        pass
+
+    def write(self, *args: Any, **kwargs: Any) -> None:
+        """Writes the configuration and weights to a file."""
+        pass

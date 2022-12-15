@@ -1,4 +1,5 @@
 from pynn.__version__ import __version__
+from pynn.architecture.architecture import *
 from pynn.pynn import Pynn
 
 __all__ = ["Pynn"]

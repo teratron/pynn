@@ -1,4 +1,10 @@
-from typing import Any, Callable
+from abc import ABC, abstractmethod
+from typing import Any
+
+
+# from .architecture import Perceptron
+# from .architecture import Hopfield
+
 
 # class Properties(ABC):
 #     pass
@@ -8,57 +14,93 @@ from typing import Any, Callable
 #     pass
 
 
-class Interface:
+class Interface(ABC):  # metaclass=ABCMeta
     """
     Interface for neural network.
     """
 
-    def __init__(
-            self,
-            call_init: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
-            call_props: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
-            call_verify: Callable[[object, tuple[Any, ...], dict[str, Any]], float],
-            call_query: Callable[[object, tuple[Any, ...], dict[str, Any]], list[float]],
-            call_train: Callable[[object, tuple[Any, ...], dict[str, Any]], tuple[int, float]],
-            call_and_train: Callable[[object, tuple[Any, ...], dict[str, Any]], tuple[int, float]],
-            call_write: Callable[[object, tuple[Any, ...], dict[str, Any]], None],
-    ):
-        self._call_init = call_init
-        self._call_props = call_props
-        self._call_verify = call_verify
-        self._call_query = call_query
-        self._call_train = call_train
-        self._call_and_train = call_and_train
-        self._call_write = call_write
+    name: str
+    type: str
+    description: str
 
-        # pprint.pprint(self._call__dict__)
+    @abstractmethod
+    def __init__(self, **props: Any) -> None:
+        # self.weights: list[list[Union[list[float], float]]] = props["weights"] if "weights" in props else []
+        # self.config: str = props["config"] if "config" in props else ""
 
-        # super().__init__(**kwargs)
+        if "name" in props:
+            del props["name"]
 
+        if "weights" in props:
+            self.weights = props["weights"]
+            del props["weights"]
+
+        if "config" in props:
+            self.config = props["config"]
+            del props["config"]
+
+    @abstractmethod
     def _initialize(self, *args: Any, **kwargs: Any) -> None:
         """Initialize neural network."""
-        self._call_init(self, *args, **kwargs)
+        ...
 
-    def props(self, *args: Any, **kwargs: Any) -> None:
+    @abstractmethod
+    def set_props(self, *args: Any, **kwargs: Any) -> None:
         """Set properties of neural network."""
-        self._call_props(self, *args, **kwargs)
+        ...
 
+    @abstractmethod
     def verify(self, *args: Any, **kwargs: Any) -> float:
         """Verifying dataset."""
-        return self._call_verify(self, *args, **kwargs)
+        ...
 
+    @abstractmethod
     def query(self, *args: Any, **kwargs: Any) -> list[float]:
         """Querying dataset."""
-        return self._call_query(self, *args, **kwargs)
+        ...
 
+    @abstractmethod
     def train(self, *args: Any, **kwargs: Any) -> tuple[int, float]:
         """Training dataset."""
-        return self._call_train(self, *args, **kwargs)
+        ...
 
+    @abstractmethod
     def and_train(self, *args: Any, **kwargs: Any) -> tuple[int, float]:
         """Training dataset after the query."""
-        return self._call_and_train(self, *args, **kwargs)
+        ...
 
+    @abstractmethod
     def write(self, *args: Any, **kwargs: Any) -> None:
         """Writes the configuration and weights to a file."""
-        self._call_write(self, *args, **kwargs)
+        ...
+
+    # @staticmethod: Union[Perceptron, Hopfield]
+    def strip_props(self, **props: Any) -> dict[str, Any]:
+        if "name" in props:
+            del props["name"]
+
+        if "weights" in props:
+            self.weights = props["weights"]
+            del props["weights"]
+
+        if "config" in props:
+            self.config = props["config"]
+            del props["config"]
+
+        return props
+
+    def __str__(self) -> str:
+        return "%s.%s" % (self.__class__.__name__, self.name)
+
+    def __repr__(self) -> str:
+        return "<%s: %r>" % (self.__str__(), self.__dict__)
+
+    def __dir__(self) -> list[str]:
+        """
+        Returns all members and all public methods.
+        """
+        return (
+                ["__class__", "__doc__", "__module__"]
+                + [m for cls in self.__class__.mro() for m in cls.__dict__ if m[0] != "_"]
+                + [m for m in self.__dict__ if m[0] != "_"]
+        )
