@@ -1,5 +1,7 @@
 from pynn import Pynn
 
+# from timeit import timeit
+
 json_stream = """
 {
     "name": "perceptron",
@@ -79,6 +81,8 @@ json_stream = """
 if __name__ == '__main__':
     # Returns a new neural network instance from config.
     pn = Pynn(json_stream)
+
+    # print(timeit(pn))
 
     print('++++', pn.rate, pn.__dict__)
 

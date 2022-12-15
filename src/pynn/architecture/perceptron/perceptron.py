@@ -51,14 +51,14 @@ class Perceptron(Interface, Properties, Parameters, Propagation):
         #     self.config = kwargs["config"]
         #     del kwargs["config"]
 
-        # props = super().strip_props(**props)
-        # Properties.__init__(self, **props)
-
-        super().__init__(**props)
-        del props["name"]
-        del props["weights"]
-        del props["config"]
+        props = super().trim_props(self, **props)
         Properties.__init__(self, **props)
+
+        # super().__init__(**props)
+        # del props["name"]
+        # del props["weights"]
+        # del props["config"]
+        # Properties.__init__(self, **props)
 
         # Interface.__init__(self, initialize, set_props, verify, query, train, and_train, write)
         # Propagation.__init__(self, self)

@@ -9,12 +9,12 @@ class Properties:
     """
 
     __slots__ = (
-        '_bias',
-        '_hidden_layers',
-        '_activation_mode',
-        '_loss_mode',
-        '_loss_limit',
-        '_rate'
+        "_bias",
+        "_hidden_layers",
+        "_activation_mode",
+        "_loss_mode",
+        "_loss_limit",
+        "_rate",
     )
 
     def __init__(
@@ -25,7 +25,7 @@ class Properties:
             activation_mode: int = activation.Mode.TANH,
             loss_mode: int = loss.Mode.RMSE,
             loss_limit: float = 0.1e-3,
-            rate: float = 0.3
+            rate: float = 0.3,
     ) -> None:
         self._bias: bool = bias
         self._hidden_layers: list[int] = Properties.check_hidden_layers(hidden_layers)

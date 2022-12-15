@@ -7,12 +7,13 @@ from pynn.architecture.perceptron.perceptron import Perceptron
 
 NN = Union[Perceptron, Hopfield]
 T = TypeVar("T")
+NNN = Perceptron | Hopfield
 
 
 # NN = TypeVar("NN", Perceptron, Hopfield)
 
 
-def architecture(reader: str, **props: Any) -> NN:
+def architecture(reader: str, **props: Any) -> NNN:
     """
     Returns an instance of one of the architectures or an error.
     """
@@ -30,7 +31,7 @@ def architecture(reader: str, **props: Any) -> NN:
                     data = json.load(handle)
                 data["config"] = filename
             else:
-                raise FileExistsError("TODO:")
+                raise FileExistsError("")  # TODO: text
         else:
             data = json.loads(reader)
             data["config"] = None
