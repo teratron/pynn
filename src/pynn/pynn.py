@@ -13,6 +13,8 @@ class Pynn(activation.Mode, loss.Mode):
     Examples:
         - Pynn()
         - Pynn('perceptron')
+        - Pynn('perceptron', bias=True, rate=0.3)
+        - Pynn(name='perceptron', bias=True, rate=0.3)
         - Pynn('config/perceptron.json')
         - Pynn('{"name": "perceptron", ...}')
 

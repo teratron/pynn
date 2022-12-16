@@ -6,13 +6,15 @@ if __name__ == '__main__':
     # Returns a new neural network
     # instance with the default parameters
     # for Perceptron neural network.
-    pn = Pynn('perceptron',
-              bias=True,
-              hidden_layers=[5, 3],
-              activation_mode=Pynn.TANH,
-              loss_mode=Pynn.MSE,
-              loss_limit=1e-6,
-              rate=.3)
+    pn = Pynn(
+        'perceptron',
+        bias=True,
+        hidden_layers=[5, 3],
+        activation_mode=Pynn.TANH,
+        loss_mode=Pynn.MSE,
+        loss_limit=1e-6,
+        rate=0.3
+    )
 
     pn.query([.1, .2])
     pn.rate = .73
@@ -20,7 +22,7 @@ if __name__ == '__main__':
     pn.calc_neurons()
 
     # Dataset.
-    dataset = [.27, -.31, -.52, .66, .81, -.13, .2, .49, .11, -.73, .28]
+    dataset = [0.27, -0.31, -0.52, 0.66, 0.81, -0.13, 0.2, 0.49, 0.11, -0.73, 0.28]
     len_data_input = 3  # Number of input data.
     len_data_output = 2  # Number of output data.
 
@@ -33,7 +35,7 @@ if __name__ == '__main__':
             _, _ = pn.train(dataset[i - len_data_input:i], dataset[i:i + len_data_output])
 
         # Verifying.
-        _sum = _num = 0.
+        _sum = _num = 0.0
         for i in range(len_data_input, len_data + 1):
             _sum += pn.verify(dataset[i - len_data_input:i], dataset[i:i + len_data_output])
             _num += 1
@@ -48,7 +50,8 @@ if __name__ == '__main__':
     # Writing the neural network configuration and weights to a file.
     pn.write(
         config='perceptron.json',
-        weights='perceptron_weights.json')
+        weights='perceptron_weights.json'
+    )
 
     # Check the trained data, the result should be about [-0.13 0.2].
-    print(pn.query([-.52, .66, .81]))
+    print(pn.query([-0.52, 0.66, 0.81]))
