@@ -78,13 +78,13 @@ json_stream = """
 }
 """
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Returns a new neural network instance from config.
     pn = Pynn(json_stream)
 
     # print(timeit(pn))
 
-    print('++++', pn.rate, pn.__dict__)
+    print("++++", pn.rate, pn.__dict__)
 
     # Input dataset.
     data_input = [0.27, 0.31, 0.52]

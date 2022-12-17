@@ -12,18 +12,18 @@ class Pynn(activation.Mode, loss.Mode):
 
     Examples:
         - Pynn()
-        - Pynn('perceptron')
-        - Pynn('perceptron', bias=True, rate=0.3)
-        - Pynn(name='perceptron', bias=True, rate=0.3)
-        - Pynn('config/perceptron.json')
-        - Pynn('{"name": "perceptron", ...}')
+        - Pynn("perceptron")
+        - Pynn("perceptron", bias=True, rate=0.3)
+        - Pynn(name="perceptron", bias=True, rate=0.3)
+        - Pynn("config/perceptron.json")
+        - Pynn("{'name': 'perceptron', 'bias'=true, 'rate'=0.3}")
 
     Keyword arguments:
 
     reader -- string variable through which is passed (default ""):
-        - Name of the neural network ('perceptron' | 'hopfield' | ...);
-        - Filename of json config ('config.json');
-        - Directly json dump passed as a string ('{"name": "perceptron", ...}').
+        - Name of the neural network ("perceptron" or "hopfield");
+        - Filename of json config ("config.json");
+        - Directly json dump passed as a string ("{'name': 'perceptron', ...}").
     **kwargs -- properties of the neural network.
     """
 

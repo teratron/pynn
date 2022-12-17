@@ -1,6 +1,6 @@
 from pynn import Pynn
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Returns a new neural network
     # instance with the default parameters,
     # same n = nn.New("perceptron").
@@ -10,7 +10,7 @@ if __name__ == '__main__':
     pn.hidden_layers = [3, 2]
     pn.activation_mode = pn.LINEAR
     pn.loss_mode = pn.MSE
-    pn.loss_limit = .0001
+    pn.loss_limit = 0.0001
 
     # Dataset that doesn't need to be scaled.
     data_input = [10.6, -5, 200]

@@ -9,6 +9,7 @@ class Properties:
     """
 
     __slots__ = (
+        "_name",
         "_bias",
         "_hidden_layers",
         "_activation_mode",
@@ -20,6 +21,7 @@ class Properties:
     def __init__(
             self,
             *,
+            name: str,
             bias: bool = True,
             hidden_layers: Optional[list[int]] = None,
             activation_mode: int = activation.Mode.TANH,
@@ -27,6 +29,7 @@ class Properties:
             loss_limit: float = 0.1e-3,
             rate: float = 0.3,
     ) -> None:
+        self._name: str = name
         self._bias: bool = bias
         self._hidden_layers: list[int] = Properties.check_hidden_layers(hidden_layers)
         self._activation_mode: int = activation.check(activation_mode)

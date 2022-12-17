@@ -80,8 +80,8 @@ class Interface(ABC):  # metaclass=ABCMeta
 
     @staticmethod  #: Union[Perceptron, Hopfield]
     def trim_props(self, **props: Any) -> dict[str, Any]:
-        if "name" in props:
-            del props["name"]
+        # if "name" in props:
+        #     del props["name"]
 
         if "weights" in props:
             self.weights = props["weights"]
