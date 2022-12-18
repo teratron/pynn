@@ -4,6 +4,7 @@ from typing import Any, Union, TypeVar
 
 from pynn.architecture.hopfield.hopfield import Hopfield
 from pynn.architecture.perceptron.perceptron import Perceptron
+from pynn.interface import Interface
 
 NN = Union[Perceptron, Hopfield]
 T = TypeVar("T")
@@ -13,9 +14,9 @@ NNN = Perceptron | Hopfield
 # NN = TypeVar("NN", Perceptron, Hopfield)
 
 
-def architecture(reader: str, **props: Any) -> NNN:
+def architecture(reader: str, **props: Any) -> Interface:
     """
-    Returns an instance of one of the architectures or an error.
+    Returns an instance of one of the architectures.
     """
     if reader != "":
         if reader.lower() == Perceptron.name:
@@ -41,6 +42,5 @@ def architecture(reader: str, **props: Any) -> NNN:
                 return architecture(data["name"], **data)
 
     return Perceptron()
-
 
 # del json

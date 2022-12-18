@@ -1,7 +1,8 @@
 from typing import Any
 
 from pynn import activation, loss
-from pynn.architecture.architecture import architecture, NNN
+from pynn.architecture.architecture import architecture, Perceptron
+from pynn.interface import Interface
 
 
 class Pynn(activation.Mode, loss.Mode):
@@ -27,5 +28,18 @@ class Pynn(activation.Mode, loss.Mode):
     **kwargs -- properties of the neural network.
     """
 
-    def __new__(cls, reader: str = "", **props: Any) -> NNN:
-        return architecture(reader, **props)
+    # @overload
+    # def __new__(cls, reader: str, **props: Any) -> Perceptron: ...
+    #
+    # @overload
+    # def __new__(cls, reader: str, **props: Any) -> Hopfield: ...
+
+    def __new__(cls, reader: str = "", **props: Any) -> Interface:
+        print(cls)
+        arch = architecture(reader, **props)
+
+        if isinstance(arch, Perceptron):
+            print(type(arch))
+
+        return arch
+        # return architecture(reader, **props)

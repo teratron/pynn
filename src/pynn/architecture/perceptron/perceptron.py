@@ -1,3 +1,4 @@
+import random
 from typing import Any
 
 from pynn.architecture.perceptron.interface.initialize import initialize
@@ -10,6 +11,9 @@ from pynn.architecture.perceptron.parameters import Parameters
 from pynn.architecture.perceptron.propagation import Propagation
 from pynn.architecture.perceptron.properties import Properties
 from pynn.interface import Interface
+
+
+# from pynn.interface import NeuralNetwork
 
 
 # from .interface import initialize
@@ -33,25 +37,25 @@ class Perceptron(Interface, Properties, Parameters, Propagation):
     description: str = "description"
 
     def __init__(self, **props: Any) -> None:
-        # if "name" in kwargs:
-        #     del kwargs["name"]
-        #
-        # # Weights
-        # if "weights" in kwargs:
-        #     self.weights = kwargs["weights"]
-        #     del kwargs["weights"]
-        # else:
-        #     self.weights = [
-        #         [[random.uniform(-0.5, 0.5) for _ in range(5)] for _ in range(5)]
-        #         for _ in range(5)
-        #     ]
-        #
-        # # Config
-        # if "config" in kwargs:
-        #     self.config = kwargs["config"]
-        #     del kwargs["config"]
+        # if "name" in props:
+        #     del props["name"]
 
-        props = super().trim_props(self, **props)
+        # Weights
+        if "weights" in props:
+            self.weights = props["weights"]
+            del props["weights"]
+        else:
+            self.weights = [
+                [[random.uniform(-0.5, 0.5) for _ in range(5)] for _ in range(5)]
+                for _ in range(5)
+            ]
+
+        # Config
+        if "config" in props:
+            self.config = props["config"]
+            del props["config"]
+
+        # props = super().trim_props(self, **props)
         Properties.__init__(self, **props)
 
         # super().__init__(**props)
