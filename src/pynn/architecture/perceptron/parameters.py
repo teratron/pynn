@@ -1,4 +1,5 @@
 from asyncio import Lock
+from typing import Optional
 
 
 class Neuron:
@@ -26,5 +27,6 @@ class Parameters:
         self.len_input: int
         self.len_output: int
         self.last_layer_ind: int
-        self.is_init: bool
+        self.is_init: bool = False
+        self.config: Optional[str] = None
         self.mutex: Lock

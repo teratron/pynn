@@ -23,25 +23,21 @@ if __name__ == "__main__":
 
     # Dataset.
     dataset = [0.27, -0.31, -0.52, 0.66, 0.81, -0.13, 0.2, 0.49, 0.11, -0.73, 0.28]
-    len_data_input = 3  # Number of input data.
-    len_data_output = 2  # Number of output data.
+    len_input = 3  # Number of input data.
+    len_output = 2  # Number of output data.
 
     start = time.time()
 
     # Training.
-    len_data = len(dataset) - len_data_output
+    len_data = len(dataset) - len_output
     for epoch in range(1, 10001):
-        for i in range(len_data_input, len_data + 1):
-            _, _ = pn.train(
-                dataset[i - len_data_input: i], dataset[i: i + len_data_output]
-            )
+        for i in range(len_input, len_data + 1):
+            _, _ = pn.train(dataset[i - len_input: i], dataset[i: i + len_output])
 
         # Verifying.
         _sum = _num = 0.0
-        for i in range(len_data_input, len_data + 1):
-            _sum += pn.verify(
-                dataset[i - len_data_input: i], dataset[i: i + len_data_output]
-            )
+        for i in range(len_input, len_data + 1):
+            _sum += pn.verify(dataset[i - len_input: i], dataset[i: i + len_output])
             _num += 1
 
         # Average error for the entire epoch.
