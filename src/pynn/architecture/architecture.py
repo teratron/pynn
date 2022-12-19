@@ -82,6 +82,8 @@ def architecture(reader: str, **props: Any) -> NNN:
             if "name" in props and props["name"] != Hopfield.name:
                 raise NameError(props["name"])  # TODO: text
             return Hopfield(**props)
+        else:
+            props = _get_props_from(reader)
 
     # 4
     # - Pynn(name="perceptron", bias=True, rate=0.3)

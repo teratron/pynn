@@ -34,7 +34,7 @@ json_stream = """
 if __name__ == "__main__":
     # Returns a new neural network instance from config.
     # pn = Pynn(json_stream)
-    pn = Pynn(json_stream, **{"name": "perceptron"})
+    pn = Pynn(json_stream, **{"name": "-perceptron"})
 
     # print(timeit(pn))
 
