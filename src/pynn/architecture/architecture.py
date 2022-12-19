@@ -96,7 +96,6 @@ def architecture(reader: str, **props: Any) -> NNN:
 
         #     props = _get_props_from(reader)
         #     print(props)
-        print('/////////////////////')
 
     # if reader != "":
     #     if reader.lower() == Perceptron.name:
@@ -134,7 +133,7 @@ def architecture(reader: str, **props: Any) -> NNN:
 #         return Hopfield()
 
 
-def _get_props_from(reader) -> dict[str, Any]:
+def _get_props_from(reader: str) -> dict[str, Any]:
     data: dict[str, Any]
     filename = path.normpath(reader)
     if path.isfile(filename):
