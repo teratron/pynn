@@ -13,20 +13,6 @@ from pynn.architecture.perceptron.properties import Properties
 from pynn.interface import Interface
 
 
-# from pynn.interface import NeuralNetwork
-
-
-# from .interface import initialize
-# from .interface import set_props
-# from .interface import query
-# from .interface import train, and_train
-# from .interface import verify
-# from .interface import write
-# from .parameters import Parameters
-# from .propagation import Propagation
-# #from .properties import Properties
-
-
 class Perceptron(Interface, Properties, Parameters, Propagation):
     """
     Perceptron is neural network.
@@ -37,8 +23,8 @@ class Perceptron(Interface, Properties, Parameters, Propagation):
     description: str = "description"
 
     def __init__(self, **props: Any) -> None:
-        # if "name" in props:
-        #     del props["name"]
+        if "name" in props:
+            del props["name"]
 
         # Weights
         if "weights" in props:
@@ -56,32 +42,8 @@ class Perceptron(Interface, Properties, Parameters, Propagation):
             del props["config"]
 
         # props = super().trim_props(self, **props)
-        Properties.__init__(self, **props)
-
-        # super().__init__(**props)
-        # del props["name"]
-        # del props["weights"]
-        # del props["config"]
-        # Properties.__init__(self, **props)
-
-        # Interface.__init__(self, initialize, set_props, verify, query, train, and_train, write)
-        # Propagation.__init__(self, self)
-
-        # Neurons, type: list[list[Neuron]]
-        # self.neurons = [[Neuron(-.5, 0) for _ in range(3)] for _ in range(2)]
-        #
-        # # Transfer data
-        # self.data_weight = self.weights
-        # self.data_input = [.1, .3]  # TODO:
-        # self.data_target = [.1, .3]  # TODO:
-        # self.data_output = [.1, .3]  # TODO:
-        #
-        # # Settings
-        # self.len_input = 2  # TODO:
-        # self.len_output = 2  # TODO:
-        # self.last_layer_ind = 1  # TODO:
-        # self.is_init = False  # TODO:
-        # # self.mutex: sync.Mutex  # TODO:
+        print("props", props)
+        Properties.__init__(self, Perceptron.name, **props)
 
     def _initialize(self, *args: Any, **kwargs: Any) -> None:
         """Initialize neural network."""

@@ -8,6 +8,8 @@ class Properties:
     Properties of neural network.
     """
 
+    DEFAULT_RATE: float = 0.3
+
     __slots__ = (
         "_name",
         "_bias",
@@ -20,25 +22,22 @@ class Properties:
 
     def __init__(
             self,
-            *,
             name: str,
+            *,
             bias: bool = True,
             hidden_layers: Optional[list[int]] = None,
             activation_mode: int = activation.Mode.TANH,
             loss_mode: int = loss.Mode.RMSE,
             loss_limit: float = 0.1e-3,
-            rate: float = 0.3,
+            rate: float = DEFAULT_RATE
     ) -> None:
         self._name: str = name
         self._bias: bool = bias
-        self._hidden_layers: list[int] = Properties.check_hidden_layers(hidden_layers)
+        self._hidden_layers: list[int] = Properties._check_hidden_layers(hidden_layers)
         self._activation_mode: int = activation.check(activation_mode)
         self._loss_mode: int = loss.check(loss_mode)
         self._loss_limit: float = loss_limit
-        self._rate: float = Properties.check_rate(rate)
-
-    # def __call__(self, *args, **kwargs) -> None:
-    #     pass
+        self._rate: float = Properties._check_rate(rate)
 
     @property
     def bias(self) -> bool:
@@ -56,10 +55,10 @@ class Properties:
 
     @hidden_layers.setter
     def hidden_layers(self, layers: list[int]) -> None:
-        self._hidden_layers = Properties.check_hidden_layers(layers)
+        self._hidden_layers = Properties._check_hidden_layers(layers)
 
     @staticmethod
-    def check_hidden_layers(layers: Optional[list[int]]) -> list[int]:
+    def _check_hidden_layers(layers: Optional[list[int]]) -> list[int]:
         return [0] if layers is None else layers
 
     @property
@@ -100,10 +99,10 @@ class Properties:
 
     @loss_limit.setter
     def loss_limit(self, limit: float) -> None:
-        self._loss_limit = Properties.check_loss_limit(limit)
+        self._loss_limit = Properties._check_loss_limit(limit)
 
     @staticmethod
-    def check_loss_limit(limit: float) -> float:
+    def _check_loss_limit(limit: float) -> float:
         return 0.1e-6 if limit <= 0 else limit
 
     @property
@@ -113,8 +112,62 @@ class Properties:
 
     @rate.setter
     def rate(self, rate: float) -> None:
-        self._rate = Properties.check_rate(rate)
+        self._rate = Properties._check_rate(rate)
 
-    @staticmethod
-    def check_rate(rate: float) -> float:
-        return 0.3 if rate <= 0 or rate > 1 else rate
+    @classmethod
+    def _check_rate(cls, rate: float) -> float:
+        return cls.DEFAULT_RATE if rate <= 0 or rate > 1 else rate
+
+
+# p = Properties(name='per')
+
+
+# def compare_dictionaries(dict1, dict2) -> bool:
+#     if dict1 is None or dict2 is None:
+#         return False
+#
+#     if not isinstance(dict1, dict) or not isinstance(dict2, dict):
+#         return False
+#
+#     shared_keys = set(dict1.keys()) & set(dict2.keys())
+#
+#     if not (len(shared_keys) == len(dict1.keys()) and len(shared_keys) == len(dict2.keys())):
+#         print('Not all keys are shared')
+#         return False
+#
+#     dicts_are_equal = True
+#     for key in dict1.keys():
+#         if isinstance(dict1[key], dict) or isinstance(dict2[key], dict):
+#             dicts_are_equal = dicts_are_equal and compare_dictionaries(dict1[key], dict2[key])
+#         else:
+#             dicts_are_equal = dicts_are_equal and all(atleast_1d(dict1[key] == dict2[key]))
+#
+#     return dicts_are_equal
+
+
+def dict_compare(d1, d2):
+    print("&keys", set(d1.keys()) & set(d2.keys()))
+    print("&items", set(d1.items()) & set(d2.items()))
+
+    print("^keys", set(d2.keys()) ^ set(d1.keys()))
+    print("^items", set(d2.items()) ^ set(d1.items()))
+
+    print("|keys", set(d2.keys()) | set(d1.keys()))
+    print("|items", set(d2.items()) | set(d1.items()))
+
+    d1_keys = set(d1.keys())
+    d2_keys = set(d2.keys())
+    shared_keys = d1_keys.intersection(d2_keys)
+    _added = d1_keys - d2_keys
+    _removed = d2_keys - d1_keys
+    _modified = {i: (d1[i], d2[i]) for i in shared_keys if d1[i] != d2[i]}
+    _same = set(i for i in shared_keys if d1[i] == d2[i])
+
+    return _added, _removed, _modified, _same
+
+
+if __name__ == "__main__":
+    x = dict(a=1, b=2, c=5, d=3)
+    y = dict(a=2, b=2, d=0)
+    added, removed, modified, same = dict_compare(x, y)
+    print(added, removed, modified, same)

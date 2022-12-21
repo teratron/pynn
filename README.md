@@ -1,8 +1,8 @@
-# PYNN
+# PyNN
 
 ## About
 
-**PyNN** - Neural Network Library
+Neural Network Library.
 
 ## Install
 
@@ -13,7 +13,7 @@ $ pip install pynn
 ## Getting Started
 
 ```python
-from pynn.pynn import Pynn
+from pynn import Pynn
 
 if __name__ == '__main__':
     # Returns a new neural network

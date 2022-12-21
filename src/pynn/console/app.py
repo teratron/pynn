@@ -1,3 +1,7 @@
+import logging
+
+log = logging.getLogger(__name__)
+
 COMMANDS = [
     "about",
     "add",
