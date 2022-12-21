@@ -1,8 +1,10 @@
 # PyNN
 
+    Under construction
+
 ## About
 
-Neural Network Library.
+Neural network library for python.
 
 ## Install
 
@@ -21,8 +23,8 @@ if __name__ == '__main__':
     pn = Pynn()
 
     # Dataset.
-    data_input  = [.27, .31]
-    data_target = [.7]
+    data_input  = [0.27, 0.31]
+    data_target = [0.7]
 
     # Training dataset.
     _, _ = pn.train(data_input, data_target)
