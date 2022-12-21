@@ -40,15 +40,7 @@ def architecture(reader: str, **props: Any) -> NNN:
     Returns an instance of one of the architectures.
     """
 
-    # 1
-    # - Pynn()
-    if reader == "" and props == {}:
-        return Perceptron()
-
     # 2
-    # - Pynn("perceptron")
-    # - Pynn("config.json")
-    # - Pynn("{'name': 'perceptron', 'bias': true, 'rate': 0.3}")
     if reader != "" and props == {}:
         if reader.lower() == Perceptron.name:
             return Perceptron()
@@ -65,14 +57,6 @@ def architecture(reader: str, **props: Any) -> NNN:
                     raise NameError(props["name"])  # TODO: text
 
     # 3
-    # - Pynn("perceptron", name="perceptron", bias=True, rate=0.3)
-    # - Pynn("perceptron", **{"name": "perceptron", "bias": True, "rate": 0.3})
-    #
-    # - Pynn("config.json", name="perceptron", bias=True, rate=0.3)
-    # - Pynn("config.json", **{"name": "perceptron", "bias": True, "rate": 0.3})
-    #
-    # - Pynn("{'name': 'perceptron', 'bias': true, 'rate': 0.3}", name="perceptron", bias=True, rate=0.3)
-    # - Pynn("{'name': 'perceptron', 'bias': true, 'rate': 0.3}", **{"name": "perceptron", "bias": True, "rate": 0.3})
     if reader != "" and props != {}:
         if reader.lower() == Perceptron.name:
             if "name" in props and props["name"] != Perceptron.name:
@@ -84,10 +68,15 @@ def architecture(reader: str, **props: Any) -> NNN:
             return Hopfield(**props)
         else:
             props = _get_props_from(reader)
+            if props != {} and "name" in props:
+                if props["name"] == Perceptron.name:
+                    return Perceptron(**props)
+                elif props["name"] == Hopfield.name:
+                    return Hopfield(**props)
+                else:
+                    raise NameError(props["name"])  # TODO: text
 
     # 4
-    # - Pynn(name="perceptron", bias=True, rate=0.3)
-    # - Pynn(**{"name": "perceptron", "bias": True, "rate": 0.3})
     if reader == "" and props != {} and "name" in props:
         if props["name"] == Perceptron.name:
             return Perceptron(**props)
@@ -95,9 +84,6 @@ def architecture(reader: str, **props: Any) -> NNN:
             return Hopfield(**props)
         else:
             raise NameError(props["name"])  # TODO: text
-
-        #     props = _get_props_from(reader)
-        #     print(props)
 
     # if reader != "":
     #     if reader.lower() == Perceptron.name:
@@ -122,6 +108,7 @@ def architecture(reader: str, **props: Any) -> NNN:
     #         if "name" in data:
     #             return architecture(data["name"], **data)
 
+    # 1
     return Perceptron()
 
 
