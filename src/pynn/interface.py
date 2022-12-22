@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 
-# from .architecture import Perceptron
-# from .architecture import Hopfield
+# from ._architecture import Perceptron
+# from ._architecture import Hopfield
 
 
 # class Properties(ABC):

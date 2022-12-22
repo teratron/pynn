@@ -1,7 +1,7 @@
 from typing import Any
 
 from pynn import activation, loss
-from pynn.architecture.architecture import architecture, NNN
+from pynn.architecture.architecture import _architecture, NNN
 
 
 class Pynn(activation.Mode, loss.Mode):
@@ -36,8 +36,8 @@ class Pynn(activation.Mode, loss.Mode):
 
     def __new__(cls, reader: str = "", **props: Any) -> NNN:
         # print(cls)
-        # arch = architecture(reader, **props)
+        # arch = _architecture(reader, **props)
         # if isinstance(arch, Perceptron):
         #     print(type(arch))
         # return super().__new__(Perceptron)
-        return architecture(reader, **props)
+        return _architecture(reader, **props)

@@ -14,4 +14,4 @@ if __name__ == "__main__":
     _, _ = pn.train(data_input, data_target)
 
     # Writing weights to a file.
-    _ = pn.write_weights("perceptron_weights.json")
+    _ = pn.write(weights="perceptron_weights.json")

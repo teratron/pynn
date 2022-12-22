@@ -9,13 +9,10 @@ NN = Union[Perceptron, Hopfield]
 T = TypeVar("T")
 NNN = Perceptron | Hopfield
 
-
-# iter_name = Iterable[Union[Perceptron, Hopfield]]
-# NN = TypeVar("NN", Perceptron, Hopfield)
+# iter_name = Perceptron.name, Hopfield.name
+# print(type(iter_name))
 # for i in iter_name:
-# print(i)
-
-
+#     print(i)
 #
 # *- Pynn()
 #
@@ -33,107 +30,50 @@ NNN = Perceptron | Hopfield
 #
 # *- Pynn(name="perceptron", bias=True, rate=0.3)
 # *- Pynn(**{"name": "perceptron", "bias": True, "rate": 0.3})
+i = 0
 
 
-def architecture(reader: str, **props: Any) -> NNN:
+def _architecture(reader: str, **props: Any) -> NNN:
     """
     Returns an instance of one of the architectures.
     """
-
-    # 2
-    if reader != "" and props == {}:
-        if reader.lower() == Perceptron.name:
-            return Perceptron()
-        elif reader.lower() == Hopfield.name:
-            return Hopfield()
-        else:
+    global i
+    print(i)
+    i += 1
+    if reader.lower() == Perceptron.name:
+        return Perceptron(**props)
+    elif reader.lower() == Hopfield.name:
+        return Hopfield(**props)
+    else:
+        if reader != "":
             props = _get_props_from(reader)
-            if props != {} and "name" in props:
-                if props["name"] == Perceptron.name:
-                    return Perceptron(**props)
-                elif props["name"] == Hopfield.name:
-                    return Hopfield(**props)
-                else:
-                    raise NameError(props["name"])  # TODO: text
 
-    # 3
-    if reader != "" and props != {}:
-        if reader.lower() == Perceptron.name:
-            if "name" in props and props["name"] != Perceptron.name:
-                raise NameError(props["name"])  # TODO: text
-            return Perceptron(**props)
-        elif reader.lower() == Hopfield.name:
-            if "name" in props and props["name"] != Hopfield.name:
-                raise NameError(props["name"])  # TODO: text
-            return Hopfield(**props)
-        else:
-            props = _get_props_from(reader)
-            if props != {} and "name" in props:
-                if props["name"] == Perceptron.name:
-                    return Perceptron(**props)
-                elif props["name"] == Hopfield.name:
-                    return Hopfield(**props)
-                else:
-                    raise NameError(props["name"])  # TODO: text
+        if props != {}:
+            if "name" in props:
+                return _architecture(props["name"], **props)
+            else:
+                raise NameError("missing field: name")
 
-    # 4
-    if reader == "" and props != {} and "name" in props:
-        if props["name"] == Perceptron.name:
-            return Perceptron(**props)
-        elif props["name"] == Hopfield.name:
-            return Hopfield(**props)
-        else:
-            raise NameError(props["name"])  # TODO: text
-
-    # if reader != "":
-    #     if reader.lower() == Perceptron.name:
-    #         return Perceptron(**props)
-    #     elif reader.lower() == Hopfield.name:
-    #         return Hopfield(**props)
-    #     else:
-    #         data: dict[str, Any]
-    #         filename = path.normpath(reader)
-    #         if path.isfile(filename):
-    #             _, extension = path.splitext(filename)
-    #             if extension == ".json":
-    #                 with open(filename) as handle:
-    #                     data = json.load(handle)
-    #                 data["config"] = filename
-    #             else:
-    #                 raise FileExistsError("")  # TODO: text
-    #         else:
-    #             data = json.loads(reader)
-    #             data["config"] = None
-    #
-    #         if "name" in data:
-    #             return architecture(data["name"], **data)
-
-    # 1
     return Perceptron()
 
 
-# del json
-
-
-# def _sd(name: str, call):
-#     if name.lower() == Perceptron.name:
-#         call()
-#     elif name.lower() == Hopfield.name:
-#         return Hopfield()
-
-
 def _get_props_from(reader: str) -> dict[str, Any]:
-    data: dict[str, Any]
-    filename = path.normpath(reader)
-    if path.isfile(filename):
+    data: dict[str, Any] = {}
+    if path.isfile(reader):
+        filename = path.normpath(reader)
         _, extension = path.splitext(filename)
         if extension == ".json":
             with open(filename) as handle:
                 data = json.load(handle)
-            data["config"] = filename
+            # data["config"] = filename
+            data.update(config=filename)
+            print(data)
         else:
-            raise FileExistsError("")  # TODO: text
+            raise FileExistsError("incorrect config file extension: " + extension)
     else:
-        data = json.loads(reader)
+        try:
+            data = json.loads(reader)
+        except json.JSONDecodeError as err:
+            print("JSONDecodeError", err)
 
     return data
