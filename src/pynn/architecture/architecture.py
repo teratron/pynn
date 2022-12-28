@@ -1,19 +1,13 @@
 import json
 import os.path as path
-from typing import Any, Union, TypeVar
+from typing import Any, Union
 
 from pynn.architecture.hopfield.hopfield import Hopfield
 from pynn.architecture.perceptron.perceptron import Perceptron
 
 NN = Union[Perceptron, Hopfield]
-T = TypeVar("T")
 NNN = Perceptron | Hopfield
 
-# iter_name = Perceptron.name, Hopfield.name
-# print(type(iter_name))
-# for i in iter_name:
-#     print(i)
-#
 # *- Pynn()
 #
 # *- Pynn("perceptron")
@@ -30,10 +24,26 @@ NNN = Perceptron | Hopfield
 #
 # *- Pynn(name="perceptron", bias=True, rate=0.3)
 # *- Pynn(**{"name": "perceptron", "bias": True, "rate": 0.3})
+
+# @staticmethod  #: Union[Perceptron, Hopfield]
+# def trim_props(self, **props: Any) -> dict[str, Any]:
+#     # if "name" in props:
+#     #     del props["name"]
+#
+#     if "weights" in props:
+#         self.weights = props["weights"]
+#         del props["weights"]
+#
+#     if "config" in props:
+#         self.config = props["config"]
+#         del props["config"]
+#
+#     return props
+
 i = 0
 
 
-def _architecture(reader: str, **props: Any) -> NNN:
+def architecture(reader: str, **props: Any) -> NNN:
     """
     Returns an instance of one of the architectures.
     """
@@ -50,7 +60,7 @@ def _architecture(reader: str, **props: Any) -> NNN:
 
         if props != {}:
             if "name" in props:
-                return _architecture(props["name"], **props)
+                return architecture(props["name"], **props)
             else:
                 raise NameError("missing field: name")
 
@@ -65,7 +75,6 @@ def _get_props_from(reader: str) -> dict[str, Any]:
         if extension == ".json":
             with open(filename) as handle:
                 data = json.load(handle)
-            # data["config"] = filename
             data.update(config=filename)
             print(data)
         else:

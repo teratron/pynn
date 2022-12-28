@@ -6,7 +6,7 @@ upgrade: ## Upgrade pip.
 	python -m pip install --upgrade pip
 
 run: ## run
-	pipenv run python src/pynn/main.py
+	poetry run python src/pynn/main.py
 
 lint: ## lint
 	mypy src --ignore-missing-imports
@@ -32,60 +32,19 @@ venv: ## Init .venv
 	python -m venv .venv
 	source .venv/Scripts/activate
 
-pipenv-install: ## Install pipenv.
-	pip install --user pipenv
+poetry-install: ## Install pipenv.
+	pip install --user poetry
 	pipenv install -d requests mypy autopep8 flake8 pytest bandit pydocstyle
 	pipenv lock
 
-pipenv-shell: ## Shell.
-	pipenv shell
-
-pipenv-shell-deactivate: ## Deactivate shell.
-	deactivate
-
-pipenv-where: ## Locate the project.
-	pipenv --where
-
-pipenv-venv: ## Locate the virtualenv.
-	pipenv --venv
-
-pipenv-5py: ## Locate the Python interpreter.
-	pipenv --py
-
-pipenv-new-project: ## Create a new project using Python 3.7, specifically.
-	pipenv --python 3.7
-
-pipenv-remove: ## Remove project virtualenv (inferred from current directory).
-	pipenv --rm
-
-pipenv-install-dev: ## Install all dependencies for a project (including dev).
-	pipenv install --dev
-
-pipenv-lock-pre: ## Create a lockfile containing pre-releases.
-	pipenv lock --pre
-
-pipenv-graph: ## Show a graph of your installed dependencies.
-	pipenv graph
-
-pipenv-clean: ## Uninstalls all packages not specified in Pipfile.lock.
-	pipenv clean
-
-pipenv-check: ## Check your installed dependencies for security vulnerabilities.
-	pipenv check
-
-pipenv-install-env: ## Install a local setup.py into your virtual environment/Pipfile.
-	pipenv install -e .
-
-pipenv-pip-freeze: ## Use a lower-level pip command.
-	pipenv run pip freeze
-
-pipenv-upgrade: ## Upgrade pipenv.
-	pip install --user --upgrade pipenv
+poetry-shell: ## Shell.
+	poetry shell
 
 packaging: ## New project
 	python -m venv .venv
+	pip install -U pip setuptools
+	pip install poetry
 	source .venv/bin/activate
-	pip install --user pipenv
 	pipenv install -d requests mypy autopep8 flake8 pytest bandit pydocstyle sphinx
 	pipenv lock
 	sphinx-quickstart docs

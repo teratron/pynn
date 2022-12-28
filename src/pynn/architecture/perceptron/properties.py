@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Any
 
 from pynn import loss, activation
 
@@ -119,9 +119,6 @@ class Properties:
         return cls.DEFAULT_RATE if rate <= 0 or rate > 1 else rate
 
 
-# p = Properties(name='per')
-
-
 # def compare_dictionaries(dict1, dict2) -> bool:
 #     if dict1 is None or dict2 is None:
 #         return False
@@ -145,7 +142,7 @@ class Properties:
 #     return dicts_are_equal
 
 
-def dict_compare(d1, d2):
+def dict_compare(d1: dict[str, Any], d2: dict[str, Any]) -> tuple[set[Any], set[Any], dict[str, Any], set[Any]]:
     print("&keys", set(d1.keys()) & set(d2.keys()))
     print("&items", set(d1.items()) & set(d2.items()))
 

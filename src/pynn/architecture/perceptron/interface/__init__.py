@@ -5,4 +5,4 @@ from .train import train, and_train
 from .verify import verify
 from .write import write
 
-# from pynn._architecture.perceptron.interface.initialize import initialize
+# from pynn.architecture.perceptron.interface.initialize import initialize

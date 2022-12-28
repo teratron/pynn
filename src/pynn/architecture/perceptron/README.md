@@ -2,7 +2,7 @@
 
 ### _name_
 
-Neural network _architecture name (required field for a config).
+Neural network architecture name (required field for a config).
 
 ### _bias_
 
