@@ -44,6 +44,8 @@ class Perceptron(Interface, Properties, Parameters, Propagation):
         # props = super().trim_props(self, **props)
         print("props", props)
         Properties.__init__(self, Perceptron.name, **props)
+        # Parameters.__init__(self)
+        Propagation.__init__(self)
 
     def _initialize(self, *args: Any, **kwargs: Any) -> None:
         """Initialize neural network."""

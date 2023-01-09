@@ -1,3 +1,6 @@
+import math
+
+
 class Mode:
     """
     The mode of calculation of the total error:
@@ -24,31 +27,58 @@ def check(mode: int) -> int:
     """Check loss mode."""
     return Mode.MSE if mode > Mode.AVG else mode
 
-# def error(value: float, mode: int = Mode.MSE, *args: tuple[float]):
-#     """
-#     Calculating and return the total error of the output neurons.
-#     """
-#     # TODO: try-catch
-#     print(args)
-#     _loss = 0.
-#     for i in range(len_output):
-#         miss[i] = target[i] - value[i]
-#         match mode:
-#             case Mode.MSE, Mode.RMSE, _:
-#                 _loss += miss[i] ** 2
-#             case Mode.ARCTAN:
-#                 _loss += math.atan(miss[i]) ** 2
-#             case Mode.AVG:
-#                 _loss += math.fabs(miss[i])
-#
-#     _loss /= len_output
-#     if mode == Mode.RMSE:
-#         _loss = math.sqrt(_loss)
-#
-#     match True:
-#         case math.isnan(_loss):
-#             logging.log(0, 'perceptron.calc_loss: loss not-a-number value')
-#         case math.isinf(_loss):
-#             logging.log(0, 'perceptron.calc_loss: loss is infinity')
-#
-#     yield _loss
+
+def error(mode: int = Mode.MSE):
+    def outer(func):
+        print('decorator outer')
+
+        def inner():
+            print('decorator inner')
+            _loss = count = 0.0
+            # for i in range(len_output):
+            for i in range(1):
+                # miss[i] = target[i] - value[i]
+                _loss += _get_loss(0.0 + i, mode) + 2
+                func()
+                count += 1
+
+            if count > 1:
+                _loss /= count
+
+            if mode == Mode.RMSE:
+                _loss = math.sqrt(_loss)
+
+            # match True:
+            #     case math.isnan(_loss):
+            #         logging.log(0, 'loss not-a-number value')
+            #         raise ValueError('loss not-a-number value')
+            #     case math.isinf(_loss):
+            #         logging.log(0, 'loss is infinity')
+            #         raise ValueError('loss is infinity')
+
+            return _loss
+
+        return inner
+
+    return outer
+
+
+def _get_loss(value: float, mode: int) -> float:
+    match mode:
+        case Mode.AVG:
+            return math.fabs(value)
+        case Mode.ARCTAN:
+            return math.atan(value) ** 2
+        case Mode.MSE | Mode.RMSE | _:
+            print('Mode.MSE | Mode.RMSE | _')
+            return value ** 2
+
+
+@error(0)
+def calc_loss() -> float:
+    print('decorator')
+    return 1.0
+
+
+if __name__ == "__main__":
+    print('calc_loss', calc_loss())

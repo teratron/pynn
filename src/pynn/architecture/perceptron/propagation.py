@@ -1,8 +1,8 @@
 import logging
 import math
-from typing import Union
 
 from pynn import loss, activation
+from pynn.loss import error
 
 
 # from .parameters import Parameters
@@ -14,14 +14,16 @@ class Propagation:  # (Parameters, Properties)
     Propagation.
     """
 
-    # def __init__(self):
-    #     pass
+    def __init__(self, obj):
+        self.neurons = None
+        self.obj = obj
 
-    def calc_neurons(self: Union[object, None]) -> None:
+    # def calc_neurons(self: Union[object, None]) -> None:
+    def calc_neurons(self) -> None:
         """
         Calculating neurons.
         """
-        length, dec = self.len_input, 0
+        length, dec = self.obj.len_input, 0
         for i in range(len(self.neurons)):
             if i > 0:
                 dec = i - 1
@@ -51,6 +53,10 @@ class Propagation:  # (Parameters, Properties)
                         self.neurons[i][j].value, self.activation_mode
                     )
 
+    @error(0)  # self.loss_mode
+    def calc_loss(self) -> float:
+        pass
+
     def calc_loss(self) -> float:
         """
         Calculating and return the total error of the output neurons.
@@ -62,7 +68,7 @@ class Propagation:  # (Parameters, Properties)
                     self.data_target[i] - self.neurons[self.last_layer_ind][i].value
             )
             match self.loss_mode:
-                case loss.Mode.MSE, loss.Mode.RMSE, _:
+                case loss.Mode.MSE | loss.Mode.RMSE:
                     error += self.neurons[self.last_layer_ind][i].miss ** 2
                 case loss.Mode.ARCTAN:
                     error += math.atan(self.neurons[self.last_layer_ind][i].miss) ** 2
