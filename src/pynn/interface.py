@@ -77,9 +77,7 @@ class Interface(ABC):  # metaclass=ABCMeta
         return "<%s: %r>" % (self.__str__(), self.__dict__)
 
     def __dir__(self) -> list[str]:
-        """
-        Returns all members and all public methods.
-        """
+        """Returns all members and all public methods."""
         return (
                 ["__class__", "__doc__", "__module__"]
                 + [m for cls in self.__class__.mro() for m in cls.__dict__ if m[0] != "_"]

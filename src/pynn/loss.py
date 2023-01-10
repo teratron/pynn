@@ -1,6 +1,5 @@
 import math
-
-from typing import Generator, Callable
+from typing import Callable, Any
 
 
 class Mode:
@@ -30,9 +29,9 @@ def check(mode: int) -> int:
     return Mode.MSE if mode > Mode.AVG else mode
 
 
-def loss(mode: int = Mode.MSE):
-    def outer(func: Callable):  # Union[Generator, float]
-        def inner():
+def loss(mode: int = Mode.MSE) -> Callable[[Callable[[], Any]], Callable[[], float]]:
+    def outer(func: Callable[[], Any]) -> Callable[[], float]:  # Union[Generator, float]
+        def inner() -> float:
             _loss = count = 0.0
             # if isinstance(func, Generator):
             for value in func():
@@ -69,7 +68,7 @@ def _get_loss(value: float, mode: int) -> float:
 
 
 @loss(0)
-def calc_loss() -> Generator:
+def calc_loss() -> Any:  # -> Generator
     for value in (0.27, -0.31, -0.52, 0.66, 0.81):
         yield value
 

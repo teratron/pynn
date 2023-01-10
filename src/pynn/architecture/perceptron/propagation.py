@@ -1,9 +1,7 @@
-import logging
-import math
-from typing import Generator
+from typing import Any
 
-from pynn import loss, activation
-from pynn.loss import loss
+from pynn import activation
+from pynn.loss import loss as total_loss
 
 
 # from .parameters import Parameters
@@ -15,7 +13,7 @@ class Propagation:  # (Parameters, Properties)
     Propagation.
     """
 
-    def __init__(self, obj):
+    def __init__(self, obj) -> None:
         self.neurons = None
         self.obj = obj
 
@@ -54,40 +52,41 @@ class Propagation:  # (Parameters, Properties)
                         self.neurons[i][j].value, self.activation_mode
                     )
 
-    @loss(0)
-    def calc_loss(self) -> Generator:
+    @staticmethod
+    @total_loss(0)
+    def calc_loss() -> Any:
         for value in (0.27, -0.31, -0.52, 0.66, 0.81):
             yield value
 
-    def calc_loss(self) -> float:
-        """
-        Calculating and return the total error of the output neurons.
-        """
-        # TODO: try-catch
-        error = 0.0
-        for i in range(self.len_output):
-            self.neurons[self.last_layer_ind][i].miss = (
-                    self.data_target[i] - self.neurons[self.last_layer_ind][i].value
-            )
-            match self.loss_mode:
-                case loss.Mode.MSE | loss.Mode.RMSE:
-                    error += self.neurons[self.last_layer_ind][i].miss ** 2
-                case loss.Mode.ARCTAN:
-                    error += math.atan(self.neurons[self.last_layer_ind][i].miss) ** 2
-                case loss.Mode.AVG:
-                    error += math.fabs(self.neurons[self.last_layer_ind][i].miss)
-
-        error /= self.len_output
-        if self.loss_mode == loss.Mode.RMSE:
-            error = math.sqrt(error)
-
-        match True:
-            case math.isnan(error):
-                logging.log(0, "perceptron.calc_loss: loss not-a-number value")
-            case math.isinf(error):
-                logging.log(0, "perceptron.calc_loss: loss is infinity")
-
-        return error
+    # def calc_loss(self) -> float:
+    #     """
+    #     Calculating and return the total error of the output neurons.
+    #     """
+    #     # TODO: try-catch
+    #     error = 0.0
+    #     for i in range(self.len_output):
+    #         self.neurons[self.last_layer_ind][i].miss = (
+    #                 self.data_target[i] - self.neurons[self.last_layer_ind][i].value
+    #         )
+    #         match self.loss_mode:
+    #             case loss.Mode.MSE | loss.Mode.RMSE:
+    #                 error += self.neurons[self.last_layer_ind][i].miss ** 2
+    #             case loss.Mode.ARCTAN:
+    #                 error += math.atan(self.neurons[self.last_layer_ind][i].miss) ** 2
+    #             case loss.Mode.AVG:
+    #                 error += math.fabs(self.neurons[self.last_layer_ind][i].miss)
+    #
+    #     error /= self.len_output
+    #     if self.loss_mode == loss.Mode.RMSE:
+    #         error = math.sqrt(error)
+    #
+    #     match True:
+    #         case math.isnan(error):
+    #             logging.log(0, "perceptron.calc_loss: loss not-a-number value")
+    #         case math.isinf(error):
+    #             logging.log(0, "perceptron.calc_loss: loss is infinity")
+    #
+    #     return error
 
     def calc_miss(self) -> None:
         """
