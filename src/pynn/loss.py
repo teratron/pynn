@@ -1,5 +1,7 @@
 import math
 
+from typing import Generator, Callable
+
 
 class Mode:
     """
@@ -28,18 +30,13 @@ def check(mode: int) -> int:
     return Mode.MSE if mode > Mode.AVG else mode
 
 
-def error(mode: int = Mode.MSE):
-    def outer(func):
-        print('decorator outer')
-
+def loss(mode: int = Mode.MSE):
+    def outer(func: Callable):  # Union[Generator, float]
         def inner():
-            print('decorator inner')
             _loss = count = 0.0
-            # for i in range(len_output):
-            for i in range(1):
-                # miss[i] = target[i] - value[i]
-                _loss += _get_loss(0.0 + i, mode) + 2
-                func()
+            # if isinstance(func, Generator):
+            for value in func():
+                _loss += _get_loss(value, mode)
                 count += 1
 
             if count > 1:
@@ -48,13 +45,11 @@ def error(mode: int = Mode.MSE):
             if mode == Mode.RMSE:
                 _loss = math.sqrt(_loss)
 
-            # match True:
-            #     case math.isnan(_loss):
-            #         logging.log(0, 'loss not-a-number value')
-            #         raise ValueError('loss not-a-number value')
-            #     case math.isinf(_loss):
-            #         logging.log(0, 'loss is infinity')
-            #         raise ValueError('loss is infinity')
+            if math.isnan(_loss):
+                raise ValueError('loss not-a-number value')
+
+            if math.isinf(_loss):
+                raise ValueError('loss is infinity')
 
             return _loss
 
@@ -70,14 +65,13 @@ def _get_loss(value: float, mode: int) -> float:
         case Mode.ARCTAN:
             return math.atan(value) ** 2
         case Mode.MSE | Mode.RMSE | _:
-            print('Mode.MSE | Mode.RMSE | _')
             return value ** 2
 
 
-@error(0)
-def calc_loss() -> float:
-    print('decorator')
-    return 1.0
+@loss(0)
+def calc_loss() -> Generator:
+    for value in (0.27, -0.31, -0.52, 0.66, 0.81):
+        yield value
 
 
 if __name__ == "__main__":

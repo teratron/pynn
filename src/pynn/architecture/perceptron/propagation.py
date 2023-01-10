@@ -1,8 +1,9 @@
 import logging
 import math
+from typing import Generator
 
 from pynn import loss, activation
-from pynn.loss import error
+from pynn.loss import loss
 
 
 # from .parameters import Parameters
@@ -53,9 +54,10 @@ class Propagation:  # (Parameters, Properties)
                         self.neurons[i][j].value, self.activation_mode
                     )
 
-    @error(0)  # self.loss_mode
-    def calc_loss(self) -> float:
-        pass
+    @loss(0)
+    def calc_loss(self) -> Generator:
+        for value in (0.27, -0.31, -0.52, 0.66, 0.81):
+            yield value
 
     def calc_loss(self) -> float:
         """
