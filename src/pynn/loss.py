@@ -32,14 +32,15 @@ def check(mode: int) -> int:
 def loss(mode: int = Mode.MSE) -> Callable[[Callable[[], Any]], Callable[[], float]]:
     def outer(func: Callable[[], Any]) -> Callable[[], float]:  # Union[Generator, float]
         def inner() -> float:
-            _loss = count = 0.0
-            # if isinstance(func, Generator):
-            for value in func():
-                _loss += _get_loss(value, mode)
-                count += 1
+            _loss = 0.0
+            if isinstance(func, Callable):
+                count = 0.0
+                for value in func():
+                    _loss += _get_loss(value, mode)
+                    count += 1
 
-            if count > 1:
-                _loss /= count
+                if count > 1:
+                    _loss /= count
 
             if mode == Mode.RMSE:
                 _loss = math.sqrt(_loss)
