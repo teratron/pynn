@@ -1,5 +1,6 @@
 import math
-from typing import Callable, Any
+
+from typing import Callable, Any, Iterable
 
 
 class Mode:
@@ -30,17 +31,21 @@ def check(mode: int) -> int:
 
 
 def loss(mode: int = Mode.MSE) -> Callable[[Callable[[], Any]], Callable[[], float]]:
-    def outer(func: Callable[[], Any]) -> Callable[[], float]:  # Union[Generator, float]
+    def outer(func: Callable[[], Any]) -> Callable[[], float]:
         def inner() -> float:
             _loss = 0.0
-            if isinstance(func, Callable):
+            miss = func()
+
+            if isinstance(miss, Iterable):
                 count = 0.0
-                for value in func():
+                for value in miss:
                     _loss += _get_loss(value, mode)
                     count += 1
 
                 if count > 1:
                     _loss /= count
+            elif isinstance(miss, float):
+                _loss += _get_loss(miss, mode)
 
             if mode == Mode.RMSE:
                 _loss = math.sqrt(_loss)
@@ -69,10 +74,16 @@ def _get_loss(value: float, mode: int) -> float:
 
 
 @loss(0)
-def calc_loss() -> Any:  # -> Generator
+def calc_loss() -> Iterable[float]:
     for value in (0.27, -0.31, -0.52, 0.66, 0.81):
         yield value
 
 
+@loss(2)
+def _calc_loss() -> float:
+    return 0.333
+
+
 if __name__ == "__main__":
     print('calc_loss', calc_loss())
+    print('_calc_loss', _calc_loss())
