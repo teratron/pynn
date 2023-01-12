@@ -29,7 +29,7 @@ class Properties:
             activation_mode: int = activation.Mode.TANH,
             loss_mode: int = loss.Mode.RMSE,
             loss_limit: float = 0.1e-3,
-            rate: float = DEFAULT_RATE
+            rate: float = DEFAULT_RATE,
     ) -> None:
         self._name: str = name
         self._bias: bool = bias
@@ -142,7 +142,10 @@ class Properties:
 #     return dicts_are_equal
 
 
-def dict_compare(d1: dict[str, Any], d2: dict[str, Any]) -> tuple[set[Any], set[Any], dict[str, Any], set[Any]]:
+def dict_compare(
+        d1: dict[str, Any],
+        d2: dict[str, Any]
+) -> tuple[set[Any], set[Any], dict[str, Any], set[Any]]:
     print("&keys", set(d1.keys()) & set(d2.keys()))
     print("&items", set(d1.items()) & set(d2.items()))
 

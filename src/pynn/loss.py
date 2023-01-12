@@ -37,6 +37,7 @@ def loss(mode: int = Mode.MSE) -> Callable[[Callable[[], Any]], Callable[[], flo
             miss = func()
 
             if isinstance(miss, Iterable):
+                # if isinstance(miss, Sequence):
                 count = 0.0
                 for value in miss:
                     _loss += _get_loss(value, mode)
@@ -75,6 +76,7 @@ def _get_loss(value: float, mode: int) -> float:
 
 @loss(0)
 def calc_loss() -> Iterable[float]:
+    #def calc_loss() -> Sequence[float]:
     for value in (0.27, -0.31, -0.52, 0.66, 0.81):
         yield value
 

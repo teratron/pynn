@@ -35,7 +35,9 @@
 #
 #
 # def auto(
-#     cls: Optional[Type[T]] = None, *, angular: Optional[bool] = None
+#     cls: Optional[Type[T]] = None,
+#     *,
+#     angular: Optional[bool] = None
 # ) -> Union[Type[T], Callable[[Type[T]], Type[T]]]:
 #     """Class decorator to create __repr__ from __rich_repr__"""
 #
@@ -112,7 +114,9 @@
 #
 #
 # def rich_repr(
-#     cls: Optional[Type[T]] = None, *, angular: bool = False
+#     cls: Optional[Type[T]] = None,
+#     *,
+#     angular: bool = False
 # ) -> Union[Type[T], Callable[[Type[T]], Type[T]]]:
 #     if cls is None:
 #         return auto(angular=angular)
@@ -130,20 +134,18 @@
 #             yield "buy", "hand sanitizer"
 #
 #     foo = Foo()
+#
 #     from rich.console import Console
 #
 #     console = Console()
 #
 #     console.rule("Standard repr")
 #     console.print(foo)
-#
 #     console.print(foo, width=60)
 #     console.print(foo, width=30)
 #
 #     console.rule("Angular repr")
 #     Foo.__rich_repr__.angular = True  # type: ignore[attr-defined]
-#
 #     console.print(foo)
-#
 #     console.print(foo, width=60)
 #     console.print(foo, width=30)

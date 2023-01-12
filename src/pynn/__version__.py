@@ -20,5 +20,3 @@ def change_version() -> None:
             if ind > 0 and key == "version":
                 line = line.replace(value, f'"{__version__}"\n')
             handle.writelines(line)
-
-# change_version()
