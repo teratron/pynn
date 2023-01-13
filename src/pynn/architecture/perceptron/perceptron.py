@@ -18,13 +18,14 @@ class Perceptron(Interface, Properties, Parameters, Propagation):
     Perceptron is neural network.
     """
 
+    print("Perceptron")
     name: str = "perceptron"
     type: str = "Perceptron"
-    description: str = "description"
+    description: str = __doc__
 
     def __init__(self, **props: Any) -> None:
-        if "name" in props:
-            del props["name"]
+        # if "name" in props:
+        #     del props["name"]
 
         # Weights
         if "weights" in props:
@@ -43,9 +44,10 @@ class Perceptron(Interface, Properties, Parameters, Propagation):
 
         # props = super().trim_props(self, **props)
         # print("props", props)
-        Properties.__init__(self, Perceptron.name, **props)
+        # Properties.__init__(self, self.name, **props)
+        Properties.__init__(self, **props)
         # Parameters.__init__(self)
-        # Propagation.__init__(self, self)
+        Propagation.__init__(self, self)
 
     def _initialize(self, *args: Any, **kwargs: Any) -> None:
         """Initialize neural network."""

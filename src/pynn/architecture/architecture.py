@@ -1,12 +1,15 @@
 import json
-import os.path as path
+import os
 from typing import Any, Union
 
 from pynn.architecture.hopfield.hopfield import Hopfield
 from pynn.architecture.perceptron.perceptron import Perceptron
 
-NN = Union[Perceptron, Hopfield]
-NNN = Perceptron | Hopfield
+# NNN = Union[Perceptron]
+NNN = Union[Perceptron, Hopfield]
+
+
+# NNN = Perceptron | Hopfield
 
 # *- Pynn()
 #
@@ -40,16 +43,16 @@ NNN = Perceptron | Hopfield
 #
 #     return props
 
-i = 0
+#i = 0
 
 
 def architecture(reader: str, **props: Any) -> NNN:
     """
     Returns an instance of one of the architectures.
     """
-    global i
-    print(i)
-    i += 1
+    # global i
+    # print(i)
+    # i += 1
     if reader.lower() == Perceptron.name:
         return Perceptron(**props)
     elif reader.lower() == Hopfield.name:
@@ -69,9 +72,9 @@ def architecture(reader: str, **props: Any) -> NNN:
 
 def _get_props_from(reader: str) -> dict[str, Any]:
     data: dict[str, Any] = {}
-    if path.isfile(reader):
-        filename = path.normpath(reader)
-        _, extension = path.splitext(filename)
+    if os.path.isfile(reader):
+        filename = os.path.normpath(reader)
+        _, extension = os.path.splitext(filename)
         if extension == ".json":
             with open(filename) as handle:
                 data = json.load(handle)

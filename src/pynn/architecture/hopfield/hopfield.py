@@ -1,22 +1,23 @@
 from typing import Any
 
+from pynn.architecture.hopfield.properties import Properties
 from pynn.interface import Interface
 
 
-# from .properties import Properties
-
-
-class Hopfield(Interface):
+class Hopfield(Interface, Properties):
     """
     Hopfield is neural network.
     """
 
+    print("Hopfield")
     name: str = "hopfield"
     type: str = "Hopfield"
-    description: str = "description"
+    description: str = __doc__
 
     def __init__(self, **props) -> None:
-        super().__init__(**props)
+        print("Hopfield init")
+        # Properties.__init__(self, self.name, **props)
+        Properties.__init__(self, **props)
 
     def _initialize(self, *args: Any, **kwargs: Any) -> None:
         """Initialize neural network."""

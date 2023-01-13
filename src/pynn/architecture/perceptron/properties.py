@@ -33,11 +33,11 @@ class Properties:
     ) -> None:
         self._name: str = name
         self._bias: bool = bias
-        self._hidden_layers: list[int] = Properties._check_hidden_layers(hidden_layers)
-        self._activation_mode: int = activation.check(activation_mode)
-        self._loss_mode: int = loss.check(loss_mode)
+        self._hidden_layers: list[int] = hidden_layers
+        self._activation_mode: int = activation_mode
+        self._loss_mode: int = loss_mode
         self._loss_limit: float = loss_limit
-        self._rate: float = Properties._check_rate(rate)
+        self._rate: float = rate
 
     @property
     def bias(self) -> bool:
@@ -55,7 +55,7 @@ class Properties:
 
     @hidden_layers.setter
     def hidden_layers(self, layers: list[int]) -> None:
-        self._hidden_layers = Properties._check_hidden_layers(layers)
+        self._hidden_layers = self._check_hidden_layers(layers)
 
     @staticmethod
     def _check_hidden_layers(layers: Optional[list[int]]) -> list[int]:
@@ -99,7 +99,7 @@ class Properties:
 
     @loss_limit.setter
     def loss_limit(self, limit: float) -> None:
-        self._loss_limit = Properties._check_loss_limit(limit)
+        self._loss_limit = self._check_loss_limit(limit)
 
     @staticmethod
     def _check_loss_limit(limit: float) -> float:
@@ -112,7 +112,7 @@ class Properties:
 
     @rate.setter
     def rate(self, rate: float) -> None:
-        self._rate = Properties._check_rate(rate)
+        self._rate = self._check_rate(rate)
 
     @classmethod
     def _check_rate(cls, rate: float) -> float:

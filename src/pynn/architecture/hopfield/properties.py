@@ -1,26 +1,31 @@
-import pynn.activation as activation
-import pynn.loss as loss
-
-
-class Properties(activation.Mode, loss.Mode):
+class Properties:
     """
     Properties of neural network.
     """
 
-    def __init__(self, *, energy: float = 0.3):
-        self._energy: float = Properties.check_energy(energy)
-        """Energy."""
+    __slots__ = (
+        "_name",
+        "_energy",
+    )
+    print("Hopfield props")
+
+    def __init__(
+            self,
+            name: str,  # TODO: ?
+            *,
+            energy: float = 0.3
+    ) -> None:
+        self._name: str = name
+        self._energy: float = energy
 
     @property
     def energy(self) -> float:
-        """
-        Energy.
-        """
+        """Energy."""
         return self._energy
 
     @energy.setter
     def energy(self, energy: float):
-        self._energy = Properties.check_energy(energy)
+        self._energy = self.check_energy(energy)
 
     @staticmethod
     def check_energy(energy: float) -> float:

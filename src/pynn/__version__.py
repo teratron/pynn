@@ -17,6 +17,8 @@ def change_version() -> None:
             ind = line.find("=")
             key = line[:ind].strip(" ")
             value = line[ind + 1:].strip(" ")
+
             if ind > 0 and key == "version":
                 line = line.replace(value, f'"{__version__}"\n')
+
             handle.writelines(line)

@@ -40,7 +40,7 @@ if __name__ == "__main__":
     # print(timeit(pn))
 
     print("++++", pn.rate, pn.__dict__)
-    print("++++", pn)
+    print("++++", pn.len_input)
 
     # Input dataset.
     data_input = [0.27, 0.31, 0.52]

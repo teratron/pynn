@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from asyncio import Lock
+from typing import Any, Optional, Type
 
 
 # from .architecture import Perceptron
@@ -25,15 +26,21 @@ class Interface(ABC):  # metaclass=ABCMeta
     Interface for neural network.
     """
 
-    name: str
-    type: str
-    description: str
+    name: str = ""
+    type: str = ""
+    description: str = ""
+    is_init: bool = False
+    config: Optional[str] = None
+    mutex: Lock
 
     # weights: list[list[Union[list[float], float]]]
     # config: str
     # @abstractmethod
     # def __init__(self) -> None:
     #     ...
+
+    def __init_subclass__(cls) -> None:
+        print("cls", cls, Type[cls])
 
     @abstractmethod
     def _initialize(self, *args: Any, **kwargs: Any) -> None:
