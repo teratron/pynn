@@ -1,4 +1,4 @@
-from typing import Optional, Any
+from typing import Optional
 
 from pynn import loss, activation
 
@@ -22,7 +22,7 @@ class Properties:
 
     def __init__(
             self,
-            name: str,
+            name: str,  # TODO: ?
             *,
             bias: bool = True,
             hidden_layers: Optional[list[int]] = None,
@@ -118,7 +118,6 @@ class Properties:
     def _check_rate(cls, rate: float) -> float:
         return cls.DEFAULT_RATE if rate <= 0 or rate > 1 else rate
 
-
 # def compare_dictionaries(dict1, dict2) -> bool:
 #     if dict1 is None or dict2 is None:
 #         return False
@@ -142,32 +141,32 @@ class Properties:
 #     return dicts_are_equal
 
 
-def dict_compare(
-        d1: dict[str, Any],
-        d2: dict[str, Any]
-) -> tuple[set[Any], set[Any], dict[str, Any], set[Any]]:
-    print("&keys", set(d1.keys()) & set(d2.keys()))
-    print("&items", set(d1.items()) & set(d2.items()))
-
-    print("^keys", set(d2.keys()) ^ set(d1.keys()))
-    print("^items", set(d2.items()) ^ set(d1.items()))
-
-    print("|keys", set(d2.keys()) | set(d1.keys()))
-    print("|items", set(d2.items()) | set(d1.items()))
-
-    d1_keys = set(d1.keys())
-    d2_keys = set(d2.keys())
-    shared_keys = d1_keys.intersection(d2_keys)
-    _added = d1_keys - d2_keys
-    _removed = d2_keys - d1_keys
-    _modified = {i: (d1[i], d2[i]) for i in shared_keys if d1[i] != d2[i]}
-    _same = set(i for i in shared_keys if d1[i] == d2[i])
-
-    return _added, _removed, _modified, _same
-
-
-if __name__ == "__main__":
-    x = dict(a=1, b=2, c=5, d=3)
-    y = dict(a=2, b=2, d=0)
-    added, removed, modified, same = dict_compare(x, y)
-    print(added, removed, modified, same)
+# def dict_compare(
+#         d1: dict[str, Any],
+#         d2: dict[str, Any]
+# ) -> tuple[set[Any], set[Any], dict[str, Any], set[Any]]:
+#     print("&keys", set(d1.keys()) & set(d2.keys()))
+#     print("&items", set(d1.items()) & set(d2.items()))
+#
+#     print("^keys", set(d2.keys()) ^ set(d1.keys()))
+#     print("^items", set(d2.items()) ^ set(d1.items()))
+#
+#     print("|keys", set(d2.keys()) | set(d1.keys()))
+#     print("|items", set(d2.items()) | set(d1.items()))
+#
+#     d1_keys = set(d1.keys())
+#     d2_keys = set(d2.keys())
+#     shared_keys = d1_keys.intersection(d2_keys)
+#     _added = d1_keys - d2_keys
+#     _removed = d2_keys - d1_keys
+#     _modified = {i: (d1[i], d2[i]) for i in shared_keys if d1[i] != d2[i]}
+#     _same = set(i for i in shared_keys if d1[i] == d2[i])
+#
+#     return _added, _removed, _modified, _same
+#
+#
+# if __name__ == "__main__":
+#     x = dict(a=1, b=2, c=5, d=3)
+#     y = dict(a=2, b=2, d=0)
+#     added, removed, modified, same = dict_compare(x, y)
+#     print(added, removed, modified, same)

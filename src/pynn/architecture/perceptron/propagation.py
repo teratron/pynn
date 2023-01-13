@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Type
 
 from pynn import activation
 from pynn.loss import loss as total_loss
@@ -13,12 +13,20 @@ class Propagation:  # (Parameters, Properties)
     Propagation.
     """
 
-    def __init__(self, obj) -> None:
-        self.neurons = None
-        self.obj = obj
+    # types: Any
+    # def __init__(self, obj: object) -> None:
+    #     # self.neurons = None
+    #     # global types
+    #     print("self", self, Type[self])
+    #     self.obj = obj
+
+    def __init_subclass__(cls) -> None:
+        print("cls", cls, Type[cls])
+        # cls.types = type(cls)
 
     # def calc_neurons(self: Union[object, None]) -> None:
-    def calc_neurons(self) -> None:
+    @classmethod
+    def calc_neurons(cls) -> None:
         """
         Calculating neurons.
         """
@@ -98,9 +106,7 @@ class Propagation:  # (Parameters, Properties)
                 for j in range(len(self.neurons[i])):
                     self.neurons[i][j].miss = 0.0
                     for k, m in range(len(self.neurons[inc])):
-                        self.neurons[i][j].miss += (
-                                self.neurons[inc][k].miss * self.data_weight[inc][k][j]
-                        )
+                        self.neurons[i][j].miss += self.neurons[inc][k].miss * self.data_weight[inc][k][j]
 
     def update_weights(self) -> None:
         """
