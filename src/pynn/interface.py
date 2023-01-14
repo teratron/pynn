@@ -28,7 +28,7 @@ class Interface(ABC):  # metaclass=ABCMeta
 
     name: str = ""
     type: str = ""
-    description: str = ""
+    description: str = __doc__
     is_init: bool = False
     config: Optional[str] = None
     mutex: Lock

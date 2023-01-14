@@ -61,7 +61,7 @@ add-commit-push: ## add commit push
 
 .PHONY: help
 help:
-	@echo "Tasks in \033[1;32mnettix\033[0m:"
+	@echo "Tasks in \033[1;32mpynn\033[0m:"
 	@awk '                                             \
 		BEGIN {FS = ":.*?## "}                         \
 		/^[a-zA-Z_-]+:.*?## /                          \

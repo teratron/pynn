@@ -1,12 +1,13 @@
 import json
 import os
-from typing import Any, Union
+from typing import Any
 
-from pynn.architecture.hopfield.hopfield import Hopfield
-from pynn.architecture.perceptron.perceptron import Perceptron
+
+# from pynn.architecture.hopfield.hopfield import Hopfield
+# from pynn.architecture.perceptron.perceptron import Perceptron
 
 # NNN = Union[Perceptron]
-NNN = Union[Perceptron, Hopfield]
+# NNN = Union[Perceptron, Hopfield]
 
 
 # NNN = Perceptron | Hopfield
@@ -43,19 +44,28 @@ NNN = Union[Perceptron, Hopfield]
 #
 #     return props
 
-#i = 0
+# i = 0
 
 
-def architecture(reader: str, **props: Any) -> NNN:
+# def architecture(reader: str, **props: Any) -> NNN:
+def architecture(reader: str, **props: Any) -> Any:
     """
     Returns an instance of one of the architectures.
     """
+
     # global i
     # print(i)
     # i += 1
-    if reader.lower() == Perceptron.name:
+    # if reader.lower() == Perceptron.name:
+    #     return Perceptron(**props)
+    # elif reader.lower() == Hopfield.name:
+    #     return Hopfield(**props)
+
+    if reader.lower() == "perceptron":
+        from pynn.architecture.perceptron.perceptron import Perceptron
         return Perceptron(**props)
-    elif reader.lower() == Hopfield.name:
+    elif reader.lower() == "hopfield":
+        from pynn.architecture.hopfield.hopfield import Hopfield
         return Hopfield(**props)
     else:
         if reader != "":
@@ -67,7 +77,8 @@ def architecture(reader: str, **props: Any) -> NNN:
             else:
                 raise NameError("missing field: name")
 
-    return Perceptron()
+    # return Perceptron()
+    return None
 
 
 def _get_props_from(reader: str) -> dict[str, Any]:

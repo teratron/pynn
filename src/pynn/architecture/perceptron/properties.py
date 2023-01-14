@@ -33,7 +33,7 @@ class Properties:
     ) -> None:
         self._name: str = name
         self._bias: bool = bias
-        self._hidden_layers: list[int] = hidden_layers
+        self._hidden_layers: Optional[list[int]] = hidden_layers
         self._activation_mode: int = activation_mode
         self._loss_mode: int = loss_mode
         self._loss_limit: float = loss_limit
@@ -49,7 +49,7 @@ class Properties:
         self._bias = bias
 
     @property
-    def hidden_layers(self) -> list[int]:
+    def hidden_layers(self) -> Optional[list[int]]:
         """List of the number of neuron in each hidden layers."""
         return self._hidden_layers
 
