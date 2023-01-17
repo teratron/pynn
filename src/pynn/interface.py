@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from asyncio import Lock
-from typing import Any, Optional, Type
+from typing import Any, Optional
 
 
 # from .architecture import Perceptron
@@ -39,8 +39,26 @@ class Interface(ABC):  # metaclass=ABCMeta
     # def __init__(self) -> None:
     #     ...
 
-    def __init_subclass__(cls) -> None:
-        print("cls", cls, Type[cls])
+    def __init_subclass__(cls, **props: Any) -> None:
+        super().__init_subclass__(**props)
+        print("__init_subclass__:", cls, props)
+        # if "weights" in cls.props:
+        #     self.weights = props["weights"]
+        #     del props["weights"]
+
+    # def trim_props(self, **props: Any) -> dict[str, Any]:
+    #     # if "name" in props:
+    #     #     del props["name"]
+    #
+    #     if "weights" in props:
+    #         self.weights = props["weights"]
+    #         del props["weights"]
+    #
+    #     if "config" in props:
+    #         self.config = props["config"]
+    #         del props["config"]
+    #
+    #     return props
 
     @abstractmethod
     def _initialize(self, *args: Any, **kwargs: Any) -> None:

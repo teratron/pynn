@@ -4,11 +4,11 @@ import math
 class Mode:
     """
     Activation function mode:
-    LINEAR -- Linear/identity (0);
-    RELU -- ReLu (rectified linear unit) (1);
-    LEAKY_RELU -- Leaky ReLu (leaky rectified linear unit) (2);
-    SIGMOID -- Logistic, a.k.a. sigmoid or soft step (3);
-    TANH -- TanH (hyperbolic tangent) (4).
+    * LINEAR -- Linear/identity (0);
+    * RELU -- ReLu (rectified linear unit) (1);
+    * LEAKY_RELU -- Leaky ReLu (leaky rectified linear unit) (2);
+    * SIGMOID -- Logistic, a.k.a. sigmoid or soft step (3);
+    * TANH -- TanH (hyperbolic tangent) (4).
     """
 
     LINEAR: int = 0

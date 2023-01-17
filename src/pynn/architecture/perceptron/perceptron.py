@@ -23,7 +23,11 @@ class Perceptron(Interface, Properties, Parameters, Propagation):
     type: str = "Perceptron"
     description: str = __doc__
 
+    # _props: dict[str, Any] = {}
+
     def __init__(self, **props: Any) -> None:
+        print("__init__", props)
+        # self._props = props
         # if "name" in props:
         #     del props["name"]
 

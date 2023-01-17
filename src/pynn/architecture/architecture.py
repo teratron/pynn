@@ -63,11 +63,9 @@ def architecture(reader: str, **props: Any) -> Any:
 
     if reader.lower() == "perceptron":
         from pynn.architecture.perceptron.perceptron import Perceptron
-
         return Perceptron(**props)
     elif reader.lower() == "hopfield":
         from pynn.architecture.hopfield.hopfield import Hopfield
-
         return Hopfield(**props)
     else:
         if reader != "":
