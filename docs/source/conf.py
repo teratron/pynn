@@ -6,20 +6,22 @@
 # -- Project information --
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+from pynn.__version__ import __version__
+
 project = 'pynn'
 project_copyright = '2022, Oleg Alexandrov'
 author = 'Oleg Alexandrov'
-release = '0.1.0'
+release = __version__
 
 # -- General configuration --
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions: list = []
-templates_path = ['templates']
+extensions: list[str] = []
+templates_path = ['_templates']
 exclude_patterns = ['build', 'Thumbs.db', '.DS_Store']
 
 # -- Options for HTML output --
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'alabaster'
-html_static_path = ['static']
+html_static_path = ['_static']

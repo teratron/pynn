@@ -21,7 +21,7 @@ class App:
     Application.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         # TODO document why this method is empty
         pass
 

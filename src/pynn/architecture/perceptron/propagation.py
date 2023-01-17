@@ -106,7 +106,9 @@ class Propagation:  # (Parameters, Properties)
                 for j in range(len(self.neurons[i])):
                     self.neurons[i][j].miss = 0.0
                     for k, m in range(len(self.neurons[inc])):
-                        self.neurons[i][j].miss += self.neurons[inc][k].miss * self.data_weight[inc][k][j]
+                        self.neurons[i][j].miss += (
+                                self.neurons[inc][k].miss * self.data_weight[inc][k][j]
+                        )
 
     def update_weights(self) -> None:
         """

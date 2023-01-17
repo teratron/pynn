@@ -9,12 +9,7 @@ class Properties:
     )
     print("Hopfield props")
 
-    def __init__(
-            self,
-            name: str,  # TODO: ?
-            *,
-            energy: float = 0.3
-    ) -> None:
+    def __init__(self, name: str, *, energy: float = 0.3) -> None:  # TODO: ?
         self._name: str = name
         self._energy: float = energy
 

@@ -6,11 +6,11 @@ with open('.env') as handle:
 try:
     for line in lines:
         ind = line.find('=')
-        key = line[:ind]
-        os.environ[key] = line[ind + 1:]
+        key = line[:ind].strip(" ")
+        os.environ[key] = line[ind + 1:].strip(" ")
         print(ind, key, os.environ[key])
 except ValueError:
     pass
 
-SECRET = os.environ['SECRET']
-print(SECRET)
+PASSWORD = os.environ['PASSWORD']
+print(PASSWORD)
