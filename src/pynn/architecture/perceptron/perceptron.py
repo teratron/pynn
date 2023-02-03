@@ -14,8 +14,7 @@ from pynn.interface import Interface
 
 
 class Perceptron(Interface, Properties, Parameters, Propagation):
-    """
-    Perceptron is neural network.
+    """Perceptron is neural network.
     """
 
     print("Perceptron")

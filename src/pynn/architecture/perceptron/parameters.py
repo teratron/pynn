@@ -9,8 +9,7 @@ class Neuron:
 
 
 class Parameters:
-    """
-    Parameters.
+    """Parameters.
     """
 
     # Neurons

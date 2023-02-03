@@ -49,8 +49,7 @@ from typing import Any
 
 # def architecture(reader: str, **props: Any) -> NNN:
 def architecture(reader: str, **props: Any) -> Any:
-    """
-    Returns an instance of one of the architectures.
+    """Returns an instance of one of the architectures.
     """
 
     # global i

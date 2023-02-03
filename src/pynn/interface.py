@@ -22,8 +22,7 @@ class NeuralNetwork:
 
 
 class Interface(ABC):  # metaclass=ABCMeta
-    """
-    Interface for neural network.
+    """Interface for neural network.
     """
 
     name: str = ""
@@ -104,7 +103,7 @@ class Interface(ABC):  # metaclass=ABCMeta
     def __dir__(self) -> list[str]:
         """Returns all members and all public methods."""
         return (
-                ["__class__", "__doc__", "__module__"]
-                + [m for cls in self.__class__.mro() for m in cls.__dict__ if m[0] != "_"]
-                + [m for m in self.__dict__ if m[0] != "_"]
+                ["__class__", "__doc__", "__module__"] +
+                [m for cls in self.__class__.mro() for m in cls.__dict__ if m[0] != "_"] +
+                [m for m in self.__dict__ if m[0] != "_"]
         )

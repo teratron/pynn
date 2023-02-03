@@ -1,7 +1,7 @@
 from typing import Any
 
 from pynn import activation
-from pynn.loss import loss as total_loss
+from pynn.properties.loss import loss as total_loss
 
 
 # from .parameters import Parameters
@@ -9,8 +9,7 @@ from pynn.loss import loss as total_loss
 
 
 class Propagation:  # (Parameters, Properties)
-    """
-    Propagation.
+    """Propagation.
     """
 
     # types: Any
@@ -27,8 +26,7 @@ class Propagation:  # (Parameters, Properties)
     # def calc_neurons(self: Union[object, None]) -> None:
 
     def calc_neurons(self) -> None:
-        """
-        Calculating neurons.
+        """Calculating neurons.
         """
         length, dec = self.obj.len_input, 0
         for i in range(len(self.neurons)):
@@ -77,15 +75,15 @@ class Propagation:  # (Parameters, Properties)
     #                 self.data_target[i] - self.neurons[self.last_layer_ind][i].value
     #         )
     #         match self.loss_mode:
-    #             case loss.Mode.MSE | loss.Mode.RMSE:
+    #             case loss.LossMode.MSE | loss.LossMode.RMSE:
     #                 error += self.neurons[self.last_layer_ind][i].miss ** 2
-    #             case loss.Mode.ARCTAN:
+    #             case loss.LossMode.ARCTAN:
     #                 error += math.atan(self.neurons[self.last_layer_ind][i].miss) ** 2
-    #             case loss.Mode.AVG:
+    #             case loss.LossMode.AVG:
     #                 error += math.fabs(self.neurons[self.last_layer_ind][i].miss)
     #
     #     error /= self.len_output
-    #     if self.loss_mode == loss.Mode.RMSE:
+    #     if self.loss_mode == loss.LossMode.RMSE:
     #         error = math.sqrt(error)
     #
     #     match True:

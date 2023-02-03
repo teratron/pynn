@@ -46,7 +46,7 @@ packaging: poetry ## New project
 set-url: ## git remote set-url origin git@github.com:login/repo.git
 	git remote set-url origin git@github.com:teratron/pynn.git
 
-message = Tests
+message = Properties
 branch = master
 add-commit-push: ## add commit push
 	git add .

@@ -1,11 +1,12 @@
 from typing import Optional
 
-from pynn import loss, activation
+from pynn import activation
+from pynn.properties import loss
+from pynn.properties.loss import Loss
 
 
 class Properties:
-    """
-    Properties of neural network.
+    """Properties of neural network.
     """
 
     DEFAULT_RATE: float = 0.3
@@ -17,7 +18,7 @@ class Properties:
         "_activation_mode",
         "_loss_mode",
         "_loss_limit",
-        "_rate",
+        "_rate"
     )
 
     def __init__(
@@ -27,7 +28,7 @@ class Properties:
             bias: bool = True,
             hidden_layers: Optional[list[int]] = None,
             activation_mode: int = activation.Mode.TANH,
-            loss_mode: int = loss.Mode.RMSE,
+            loss_mode: int = Loss.RMSE,
             loss_limit: float = 0.1e-3,
             rate: float = DEFAULT_RATE,
     ) -> None:
@@ -63,8 +64,8 @@ class Properties:
 
     @property
     def activation_mode(self) -> int:
-        """
-        Activation function mode:
+        """Activation function mode:
+
         * LINEAR -- Linear/identity (0);
         * RELU -- ReLu (rectified linear unit) (1);
         * LEAKY_RELU -- Leaky ReLu (leaky rectified linear unit) (2);
@@ -79,8 +80,8 @@ class Properties:
 
     @property
     def loss_mode(self) -> int:
-        """
-        The mode of calculation of the total error:
+        """The mode of calculation of the total error:
+
         * MSE -- Mean Squared Error (0);
         * RMSE -- Root Mean Squared Error (1);
         * ARCTAN -- Arctan Error (2);

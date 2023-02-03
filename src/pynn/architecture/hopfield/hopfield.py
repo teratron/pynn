@@ -5,8 +5,7 @@ from pynn.interface import Interface
 
 
 class Hopfield(Interface, Properties):
-    """
-    Hopfield is neural network.
+    """Hopfield is neural network.
     """
 
     print("Hopfield")

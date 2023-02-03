@@ -1,17 +1,18 @@
 from typing import Any
 
-from pynn import activation, loss
+from pynn import activation
+from pynn.properties import loss
 # from pynn.architecture.architecture import architecture, NNN
 from pynn.architecture.architecture import architecture
 
 
-class Pynn(activation.Mode, loss.Mode):
-    """
-    Access point to neural network.
+class Pynn(activation.Mode, loss.LossMode):
+    """Access point to neural network.
 
     Pynn(reader: str, **kwargs)
 
     Examples:
+
         - Pynn()
         - Pynn("perceptron")
         - Pynn("perceptron", bias=True, rate=0.3)

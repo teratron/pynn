@@ -3,9 +3,9 @@ import math
 from typing import Callable, Any, Iterable
 
 
-class Mode:
-    """
-    The mode of calculation of the total error:
+class LossMode:
+    """The mode of calculation of the total error:
+
     * MSE -- Mean Squared Error (0);
     * RMSE -- Root Mean Squared Error (1);
     * ARCTAN -- Arctan Error (2);
@@ -25,12 +25,44 @@ class Mode:
     """AVG -- Average Error (3)."""
 
 
-def check(mode: int) -> int:
-    """Check loss mode."""
-    return Mode.MSE if mode > Mode.AVG else mode
+class Loss(LossMode):
+    def __init__(
+            self,
+            /,
+            loss_mode: int = LossMode.RMSE,
+            loss_limit: float = 0.1e-3,
+    ) -> None:
+        self._loss_mode: int = loss_mode
+        self._loss_limit: float = loss_limit
+
+    @property
+    def loss_mode(self) -> int:
+        return self._loss_mode
+
+    @loss_mode.setter
+    def loss_mode(self, mode: int) -> None:
+        self._loss_mode = loss.check(mode)
+
+    @property
+    def loss_limit(self) -> float:
+        """Minimum (sufficient) limit of the average of the error during training."""
+        return self._loss_limit
+
+    @loss_limit.setter
+    def loss_limit(self, limit: float) -> None:
+        self._loss_limit = self._check_loss_limit(limit)
+
+    @staticmethod
+    def _check_loss_limit(limit: float) -> float:
+        return 0.1e-6 if limit <= 0 else limit
+
+    @classmethod
+    def check(cls, mode: int) -> int:
+        """Check loss mode."""
+        return cls.MSE if mode > cls.AVG else mode
 
 
-def loss(mode: int = Mode.MSE) -> Callable[[Callable[[], Any]], Callable[[], float]]:
+def loss(mode: int = Loss.MSE) -> Callable[[Callable[[], Any]], Callable[[], float]]:
     def outer(func: Callable[[], Any]) -> Callable[[], float]:
         def inner() -> float:
             _loss = 0.0
@@ -39,15 +71,15 @@ def loss(mode: int = Mode.MSE) -> Callable[[Callable[[], Any]], Callable[[], flo
             if isinstance(miss, Iterable):
                 count = 0.0
                 for value in miss:
-                    _loss += _get_loss(value, mode)
+                    _loss += __get_loss(value, mode)
                     count += 1
 
                 if count > 1:
                     _loss /= count
             elif isinstance(miss, float):
-                _loss += _get_loss(miss, mode)
+                _loss += __get_loss(miss, mode)
 
-            if mode == Mode.RMSE:
+            if mode == Loss.RMSE:
                 _loss = math.sqrt(_loss)
 
             if math.isnan(_loss):
@@ -63,13 +95,13 @@ def loss(mode: int = Mode.MSE) -> Callable[[Callable[[], Any]], Callable[[], flo
     return outer
 
 
-def _get_loss(value: float, mode: int) -> float:
+def __get_loss(value: float, mode: int) -> float:
     match mode:
-        case Mode.AVG:
+        case Loss.AVG:
             return math.fabs(value)
-        case Mode.ARCTAN:
+        case Loss.ARCTAN:
             return math.atan(value) ** 2
-        case Mode.MSE | Mode.RMSE | _:
+        case Loss.MSE | Loss.RMSE | _:
             return value ** 2
 
 # @loss(0)
