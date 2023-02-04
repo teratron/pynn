@@ -7,13 +7,18 @@ from pynn.architecture.perceptron.interface.set_props import set_props
 from pynn.architecture.perceptron.interface.train import train, and_train
 from pynn.architecture.perceptron.interface.verify import verify
 from pynn.architecture.perceptron.interface.write import write
-from pynn.architecture.perceptron.parameters import Parameters
 from pynn.architecture.perceptron.propagation import Propagation
 from pynn.architecture.perceptron.properties import Properties
 from pynn.interface import Interface
 
 
-class Perceptron(Interface, Properties, Parameters, Propagation):
+class Neuron:
+    def __init__(self, value: float, miss: float) -> None:
+        self.value = value
+        self.miss = miss
+
+
+class Perceptron(Interface, Properties, Propagation):
     """Perceptron is neural network.
     """
 
@@ -22,7 +27,19 @@ class Perceptron(Interface, Properties, Parameters, Propagation):
     type: str = "Perceptron"
     description: str = __doc__
 
-    # _props: dict[str, Any] = {}
+    # Neurons
+    neurons: list[list[Neuron]]
+
+    # Transfer data
+    data_weight: list[list[list[float]]]
+    data_input: list[float]
+    data_target: list[float]
+    data_output: list[float]
+
+    # Settings
+    len_input: int
+    len_output: int
+    last_layer_ind: int
 
     def __init__(self, **props: Any) -> None:
         print("__init__", props)

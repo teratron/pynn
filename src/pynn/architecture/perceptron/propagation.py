@@ -1,6 +1,6 @@
 from typing import Any
 
-from pynn import activation
+from pynn.properties import activation
 from pynn.properties.loss import loss as total_loss
 
 

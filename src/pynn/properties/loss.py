@@ -1,6 +1,6 @@
 import math
 
-from typing import Callable, Any, Iterable
+from typing import Callable, Iterable, Union
 
 
 class LossMode:
@@ -26,22 +26,25 @@ class LossMode:
 
 
 class Loss(LossMode):
-    def __init__(
-            self,
-            /,
-            loss_mode: int = LossMode.RMSE,
-            loss_limit: float = 0.1e-3,
-    ) -> None:
-        self._loss_mode: int = loss_mode
-        self._loss_limit: float = loss_limit
+    """Loss.
+    """
+
+    def __init__(self, loss_mode: int, loss_limit: float) -> None:
+        self._loss_mode: int = Loss.__check_mode(loss_mode)
+        self._loss_limit: float = Loss.__check_limit(loss_limit)
 
     @property
     def loss_mode(self) -> int:
+        """The mode of calculation of the total error."""
         return self._loss_mode
 
     @loss_mode.setter
-    def loss_mode(self, mode: int) -> None:
-        self._loss_mode = loss.check(mode)
+    def loss_mode(self, value: int) -> None:
+        self._loss_mode = Loss.__check_mode(value)
+
+    @classmethod
+    def __check_mode(cls, value: int) -> int:
+        return cls.MSE if cls.MSE > value > cls.AVG else value
 
     @property
     def loss_limit(self) -> float:
@@ -49,21 +52,21 @@ class Loss(LossMode):
         return self._loss_limit
 
     @loss_limit.setter
-    def loss_limit(self, limit: float) -> None:
-        self._loss_limit = self._check_loss_limit(limit)
+    def loss_limit(self, value: float) -> None:
+        self._loss_limit = Loss.__check_limit(value)
 
     @staticmethod
-    def _check_loss_limit(limit: float) -> float:
-        return 0.1e-6 if limit <= 0 else limit
-
-    @classmethod
-    def check(cls, mode: int) -> int:
-        """Check loss mode."""
-        return cls.MSE if mode > cls.AVG else mode
+    def __check_limit(value: float) -> float:
+        return 0.1e-6 if value <= 0 else value
 
 
-def loss(mode: int = Loss.MSE) -> Callable[[Callable[[], Any]], Callable[[], float]]:
-    def outer(func: Callable[[], Any]) -> Callable[[], float]:
+_TargetType = Callable[[], Union[Iterable[float], float]]
+_InnerType = Callable[[], float]
+_OuterType = Callable[[_TargetType], _InnerType]
+
+
+def loss(mode: int = Loss.MSE) -> _OuterType:
+    def outer(func: _TargetType) -> _InnerType:
         def inner() -> float:
             _loss = 0.0
             miss = func()
@@ -83,10 +86,10 @@ def loss(mode: int = Loss.MSE) -> Callable[[Callable[[], Any]], Callable[[], flo
                 _loss = math.sqrt(_loss)
 
             if math.isnan(_loss):
-                raise ValueError('loss not-a-number value')
+                raise ValueError(f'{__name__}: loss not-a-number value')
 
             if math.isinf(_loss):
-                raise ValueError('loss is infinity')
+                raise ValueError(f'{__name__}: loss is infinity')
 
             return _loss
 

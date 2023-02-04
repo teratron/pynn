@@ -6,37 +6,25 @@ from typing import Any, Optional
 # from .architecture import Perceptron
 # from .architecture import Hopfield
 
-
-# class Properties(ABC):
-#     pass
-#
-#
-# class Parameters(ABC):
-#     pass
-
-
-class NeuralNetwork:
-    def __init__(self) -> None:
-        """Init"""
-        pass
+# class NeuralNetwork:
+#     def __init__(self) -> None:
+#         """Init"""
+#         pass
 
 
 class Interface(ABC):  # metaclass=ABCMeta
     """Interface for neural network.
     """
 
-    name: str = ""
-    type: str = ""
+    name: str = "interface"
+    type: str = "Interface"
     description: str = __doc__
+
     is_init: bool = False
     config: Optional[str] = None
     mutex: Lock
 
     # weights: list[list[Union[list[float], float]]]
-    # config: str
-    # @abstractmethod
-    # def __init__(self) -> None:
-    #     ...
 
     def __init_subclass__(cls, **props: Any) -> None:
         super().__init_subclass__(**props)

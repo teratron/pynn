@@ -1,9 +1,8 @@
 from typing import Any
 
-from pynn import activation
-from pynn.properties import loss
 # from pynn.architecture.architecture import architecture, NNN
 from pynn.architecture.architecture import architecture
+from pynn.properties import loss, activation
 
 
 class Pynn(activation.Mode, loss.LossMode):
