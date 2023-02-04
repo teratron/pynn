@@ -5,6 +5,10 @@ def initialize(obj: object, *args: Any, **kwargs: Any) -> None:
     print("init", obj, args, kwargs)
 
 
+def _call(a: float) -> float:
+    return 4.5 * a
+
+
 # def init_completion(obj: Perceptron) -> None:
 #     obj.is_init = True
 

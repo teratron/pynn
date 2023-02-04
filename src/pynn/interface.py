@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from asyncio import Lock
-from typing import Any, Optional
+from dataclasses import dataclass
+from typing import Any, Optional, Callable
 
 
 # from .architecture import Perceptron
@@ -12,7 +13,20 @@ from typing import Any, Optional
 #         pass
 
 
-class Interface(ABC):  # metaclass=ABCMeta
+@dataclass(slots=True, frozen=True)
+class _Call:
+    # class Callback(NamedTuple):
+    call: Callable[[float], float]
+    initialize: Callable[[Any, Any], None]
+    set_props: Callable[[Any, Any], None]
+    verify: Callable[[Any, Any], float]
+    query: Callable[[Any, Any], list[float]]
+    train: Callable[[Any, Any], tuple[int, float]]
+    and_train: Callable[[Any, Any], tuple[int, float]]
+    write: Callable[[Any, Any], None]
+
+
+class Interface(ABC):  # metaclass=ABCMeta, Callback
     """Interface for neural network.
     """
 
@@ -26,12 +40,13 @@ class Interface(ABC):  # metaclass=ABCMeta
 
     # weights: list[list[Union[list[float], float]]]
 
-    def __init_subclass__(cls, **props: Any) -> None:
-        super().__init_subclass__(**props)
-        print("__init_subclass__:", cls, props)
-        # if "weights" in cls.props:
-        #     self.weights = props["weights"]
-        #     del props["weights"]
+    # def __init_subclass__(cls, **props: Any) -> None:
+    # super().__init_subclass__(**props)
+    # print("__init_subclass__:", cls, props)
+
+    #     # if "weights" in cls.props:
+    #     #     self.weights = props["weights"]
+    #     #     del props["weights"]
 
     # def trim_props(self, **props: Any) -> dict[str, Any]:
     #     # if "name" in props:
@@ -46,6 +61,15 @@ class Interface(ABC):  # metaclass=ABCMeta
     #         del props["config"]
     #
     #     return props
+
+    # def __init__(self) -> None:
+    #     self.call2 = call2
+
+    # def call(self, args: float) -> float:
+    #     print(self)
+    #     if _Call.call is not None:
+    #         return _Call.call(args)
+    #     return 0
 
     @abstractmethod
     def _initialize(self, *args: Any, **kwargs: Any) -> None:
@@ -77,9 +101,31 @@ class Interface(ABC):  # metaclass=ABCMeta
         """Training dataset after the query."""
         ...
 
-    @abstractmethod
-    def write(self, *args: Any, **kwargs: Any) -> None:
-        """Writes the configuration and weights to a file."""
+    def write(
+            self,
+            *,
+            filename: str | None = None,
+            flag: str | None = None,
+            config: str | None = None,
+            weights: str | None = None
+    ) -> None:
+        """Writes the configuration and weights to a file.
+
+        * Записывает в один файл и конфигурацию и веса:
+        write("perceptron.json")
+        write(config="perceptron.json", weights="perceptron.json")
+
+        * Записывает только конфигурацию:
+        write(config="perceptron.json")
+        write("perceptron.json", flag="config")
+
+        * Записывает только веса:
+        write(weights="perceptron_weights.json")
+        write("perceptron.json", flag="weights")
+
+        * Записывает 2 файла, конфигурацию отдельно и веса отдельно:
+        write(config="perceptron.json", weights="perceptron_weights.json")
+        """
         ...
 
     def __str__(self) -> str:

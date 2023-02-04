@@ -1,11 +1,13 @@
 from typing import Any
 
 # from pynn.architecture.architecture import architecture, NNN
+from pynn.architecture import Perceptron
 from pynn.architecture.architecture import architecture
-from pynn.properties import loss, activation
+from pynn.properties.activation import ActivationMode
+from pynn.properties.loss import LossMode
 
 
-class Pynn(activation.Mode, loss.LossMode):
+class Pynn(ActivationMode, LossMode):
     """Access point to neural network.
 
     Pynn(reader: str, **kwargs)
@@ -30,7 +32,7 @@ class Pynn(activation.Mode, loss.LossMode):
     """
 
     # def __new__(cls, reader: str = "", **props: Any) -> NNN:
-    def __new__(cls, reader: str = "", **props: Any) -> Any:
+    def __new__(cls, reader: str = "", **props: Any) -> Perceptron:
         # arch = architecture(reader, **props)
         # if isinstance(arch, Perceptron):
         #     print(type(arch))
