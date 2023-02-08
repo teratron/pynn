@@ -31,8 +31,10 @@ class Activation(ActivationMode):
     """Activation.
     """
 
-    def __init__(self, activation_mode: int) -> None:
-        self._activation_mode: int = Activation.__check(activation_mode)
+    # def __init__(self, activation_mode: int) -> None:
+    #     self._activation_mode: int = Activation.__check(activation_mode)
+
+    _activation_mode: int = ActivationMode.SIGMOID
 
     @property
     def activation_mode(self) -> int:
@@ -45,6 +47,12 @@ class Activation(ActivationMode):
     @classmethod
     def __check(cls, value: int) -> int:
         return cls.SIGMOID if cls.LINEAR > value > cls.TANH else value
+
+    def get_activation(self, value: float) -> float:
+        return get_activation(value, self._activation_mode)
+
+    def get_derivative(self, value: float) -> float:
+        return get_derivative(value, self._activation_mode)
 
 
 def get_activation(value: float, mode: int = Activation.SIGMOID) -> float:

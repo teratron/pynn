@@ -4,8 +4,10 @@ class Bias:
     The neuron bias, false or true (required field for a config).
     """
 
-    def __init__(self, bias: bool) -> None:
-        self._bias: bool = bias
+    # def __init__(self, bias: bool) -> None:
+    #     self._bias: bool = bias
+
+    _bias: bool = True
 
     @property
     def bias(self) -> bool:

@@ -7,8 +7,10 @@ class Layer:
     """Layer.
     """
 
-    def __init__(self, hidden_layers: LayerType) -> None:
-        self._hidden_layers: LayerType = hidden_layers
+    # def __init__(self, hidden_layers: LayerType) -> None:
+    #     self._hidden_layers: LayerType = hidden_layers
+
+    _hidden_layers: LayerType = None
 
     @property
     def hidden_layers(self) -> Optional[list[int]]:

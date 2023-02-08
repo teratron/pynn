@@ -5,19 +5,25 @@ from pynn.properties.loss import Loss
 from pynn.properties.rate import Rate
 
 
+class Neuron:
+    def __init__(self, value: float, miss: float) -> None:
+        self.value = value
+        self.miss = miss
+
+
 class Properties(Bias, Layer, Activation, Loss, Rate):
     """Properties of neural network.
     """
 
-    __slots__ = (
-        "_name",
-        "_bias",
-        "_hidden_layers",
-        "_activation_mode",
-        "_loss_mode",
-        "_loss_limit",
-        "_rate"
-    )
+    # __slots__ = (
+    #     "_name",
+    #     "_bias",
+    #     "_hidden_layers",
+    #     "_activation_mode",
+    #     "_loss_mode",
+    #     "_loss_limit",
+    #     "_rate"
+    # )
 
     def __init__(
             self,
@@ -30,10 +36,30 @@ class Properties(Bias, Layer, Activation, Loss, Rate):
             loss_limit: float = 0.1e-3,
             rate: float = Rate.DEFAULT_RATE,
     ) -> None:
-        self._name: str = name
+        self.name: str = name
+        self.bias: bool = bias
+        self.hidden_layers: LayerType = hidden_layers
+        self.activation_mode: int = activation_mode
+        self.loss_mode: int = loss_mode
+        self.loss_limit: float = loss_limit
+        self.rate: float = rate
 
-        Layer.__init__(self, hidden_layers)
-        Activation.__init__(self, activation_mode)
-        Loss.__init__(self, loss_mode, loss_limit)
-        Rate.__init__(self, rate)
-        Bias.__init__(self, bias)
+        # Layer.__init__(self, hidden_layers)
+        # Activation.__init__(self, activation_mode)
+        # Loss.__init__(self, loss_mode, loss_limit)
+        # Rate.__init__(self, rate)
+        # Bias.__init__(self, bias)
+
+    # Neurons
+    neurons: list[list[Neuron]]
+
+    # Transfer data
+    data_weight: list[list[list[float]]]
+    data_input: list[float]
+    data_target: list[float]
+    data_output: list[float]
+
+    # Settings
+    len_input: int = 0
+    len_output: int = 0
+    last_layer_ind: int = 0

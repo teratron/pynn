@@ -11,13 +11,13 @@ from pynn.architecture.perceptron.properties import Properties
 from pynn.interface import Interface
 
 
-class Neuron:
-    def __init__(self, value: float, miss: float) -> None:
-        self.value = value
-        self.miss = miss
+# class Neuron:
+#     def __init__(self, value: float, miss: float) -> None:
+#         self.value = value
+#         self.miss = miss
 
 
-class Perceptron(Interface, Properties, Propagation):
+class Perceptron(Interface, Propagation):  # Properties
     """Perceptron is neural network.
     """
 
@@ -26,19 +26,19 @@ class Perceptron(Interface, Properties, Propagation):
     type: str = "Perceptron"
     description: str = __doc__
 
-    # Neurons
-    neurons: list[list[Neuron]]
-
-    # Transfer data
-    data_weight: list[list[list[float]]]
-    data_input: list[float]
-    data_target: list[float]
-    data_output: list[float]
-
-    # Settings
-    len_input: int = 0
-    len_output: int = 0
-    last_layer_ind: int = 0
+    # # Neurons
+    # neurons: list[list[Neuron]]
+    #
+    # # Transfer data
+    # data_weight: list[list[list[float]]]
+    # data_input: list[float]
+    # data_target: list[float]
+    # data_output: list[float]
+    #
+    # # Settings
+    # len_input: int = 0
+    # len_output: int = 0
+    # last_layer_ind: int = 0
 
     def __init__(self, **props: Any) -> None:
         # print("__init__", props)
@@ -62,7 +62,7 @@ class Perceptron(Interface, Properties, Propagation):
             del props["config"]
 
         Properties.__init__(self, **props)
-        Propagation.__init__(self, self)
+        # Propagation.__init__(self, self)
 
     def _initialize(self, *args: Any, **kwargs: Any) -> None:
         initialize(self, *args, **kwargs)

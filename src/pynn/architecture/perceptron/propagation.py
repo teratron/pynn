@@ -1,34 +1,18 @@
-from typing import Any
+from typing import Iterable
 
-from pynn.properties import activation
-from pynn.properties.loss import loss as total_loss
-
-
-# from .parameters import Parameters
-# from .properties import Properties
+from pynn.properties.loss import total_loss
+from .properties import Properties
 
 
-class Propagation:  # (Parameters, Properties)
+class Propagation(Properties):
     """Propagation.
     """
 
-    # types: Any
-    def __init__(self, obj: object) -> None:
-        # self.neurons = None
-        # global types
-        # print("self", self, Type[self])
-        self.obj = obj
-
-    # def __init_subclass__(cls) -> None:
-    #     print("cls", cls, Type[cls])
-    #     # cls.types = type(cls)
-
-    # def calc_neurons(self: Union[object, None]) -> None:
+    # loss_mode: int
 
     def calc_neurons(self) -> None:
-        """Calculating neurons.
-        """
-        length, dec = self.obj.len_input, 0
+        """Calculating neurons."""
+        length, dec = self.len_input, 0
         for i in range(len(self.neurons)):
             if i > 0:
                 dec = i - 1
@@ -39,34 +23,27 @@ class Propagation:  # (Parameters, Properties)
                 for k in range(len(self.data_weight[i][j])):
                     if k < length:
                         if i > 0:
-                            self.neurons[i][j].value += (
-                                    self.neurons[dec][k].value * self.data_weight[i][j][k]
-                            )
+                            self.neurons[i][j].value += self.neurons[dec][k].value * self.data_weight[i][j][k]
                         else:
-                            self.neurons[i][j].value += (
-                                    self.data_input[k] * self.data_weight[i][j][k]
-                            )
+                            self.neurons[i][j].value += self.data_input[k] * self.data_weight[i][j][k]
                     else:
                         self.neurons[i][j].value += self.data_weight[i][j][k]
                     num += 1
 
-                if self.activation_mode == activation.Mode.LINEAR:
+                if self.activation_mode == self.LINEAR:
                     if num > 0:
                         self.neurons[i][j].value /= num
                 else:
-                    self.neurons[i][j].value = activation.activation(
-                        self.neurons[i][j].value, self.activation_mode
-                    )
+                    self.neurons[i][j].value = self.get_activation(self.neurons[i][j].value)
 
-    @staticmethod
-    @total_loss(0)
-    def calc_loss() -> Any:
-        for value in (0.27, -0.31, -0.52, 0.66, 0.81):
-            yield value
+    @total_loss(self.loss_mode)
+    def calc_loss(self) -> Iterable[float]:
+        """Calculating and return the total error of the output neurons."""
+        for i in range(self.len_output):
+            yield self.data_target[i] - self.neurons[self.last_layer_ind][i].value
 
     # def calc_loss(self) -> float:
-    #     """
-    #     Calculating and return the total error of the output neurons.
+    #     """Calculating and return the total error of the output neurons.
     #     """
     #     # TODO: try-catch
     #     error = 0.0
@@ -95,23 +72,17 @@ class Propagation:  # (Parameters, Properties)
     #     return error
 
     def calc_miss(self) -> None:
-        """
-        Calculating the error of neuron in hidden layers.
-        """
+        """Calculating the error of neuron in hidden layers."""
         if self.last_layer_ind > 0:
             for i in range(self.last_layer_ind - 1, -1, -1):
                 inc = i + 1
                 for j in range(len(self.neurons[i])):
                     self.neurons[i][j].miss = 0.0
                     for k, m in range(len(self.neurons[inc])):
-                        self.neurons[i][j].miss += (
-                                self.neurons[inc][k].miss * self.data_weight[inc][k][j]
-                        )
+                        self.neurons[i][j].miss += self.neurons[inc][k].miss * self.data_weight[inc][k][j]
 
     def update_weights(self) -> None:
-        """
-        Update weights.
-        """
+        """Update weights."""
         length, dec = self.len_input, 0
         for i in range(len(self.data_weight)):
             if i > 0:
@@ -119,26 +90,21 @@ class Propagation:  # (Parameters, Properties)
                 length = len(self.neurons[dec])
 
             for j in range(len(self.data_weight[i])):
-                grad = (
-                        self.rate
-                        * self.neurons[i][j].miss
-                        * activation.derivative(
-                    self.neurons[i][j].value, self.activation_mode
-                )
-                )
+                grad = self.rate * self.neurons[i][j].miss * self.get_derivative(self.neurons[i][j].value)
+
                 for k in range(len(self.data_weight[i][j])):
                     if k < length:
-                        val: float
+                        value: float
                         if i > 0:
-                            val = self.neurons[dec][k].value
+                            value = self.neurons[dec][k].value
                         else:
-                            val = self.data_input[k]
+                            value = self.data_input[k]
 
-                        if self.activation_mode == activation.Mode.LINEAR:
-                            if val != 0:
-                                self.data_weight[i][j][k] += grad / val
+                        if self.activation_mode == self.LINEAR:
+                            if value != 0:
+                                self.data_weight[i][j][k] += grad / value
                         else:
-                            self.data_weight[i][j][k] += grad * val
+                            self.data_weight[i][j][k] += grad * value
                     else:
                         self.data_weight[i][j][k] += grad
 

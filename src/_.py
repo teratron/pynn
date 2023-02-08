@@ -1,3 +1,16 @@
+# @dataclass(slots=True, frozen=True)
+# class _Call:
+#     # class Callback(NamedTuple):
+#     call: Callable[[float], float]
+#     initialize: Callable[[Any, Any], None]
+#     set_props: Callable[[Any, Any], None]
+#     verify: Callable[[Any, Any], float]
+#     query: Callable[[Any, Any], list[float]]
+#     train: Callable[[Any, Any], tuple[int, float]]
+#     and_train: Callable[[Any, Any], tuple[int, float]]
+#     write: Callable[[Any, Any], None]
+
+
 # import inspect
 # from functools import partial
 # from typing import (

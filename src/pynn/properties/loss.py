@@ -29,9 +29,12 @@ class Loss(LossMode):
     """Loss.
     """
 
-    def __init__(self, loss_mode: int, loss_limit: float) -> None:
-        self._loss_mode: int = Loss.__check_mode(loss_mode)
-        self._loss_limit: float = Loss.__check_limit(loss_limit)
+    # def __init__(self, loss_mode: int, loss_limit: float) -> None:
+    #     self._loss_mode: int = Loss.__check_mode(loss_mode)
+    #     self._loss_limit: float = Loss.__check_limit(loss_limit)
+
+    _loss_mode: int = LossMode.MSE
+    _loss_limit: float = 0.1e-6
 
     @property
     def loss_mode(self) -> int:
@@ -65,7 +68,7 @@ _InnerType = Callable[[], float]
 _OuterType = Callable[[_TargetType], _InnerType]
 
 
-def loss(mode: int = Loss.MSE) -> _OuterType:
+def total_loss(mode: int = Loss.MSE) -> _OuterType:
     def outer(func: _TargetType) -> _InnerType:
         def inner() -> float:
             _loss = 0.0
@@ -107,13 +110,14 @@ def __get_loss(value: float, mode: int) -> float:
         case Loss.MSE | Loss.RMSE | _:
             return value ** 2
 
-# @loss(0)
+# @total_loss(3)
 # def calc_loss() -> Iterable[float]:
-#     for value in (0.27, -0.31, -0.52, 0.66, 0.81):
+#     #for value in (0.27, -0.31, -0.52, 0.66, 0.81):
+#     for value in (0.1, 0.2, 0.3, 0.4):
 #         yield value
 #
 #
-# @loss(2)
+# @total_loss(2)
 # def _calc_loss() -> float:
 #     return 0.333
 #

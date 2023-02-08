@@ -1,32 +1,9 @@
 from abc import ABC, abstractmethod
 from asyncio import Lock
-from dataclasses import dataclass
-from typing import Any, Optional, Callable
+from typing import Any, Optional
 
 
-# from .architecture import Perceptron
-# from .architecture import Hopfield
-
-# class NeuralNetwork:
-#     def __init__(self) -> None:
-#         """Init"""
-#         pass
-
-
-@dataclass(slots=True, frozen=True)
-class _Call:
-    # class Callback(NamedTuple):
-    call: Callable[[float], float]
-    initialize: Callable[[Any, Any], None]
-    set_props: Callable[[Any, Any], None]
-    verify: Callable[[Any, Any], float]
-    query: Callable[[Any, Any], list[float]]
-    train: Callable[[Any, Any], tuple[int, float]]
-    and_train: Callable[[Any, Any], tuple[int, float]]
-    write: Callable[[Any, Any], None]
-
-
-class Interface(ABC):  # metaclass=ABCMeta, Callback
+class Interface(ABC):
     """Interface for neural network.
     """
 

@@ -6,8 +6,10 @@ class Rate:
 
     DEFAULT_RATE: float = 0.3
 
-    def __init__(self, rate: float) -> None:
-        self._rate: float = Rate.__check(rate)
+    # def __init__(self, rate: float) -> None:
+    #     self._rate: float = Rate.__check(rate)
+
+    _rate: float = DEFAULT_RATE
 
     @property
     def rate(self) -> float:
