@@ -48,8 +48,8 @@ bandit = "^1.7.4"
 [tool.poetry.group.typing.dependencies]
 mypy = "^0.991"
 
-[tool.poetry.group.docs]
-optional = true
+#[tool.poetry.group.docs]
+#optional = true
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^5.3.0"
